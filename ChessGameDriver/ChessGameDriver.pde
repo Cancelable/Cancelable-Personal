@@ -2,7 +2,7 @@ Piece[][] board;
 public boolean [][] canMove;
 public final String black = "black";
 public final String white = "white";
-String colorC;
+public String colorC;
 boolean turnOver;
 public int pieceLength;
 PVector pieceOver;

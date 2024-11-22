@@ -24,4 +24,6 @@ public abstract class Piece {
   
   protected abstract boolean wouldNotPlaceInCheck();
   
+  protected abstract void setUpDownConstant();
+  
 }

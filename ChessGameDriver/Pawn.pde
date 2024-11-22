@@ -7,7 +7,9 @@ public class Pawn extends Piece {
   private int xVal;
   private int yVal;
   
-  private boolean[][] canMoveTo;
+  // 1 for pieces from bottom
+  // -1 for pieces from top
+  private int upDownConstant;
   
   public Pawn(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
@@ -17,7 +19,7 @@ public class Pawn extends Piece {
     xVal = columnX*pieceLength + (pieceLength/2);
     yVal = rowY*pieceLength + (pieceLength/2);
     
-    canMoveTo = new boolean[8][8];
+    setUpDownConstant();
   }
   
   //@Override
@@ -75,18 +77,32 @@ public class Pawn extends Piece {
   
   //@Override
   public boolean[][] getCanMove() {
+    int x = columnX;
+    int y = rowY;
     boolean[][] array = new boolean[8][8];
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        array[r][c] = true;
+        // if spot ahead directly is free, make it available
+        if (board[r][c]==null && c==x && r==y-(1*upDownConstant)) {
+          
+        }
       }
     }
     return array;
   }
   
   //@Override
-  public boolean wouldNotPlaceInCheck() {
-    return true;
+  protected boolean wouldNotPlaceInCheck() {
+   return true;
+  }
+  
+  //@Override
+  protected void setUpDownConstant() {
+    if (colorC==team) {
+      upDownConstant = 1;
+    } else {
+      upDownConstant = -1;
+    }
   }
   
 }
