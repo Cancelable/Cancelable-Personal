@@ -135,8 +135,10 @@ void drawBoard() {
 }
 
 void makeMove() {
-  if (canMove[(int)pieceOver.y][(int)pieceOver.x] == true && pieceSelected!=null) {
-    board[(int)pieceOver.y][(int)pieceOver.x] = pieceSelected/*temporaryPiece*/;
+  if (canMove[(int)pieceOver.y][(int)pieceOver.x] == true &&
+  pieceSelected!=null && pieceSelected != board[(int)pieceOver.y][(int)pieceOver.x]) {
+    
+    board[(int)pieceOver.y][(int)pieceOver.x] = pieceSelected;
     board[pieceSelected.getRowY()][pieceSelected.getColX()] = null;
     
     board[(int)pieceOver.y][(int)pieceOver.x].setPieceCoords((int)pieceOver.x,(int)pieceOver.y);
