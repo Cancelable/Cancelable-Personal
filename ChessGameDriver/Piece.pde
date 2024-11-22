@@ -14,13 +14,13 @@ public abstract class Piece {
   
   public abstract void drawPiece();
   
-  public abstract void setPieceCoords();
+  public abstract void setPieceCoords(int x, int y);
   
   public abstract int getPieceX();
   
   public abstract int getPieceY();
   
-  public abstract boolean isHovered();
+  //public abstract boolean isHovered();
   
   public abstract void setNewArrayCoords();
   

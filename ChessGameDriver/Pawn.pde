@@ -38,47 +38,37 @@ public class Pawn extends Piece {
   
   //@Override
   void drawPiece() {
-    int lolx = columnX + (pieceLength/2);
-    int loly = rowY + (pieceLength/2);
-    
     String firstLetter = getLetter();
     if (getTeam()==white) {
       fill(255);
     } else if (getTeam()==black) {
       fill(0);
     }
-    circle(lolx,loly,pieceLength);
+    circle(xVal,yVal,pieceLength);
     textSize(width/10);
     textAlign(CENTER,CENTER);
     fill(255,0,0);
-    text(firstLetter,lolx,loly);
+    text(firstLetter,xVal,yVal);
   }
   
   //@Override
   void setPieceCoords(int x, int y) {
     // placeholder bool
-    xVal = x* + (pieceLength/2);
-    yVal = y + (pieceLength/2);
+    xVal = x*pieceLength + (pieceLength/2);
+    yVal = y*pieceLength + (pieceLength/2);
   }
   
   //@Override
   int getPieceX() {
-    return xLoc;
+    return xVal;
   }
   
   //@Override
   int getPieceY() {
-    return yLoc;
+    return yVal;
   }
   
-  //@Override
-  boolean isHovered() {
-    if (this.equals(hoveringOver)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
   
   void setNewArrayCoords() {
     
