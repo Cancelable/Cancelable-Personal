@@ -3,14 +3,16 @@ public final String black = "black";
 public final String white = "white";
 String colorC;
 boolean turnOver;
-int pieceLength;
-Piece hoveringOver;
+public int pieceLength;
+public Piece hoveringOver;
+private boolean haveOneSelected;
 
 void setup() {
   size(400,400);
   board = new Piece[8][8];
   colorC = setStartColor();
   pieceLength = width/board.length;
+  haveOneSelected = false;
   
   // function calls
   frameRate(30);
@@ -19,24 +21,25 @@ void setup() {
 }
 
 void draw() {
+  hoveringOver();
+  moveHoveringImage();
   drawBoard();
 }
 
-void dragPiece() {
-  for (int r=0;r<board.length;r++) {
-    for (int c=0;c<board[r].length;c++) {
-      if ((mouseX > board[r][c].getColX())
-           && (mouseX < board[r][c].getColX() + pieceLength)
-           && (mouseY > board[r][c].getRowY())
-           && (mouseY < board[r][c].getRowY() + pieceLength)) {
-             board[r][c].setSelected();
-      }
-    }
+void hoveringOver() {
+  if (!haveOneSelected && mouseY != -1 && mouseX != -1) {
+    hoveringOver = board[((int)mouseY)/pieceLength][((int)mouseX)/pieceLength];
   }
+    System.out.println(hoveringOver);
+    if (hoveringOver != null) {
+      System.out.println("x" + hoveringOver.getPieceX() + "y" + hoveringOver.getPieceY());
+    }
 }
 
-void hoveringOver() {
-  
+void moveHoveringImage() {
+  if (hoveringOver!=null) {
+    hoveringOver.setPieceCoords();
+  }
 }
 
 boolean isSpaceFree() {
@@ -45,12 +48,14 @@ boolean isSpaceFree() {
 
 
 String setStartColor() {
+  
   boolean setWhite = (random(1) > .5);
   if (setWhite) {
     return white;
   } else {
     return black;
   }
+  
 }
 
 void changeColor() {
@@ -59,7 +64,7 @@ void changeColor() {
       colorC = white;
     } else if (colorC == white) {
       colorC = black;
-    }  
+    }
   }
   turnOver = false;
 }
@@ -72,26 +77,31 @@ void initialBoardSetup() {
       if (true) {
         // 6 is lower
         if (colorC==white&&r==6) {
-          board[r][c] = new Pawn(c*pieceLength,r*pieceLength,white);
+          board[r][c] = new Pawn(c,r,white);
         } else if (colorC==white&&r==1) {
-          board[r][c] = new Pawn(c*pieceLength,r*pieceLength,black);
+          board[r][c] = new Pawn(c,r,black);
         }
         else if (colorC==black&&r==6) {
-          board[r][c] = new Pawn(c*pieceLength,r*pieceLength,black);
+          board[r][c] = new Pawn(c,r,black);
         }
         else if (colorC==black&&r==1) {
-          board[r][c] = new Pawn(c*pieceLength,r*pieceLength,white);
+          board[r][c] = new Pawn(c,r,white);
         }
-      }//pawns
+      }// pawns
       
+      // bishops
       // bishops
       
       // horses
+      // horses
       
+      // kings
       // kings
       
       // queens
+      // queens
       
+      // castles
       // castles
       
     }//inside
@@ -116,23 +126,25 @@ void drawBoard() {
       
       // magic happens
       rect(c*pieceWidth,r*pieceLength,pieceWidth,pieceLength);
-      if(board[r][c]!=null) {drawPiece(board[r][c]);}
+      if(board[r][c]!=null) {board[r][c].drawPiece();}
     }
+  }
+  if (hoveringOver!=null) {
+    hoveringOver.drawPiece();
   }
 }
 
-void drawPiece(Piece piece) {
-  int lolx = piece.getColX() + pieceLength/2;
-  int loly = piece.getRowY() + pieceLength/2;
-  String firstLetter = piece.getLetter();
-  if (piece.getTeam()==white) {
-    fill(255);
-  } else if (piece.getTeam()==black) {
-    fill(0);
+void mousePressed() {
+  haveOneSelected = true;
+}
+
+void mouseReleased() {
+  haveOneSelected = false;
+  hoveringOver = null;
+}
+
+void keyPressed() {
+  if (key=='r') {
+    setup();
   }
-  circle(lolx,loly,pieceLength);
-  textSize(width/10);
-  textAlign(CENTER,CENTER);
-  fill(255,0,0);
-  text(firstLetter,lolx,loly);
 }

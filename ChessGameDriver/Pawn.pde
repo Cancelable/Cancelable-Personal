@@ -4,26 +4,16 @@ public class Pawn extends Piece {
   private int rowY;
   private String team;
   
-  private boolean selected;
+  private int xLoc;
+  private int yLoc;
   
   public Pawn(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
     team = teamColor;
-  }
-  
-  public void move(Piece[][] board) {
-    // if white
-    if (team==white) {
-      if (board[columnX][rowY] == null) {
-        
-      }
-    }
     
-    // else if black
-    else if (team==black) {
-      
-    }
+    xLoc = columnX * pieceLength;
+    yLoc = rowY * pieceLength;
   }
   
   //@Override
@@ -47,8 +37,60 @@ public class Pawn extends Piece {
   }
   
   //@Override
-  public void setSelected() {
-    selected = true;
+  void drawPiece(/*Piece piece*/) {
+    int lolx;
+    int loly;
+    if (isHovered()) {
+      lolx = (int)mouseX;
+      loly = (int)mouseY;
+    }
+    else {
+      lolx = xLoc + (pieceLength/2);
+      loly = yLoc + (pieceLength/2);
+    }
+    String firstLetter = /*piece.*/getLetter();
+    if (/*piece.*/getTeam()==white) {
+      fill(255);
+    } else if (/*piece.*/getTeam()==black) {
+      fill(0);
+    }
+    circle(lolx,loly,pieceLength);
+    textSize(width/10);
+    textAlign(CENTER,CENTER);
+    fill(255,0,0);
+    text(firstLetter,lolx,loly);
+  }
+  
+  //@Override
+  void setPieceCoords() {
+    // placeholder bool
+    if (true) {
+      xLoc = (int)mouseX;
+      yLoc = (int)mouseY;
+    }
+  }
+  
+  //@Override
+  int getPieceX() {
+    return xLoc;
+  }
+  
+  //@Override
+  int getPieceY() {
+    return yLoc;
+  }
+  
+  //@Override
+  boolean isHovered() {
+    if (this.equals(hoveringOver)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  void setNewArrayCoords() {
+    
   }
   
 }
