@@ -4,15 +4,12 @@ public final String white = "white";
 String colorC;
 boolean turnOver;
 public int pieceLength;
-public Piece hoveringOver;
-private boolean haveOneSelected;
 
 void setup() {
   size(400,400);
   board = new Piece[8][8];
   colorC = setStartColor();
   pieceLength = width/board.length;
-  haveOneSelected = false;
   
   // function calls
   frameRate(30);
@@ -24,22 +21,6 @@ void draw() {
   //hoveringOver();
   //moveHoveringImage();
   drawBoard();
-}
-
-void hoveringOver() {
-  if (haveOneSelected && mouseY != -1 && mouseX != -1) {
-    hoveringOver = board[((int)mouseY)/pieceLength][((int)mouseX)/pieceLength];
-  }
-    System.out.println(hoveringOver);
-    if (hoveringOver != null) {
-      System.out.println("x" + hoveringOver.getPieceX() + "y" + hoveringOver.getPieceY());
-    }
-}
-
-void moveHoveringImage() {
-  if (hoveringOver!=null) {
-    hoveringOver.setPieceCoords();
-  }
 }
 
 boolean isSpaceFree() {
@@ -109,8 +90,6 @@ void initialBoardSetup() {
 }
 
 void drawBoard() {
-  int pieceLength = height/board.length;
-  int pieceWidth = width/board[0].length;
   for (int r=0;r<board.length;r++) {
     for (int c=0;c<board[r].length;c++) {
       //if (colorC==white) {}
@@ -125,24 +104,10 @@ void drawBoard() {
       }
       
       // magic happens
-      rect(c*pieceWidth,r*pieceLength,pieceWidth,pieceLength);
+      square(c*pieceLength,r*pieceLength,pieceLength);
       if(board[r][c]!=null) {board[r][c].drawPiece();}
     }
   }
-  if (hoveringOver!=null) {
-    hoveringOver.drawPiece();
-  }
-}
-
-void mousePressed() {
-  haveOneSelected = true;
-  hoveringOver();
-  moveHoveringImage();
-}
-
-void mouseReleased() {
-  haveOneSelected = false;
-  hoveringOver = null;
 }
 
 void keyPressed() {
