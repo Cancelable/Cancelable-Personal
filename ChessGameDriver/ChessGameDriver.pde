@@ -135,11 +135,9 @@ void drawBoard() {
 }
 
 void makeMove() {
-  //if (canMove[(int)pieceOver.y][(int)pieceOver.x]) {
-  if ((pieceSelected!=null) && true) {
-    Piece temporaryPiece = pieceSelected;
-    board[(int)pieceOver.y][(int)pieceOver.x] = temporaryPiece;
-    board[temporaryPiece.getRowY()][temporaryPiece.getColX()] = null;
+  if (canMove[(int)pieceOver.y][(int)pieceOver.x] == true && pieceSelected!=null) {
+    board[(int)pieceOver.y][(int)pieceOver.x] = pieceSelected/*temporaryPiece*/;
+    board[pieceSelected.getRowY()][pieceSelected.getColX()] = null;
     
     board[(int)pieceOver.y][(int)pieceOver.x].setPieceCoords((int)pieceOver.x,(int)pieceOver.y);
     
@@ -167,6 +165,7 @@ void keyPressed() {
   
   if (key=='s' && spaceSelectable()) {
     pieceSelected = board[(int)pieceOver.y][(int)pieceOver.x];
+    updateCanMove();  
   }
   
   if (key==' ') {
