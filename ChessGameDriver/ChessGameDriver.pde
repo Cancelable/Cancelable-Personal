@@ -21,13 +21,13 @@ void setup() {
 }
 
 void draw() {
-  hoveringOver();
-  moveHoveringImage();
+  //hoveringOver();
+  //moveHoveringImage();
   drawBoard();
 }
 
 void hoveringOver() {
-  if (!haveOneSelected && mouseY != -1 && mouseX != -1) {
+  if (haveOneSelected && mouseY != -1 && mouseX != -1) {
     hoveringOver = board[((int)mouseY)/pieceLength][((int)mouseX)/pieceLength];
   }
     System.out.println(hoveringOver);
@@ -136,6 +136,8 @@ void drawBoard() {
 
 void mousePressed() {
   haveOneSelected = true;
+  hoveringOver();
+  moveHoveringImage();
 }
 
 void mouseReleased() {

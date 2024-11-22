@@ -40,14 +40,16 @@ public class Pawn extends Piece {
   void drawPiece(/*Piece piece*/) {
     int lolx;
     int loly;
-    if (isHovered()) {
+    lolx = xLoc;
+    loly = yLoc;
+    /*if (isHovered()) {
       lolx = (int)mouseX;
       loly = (int)mouseY;
     }
     else {
       lolx = xLoc + (pieceLength/2);
       loly = yLoc + (pieceLength/2);
-    }
+    }*/
     String firstLetter = /*piece.*/getLetter();
     if (/*piece.*/getTeam()==white) {
       fill(255);
@@ -64,9 +66,12 @@ public class Pawn extends Piece {
   //@Override
   void setPieceCoords() {
     // placeholder bool
-    if (true) {
+    if (isHovered()) {
       xLoc = (int)mouseX;
       yLoc = (int)mouseY;
+    } else {
+      xLoc = columnX + (pieceLength/2);
+      yLoc = rowY + (pieceLength/2);
     }
   }
   
