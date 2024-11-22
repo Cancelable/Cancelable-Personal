@@ -20,8 +20,8 @@ public abstract class Piece {
   
   public abstract int getPieceY();
   
-  //public abstract boolean isHovered();
+  public abstract boolean[][] getCanMove();
   
-  public abstract void setNewArrayCoords();
+  protected abstract boolean wouldNotPlaceInCheck();
   
 }

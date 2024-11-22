@@ -7,6 +7,8 @@ public class Pawn extends Piece {
   private int xVal;
   private int yVal;
   
+  private boolean[][] canMoveTo;
+  
   public Pawn(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
@@ -14,6 +16,8 @@ public class Pawn extends Piece {
     
     xVal = columnX*pieceLength + (pieceLength/2);
     yVal = rowY*pieceLength + (pieceLength/2);
+    
+    canMoveTo = new boolean[8][8];
   }
   
   //@Override
@@ -35,7 +39,6 @@ public class Pawn extends Piece {
   public String getLetter() {
     return "P";
   }
-  
   //@Override
   void drawPiece() {
     String firstLetter = getLetter();
@@ -52,26 +55,38 @@ public class Pawn extends Piece {
   }
   
   //@Override
-  void setPieceCoords(int x, int y) {
+  public void setPieceCoords(int x, int y) {
+    columnX = x;
+    rowY = y;
     // placeholder bool
     xVal = x*pieceLength + (pieceLength/2);
     yVal = y*pieceLength + (pieceLength/2);
   }
   
   //@Override
-  int getPieceX() {
+  public int getPieceX() {
     return xVal;
   }
   
   //@Override
-  int getPieceY() {
+  public int getPieceY() {
     return yVal;
   }
   
-
+  //@Override
+  public boolean[][] getCanMove() {
+    boolean[][] array = new boolean[8][8];
+    for (int r=0;r<array.length;r++) {
+      for (int c=0;c<array[r].length;c++) {
+        array[r][c] = true;
+      }
+    }
+    return array;
+  }
   
-  void setNewArrayCoords() {
-    
+  //@Override
+  public boolean wouldNotPlaceInCheck() {
+    return true;
   }
   
 }
