@@ -118,7 +118,7 @@ public class Castle extends Piece {
     
     // check left
     for (int i=columnX;i>=0;i--) {
-      if (board[rowY][7-i]==this) {}
+      if (board[rowY][i]==this) {}
       else if (board[rowY][i]==null) {maxLeft++;}
       else if (board[rowY][i]!=null) {
         if (board[rowY][i].getTeam()==getTeam()) {break;}
