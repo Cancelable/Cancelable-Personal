@@ -1,4 +1,4 @@
-public class Bishop extends Piece {
+public class Castle extends Piece {
   
   private int columnX;
   private int rowY;
@@ -11,7 +11,7 @@ public class Bishop extends Piece {
   // -1 for pieces from top
   private int upDownConstant;
   
-  public Bishop(int columnXSpot, int rowYSpot,String teamColor) {
+  public Castle(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
     team = teamColor;
@@ -39,7 +39,7 @@ public class Bishop extends Piece {
   
   //@Override
   public String getLetter() {
-    return "B";
+    return "C";
   }
   //@Override
   void drawPiece() {
@@ -131,9 +131,21 @@ public class Bishop extends Piece {
         
         if (r > y) {
           if (r - y <= maxAbove) {
+            array[r][c] = true;
+          } else {
+            array[r][c] = false;
           }
         }
+        else if (r < y) {
+          if (r + y >= maxBelow) {
+            array[r][c] = true;
+          } else {
+            array[r][c] = false;
+          }
+        }
+        //else if () {
         
+        //}
       }
     }
     return array;
@@ -141,7 +153,7 @@ public class Bishop extends Piece {
   
   //@Override
   protected boolean wouldNotPlaceInCheck() {
-   return true;
+    return true;
   }
   
   //@Override

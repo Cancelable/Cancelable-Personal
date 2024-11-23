@@ -1,4 +1,4 @@
-public class Castle extends Piece {
+public class Bishop extends Piece {
   
   private int columnX;
   private int rowY;
@@ -11,7 +11,7 @@ public class Castle extends Piece {
   // -1 for pieces from top
   private int upDownConstant;
   
-  public Castle(int columnXSpot, int rowYSpot,String teamColor) {
+  public Bishop(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
     team = teamColor;
@@ -39,7 +39,7 @@ public class Castle extends Piece {
   
   //@Override
   public String getLetter() {
-    return "C";
+    return "B";
   }
   //@Override
   void drawPiece() {
