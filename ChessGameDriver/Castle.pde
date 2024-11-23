@@ -1,4 +1,4 @@
-public class Pawn extends Piece {
+public class Castle extends Piece {
   
   private int columnX;
   private int rowY;
@@ -11,7 +11,7 @@ public class Pawn extends Piece {
   // -1 for pieces from top
   private int upDownConstant;
   
-  public Pawn(int columnXSpot, int rowYSpot,String teamColor) {
+  public Castle(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
     team = teamColor;
@@ -39,7 +39,7 @@ public class Pawn extends Piece {
   
   //@Override
   public String getLetter() {
-    return "P";
+    return "C";
   }
   //@Override
   void drawPiece() {
