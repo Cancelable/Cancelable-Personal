@@ -80,21 +80,53 @@ public class Bishop extends Piece {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
+    
+    int maxAbove = 0;
+    int maxBelow = 0;
+    int maxLeft = 0;
+    int maxRight = 0;
+    
+    // check below
+    for (int i=rowY;i<board.length - rowY;i++) {
+      if (piece[i][colX]==this) {}
+      else if (piece[i][colX]==null) {maxAbove++;}
+      else if (piece[i][colX]!=null) {
+        if (piece[i][colX].getTeam()==getTeam()) {break;}
+        else if (piece[i][colX].getTeam()!=getTeam()) {maxAbove++;break;}
+      }
+    }
+    
+    // check above
+    for (int i=rowY;i>0;i--) {
+      if (piece[i][colX]==this) {}
+      else if (piece[i][colX]==null) {maxBelow++;}
+      else if (piece[i][colX]!=null) {
+        if (piece[i][colX].getTeam()==getTeam()) {break;}
+        else if (piece[i][colX].getTeam()!=getTeam()) {maxAbove;break;}
+      }
+    }
+    
+    for (int i=0;i<board.length;i++) {
+      if (piece[rowY][i]==this) {
+        break;
+      }
+      maxLeft++;
+    }
+    
+    for (int i=0;i<board.length;i++) {
+      if (piece[rowY][7-i]==this) {
+        break;
+      }
+      maxRight++;
+    }
+    
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        // if spot ahead directly is free, make it available
-        if (board[r][c]==null && c==x && r==y-(1*upDownConstant) && (y+1 <= 8) && (y-1 >= 0)) {
-          array[r][c] = true;
-        // else if piece on left
-        } else if (board[r][c]!=null && c==(x-1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
-          array[r][c] = true;
-        // else if piece on right
-        } else if (board[r][c]!=null && c==(x+1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
-          array[r][c] = true;
-        // else
-        } else {
-          array[r][c] = false;
+        
+        if () {
+          
         }
+        
       }
     }
     return array;

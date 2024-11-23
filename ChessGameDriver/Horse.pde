@@ -83,8 +83,32 @@ public class Horse extends Piece {
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
         
-        if (c) {
-          
+        if ((r==y-2) && (c == x-1 || c==x+1)) {
+          if (board[r][c]==null) {
+            array[r][c] = true;
+          } else if (board[r][c].getTeam()!=getTeam()) {
+            array[r][c] = true;
+          }
+        } else if ((r==y+2) && (c==x-1 || c==x+1)) {
+          if (board[r][c]==null) {
+            array[r][c] = true;
+          } else if (board[r][c].getTeam()!=getTeam()) {
+            array[r][c] = true;
+          }
+        } else if ((r==y+1) && (c==x+2 || c==x-2)) {
+          if (board[r][c]==null) {
+            array[r][c] = true;
+          } else if (board[r][c].getTeam()!=getTeam()) {
+            array[r][c] = true;
+          }
+        } else if ((r==y-1) && (c==x+2 || c==x-2)) {
+          if (board[r][c]==null) {
+            array[r][c] = true;
+          } else if (board[r][c].getTeam()!=getTeam()) {
+            array[r][c] = true;
+          }
+        } else {
+          array[r][c] = false;
         }
         
       }
