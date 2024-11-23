@@ -88,43 +88,50 @@ public class Bishop extends Piece {
     
     // check below
     for (int i=rowY;i<board.length - rowY;i++) {
-      if (piece[i][colX]==this) {}
-      else if (piece[i][colX]==null) {maxAbove++;}
-      else if (piece[i][colX]!=null) {
-        if (piece[i][colX].getTeam()==getTeam()) {break;}
-        else if (piece[i][colX].getTeam()!=getTeam()) {maxAbove++;break;}
+      if (board[i][columnX]==this) {}
+      else if (board[i][columnX]==null) {maxAbove++;}
+      else if (board[i][columnX]!=null) {
+        if (board[i][columnX].getTeam()==getTeam()) {break;}
+        else if (board[i][columnX].getTeam()!=getTeam()) {maxAbove++;break;}
       }
     }
     
     // check above
     for (int i=rowY;i>0;i--) {
-      if (piece[i][colX]==this) {}
-      else if (piece[i][colX]==null) {maxBelow++;}
-      else if (piece[i][colX]!=null) {
-        if (piece[i][colX].getTeam()==getTeam()) {break;}
-        else if (piece[i][colX].getTeam()!=getTeam()) {maxAbove;break;}
+      if (board[i][columnX]==this) {}
+      else if (board[i][columnX]==null) {maxBelow++;}
+      else if (board[i][columnX]!=null) {
+        if (board[i][columnX].getTeam()==getTeam()) {break;}
+        else if (board[i][columnX].getTeam()!=getTeam()) {maxBelow++;break;}
       }
     }
     
-    for (int i=0;i<board.length;i++) {
-      if (piece[rowY][i]==this) {
-        break;
+    // check right
+    for (int i=columnX;i<board[rowY].length;i++) {
+      if (board[rowY][i]==this) {}
+      else if (board[rowY][i]==null) {maxRight++;}
+      else if (board[rowY][i]!=null) {
+        if (board[rowY][i].getTeam()==getTeam()) {break;}
+        else if (board[rowY][i].getTeam()!=getTeam()) {maxRight++;break;}
       }
-      maxLeft++;
     }
     
-    for (int i=0;i<board.length;i++) {
-      if (piece[rowY][7-i]==this) {
-        break;
+    // check left
+    for (int i=columnX;i<0;i--) {
+      if (board[rowY][7-i]==this) {}
+      else if (board[rowY][i]==null) {maxLeft++;}
+      else if (board[rowY][i]!=null) {
+        if (board[rowY][i].getTeam()==getTeam()) {break;}
+        else if (board[rowY][i].getTeam()!=getTeam()) {maxLeft++;break;}
       }
-      maxRight++;
     }
     
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
         
-        if () {
-          
+        if (r > y) {
+          if (r - y <= maxAbove) {
+          }
         }
         
       }
