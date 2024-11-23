@@ -1,4 +1,4 @@
-public class Castle extends Piece {
+public class Bishop extends Piece {
   
   private int columnX;
   private int rowY;
@@ -11,7 +11,7 @@ public class Castle extends Piece {
   // -1 for pieces from top
   private int upDownConstant;
   
-  public Castle(int columnXSpot, int rowYSpot,String teamColor) {
+  public Bishop(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
     team = teamColor;
@@ -39,7 +39,7 @@ public class Castle extends Piece {
   
   //@Override
   public String getLetter() {
-    return "C";
+    return "B";
   }
   //@Override
   void drawPiece() {
@@ -80,72 +80,21 @@ public class Castle extends Piece {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
-    
-    int maxAbove = 0;
-    int maxBelow = 0;
-    int maxLeft = 0;
-    int maxRight = 0;
-    
-    // check below
-    for (int i=rowY;i<board.length - rowY;i++) {
-      if (board[i][columnX]==this) {}
-      else if (board[i][columnX]==null) {maxAbove++;}
-      else if (board[i][columnX]!=null) {
-        if (board[i][columnX].getTeam()==getTeam()) {break;}
-        else if (board[i][columnX].getTeam()!=getTeam()) {maxAbove++;break;}
-      }
-    }
-    
-    // check above
-    for (int i=rowY;i>0;i--) {
-      if (board[i][columnX]==this) {}
-      else if (board[i][columnX]==null) {maxBelow++;}
-      else if (board[i][columnX]!=null) {
-        if (board[i][columnX].getTeam()==getTeam()) {break;}
-        else if (board[i][columnX].getTeam()!=getTeam()) {maxBelow++;break;}
-      }
-    }
-    
-    // check right
-    for (int i=columnX;i<board[rowY].length;i++) {
-      if (board[rowY][i]==this) {}
-      else if (board[rowY][i]==null) {maxRight++;}
-      else if (board[rowY][i]!=null) {
-        if (board[rowY][i].getTeam()==getTeam()) {break;}
-        else if (board[rowY][i].getTeam()!=getTeam()) {maxRight++;break;}
-      }
-    }
-    
-    // check left
-    for (int i=columnX;i<0;i--) {
-      if (board[rowY][7-i]==this) {}
-      else if (board[rowY][i]==null) {maxLeft++;}
-      else if (board[rowY][i]!=null) {
-        if (board[rowY][i].getTeam()==getTeam()) {break;}
-        else if (board[rowY][i].getTeam()!=getTeam()) {maxLeft++;break;}
-      }
-    }
-    
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        
-        if (r > y) {
-          if (r - y <= maxAbove) {
-            array[r][c] = true;
-          } else {
-            array[r][c] = false;
-          }
+        // if spot ahead directly is free, make it available
+        if (board[r][c]==null && c==x && r==y-(1*upDownConstant) && (y+1 <= 8) && (y-1 >= 0)) {
+          array[r][c] = true;
+        // else if piece on left
+        } else if (board[r][c]!=null && c==(x-1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+          array[r][c] = true;
+        // else if piece on right
+        } else if (board[r][c]!=null && c==(x+1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+          array[r][c] = true;
+        // else
+        } else {
+          array[r][c] = false;
         }
-        else if (r < y) {
-          if (r + y >= maxBelow) {
-            array[r][c] = true;
-          } else {
-            array[r][c] = false;
-          }
-        }
-        //else if () {
-        
-        //}
       }
     }
     return array;
@@ -153,7 +102,7 @@ public class Castle extends Piece {
   
   //@Override
   protected boolean wouldNotPlaceInCheck() {
-    return true;
+   return true;
   }
   
   //@Override
