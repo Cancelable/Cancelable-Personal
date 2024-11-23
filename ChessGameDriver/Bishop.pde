@@ -82,19 +82,9 @@ public class Bishop extends Piece {
     boolean[][] array = new boolean[8][8];
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        // if spot ahead directly is free, make it available
-        if (board[r][c]==null && c==x && r==y-(1*upDownConstant) && (y+1 <= 8) && (y-1 >= 0)) {
-          array[r][c] = true;
-        // else if piece on left
-        } else if (board[r][c]!=null && c==(x-1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
-          array[r][c] = true;
-        // else if piece on right
-        } else if (board[r][c]!=null && c==(x+1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
-          array[r][c] = true;
-        // else
-        } else {
-          array[r][c] = false;
-        }
+        
+        
+        
       }
     }
     return array;

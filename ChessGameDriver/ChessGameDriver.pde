@@ -101,12 +101,25 @@ void initialBoardSetup() {
       }// bishops
       
       
-      // castles
-      if (true) {
-        
-      }// castles
+      
     }//inside
   }
+  
+  // castles
+  if (true) {
+    if (colorC==white) {
+      board[0][0] = new Castle(0,0,black);
+      board[0][7] = new Castle(7,0,black);
+      board[7][0] = new Castle(0,7,white);
+      board[7][7] = new Castle(7,7,white);
+    }
+    else if (colorC==black) {
+      board[0][0] = new Castle(0,0,white);
+      board[0][7] = new Castle(7,0,white);
+      board[7][0] = new Castle(0,7,black);
+      board[7][7] = new Castle(7,7,black);
+    }
+  }// castles
   
   // kings
   if (true) {
