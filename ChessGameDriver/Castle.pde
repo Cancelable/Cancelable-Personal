@@ -128,7 +128,6 @@ public class Castle extends Piece {
     
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        System.out.println(maxLeft);
         if (c==x && r < y && r >= (y - maxBelow)) {
           array[r][c] = true;
         }

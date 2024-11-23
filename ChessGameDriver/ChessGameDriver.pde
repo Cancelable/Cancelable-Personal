@@ -1,4 +1,4 @@
-Piece[][] board;
+public Piece[][] board;
 public boolean [][] canMove;
 public final String black = "black";
 public final String white = "white";
@@ -77,7 +77,6 @@ void changeColor() {
 void initialBoardSetup() {
   for (int r=0;r<board.length;r++) {
     for (int c=0;c<board[r].length;c++) {
-      
       // pawns
       if (true) {
         // 6 is lower
@@ -93,17 +92,27 @@ void initialBoardSetup() {
           board[r][c] = new Pawn(c,r,white);
         }
       }// pawns
-      
-      
-      // bishops
-      if (true) {
-        
-      }// bishops
-      
-      
-      
     }//inside
   }
+  
+  // bishops
+  if (true) {
+    if (colorC==white) {
+      board[0][2] = new Bishop(2,0,black);
+      board[0][5] = new Bishop(5,0,black);
+      board[7][2] = new Bishop(2,7,white);
+      board[7][5] = new Bishop(5,7,white);
+      // temporary piece
+      board[4][4] = new Bishop(4,4,white);
+      board[3][4] = new Bishop(4,3,white);
+    }
+    else if (colorC==black) {
+      board[0][2] = new Bishop(2,0,white);
+      board[0][5] = new Bishop(5,0,white);
+      board[7][2] = new Bishop(2,7,black);
+      board[7][5] = new Bishop(5,7,black);
+    }
+  }//bishops
   
   // castles
   if (true) {
