@@ -117,7 +117,7 @@ public class Castle extends Piece {
     }
     
     // check left
-    for (int i=columnX;i<=0;i--) {
+    for (int i=columnX;i>=0;i--) {
       if (board[rowY][7-i]==this) {}
       else if (board[rowY][i]==null) {maxLeft++;}
       else if (board[rowY][i]!=null) {
@@ -128,16 +128,17 @@ public class Castle extends Piece {
     
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
+        System.out.println(maxLeft);
         if (c==x && r < y && r >= (y - maxBelow)) {
           array[r][c] = true;
         }
-        else if (c == x && r > y && r <= (y + maxAbove)) {
+        else if (c==x && r > y && r <= (y + maxAbove)) {
           array[r][c] = true;
         }
-        else if () {
+        else if (r==y && c < x && c >= (x - maxLeft)) {
           array[r][c] = true;
         }
-        else if () {
+        else if (r==y && c > x && c <= (x + maxRight)) {
           array[r][c] = true;
         }
         else {
