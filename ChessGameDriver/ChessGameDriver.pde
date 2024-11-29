@@ -284,7 +284,7 @@ void makeMove() {
           } else if (board[7-r][7-c].getLetter()=="Q") {
             newTempBoard[r][c] = new Queen(c,r,board[7-r][7-c].getTeam());
           }
-        }
+        } 
       }
     }
     board = newTempBoard;
