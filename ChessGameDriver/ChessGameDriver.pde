@@ -102,9 +102,6 @@ void initialBoardSetup() {
       board[0][5] = new Bishop(5,0,black);
       board[7][2] = new Bishop(2,7,white);
       board[7][5] = new Bishop(5,7,white);
-      // temporary piece
-      board[4][4] = new Bishop(4,4,white);
-      board[3][4] = new Bishop(4,3,white);
     }
     else if (colorC==black) {
       board[0][2] = new Bishop(2,0,white);
