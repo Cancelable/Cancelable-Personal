@@ -8,7 +8,7 @@ public int pieceLength;
 PVector pieceOver;
 Piece pieceSelected;
 PVector spotToBeChanged;
-String spotToBeChangedColor;
+String spotToBeChangedColor; 
 
 boolean isPaused;
 
@@ -213,6 +213,37 @@ void makeMove() {
     board[(int)pieceOver.y][(int)pieceOver.x].setPieceCoords((int)pieceOver.x,(int)pieceOver.y);
     
     canMove = new boolean[8][8];
+    // switch sides of board for pieces
+    Piece[][] newTempBoard = new Piece[8][8];
+    for (int r=0;r<board.length;r++) {
+      for (int c=0;c<board[r].length;c++) {
+        // pawn
+        if (board[7-r][7-c].getLetter()=="P") {
+          newTempBoard[r][c] = new Pawn(r,c,board[7-r][7-c].getTeam());
+          
+        // castle
+        } else if (board[7-c][7-r].getLetter()=="C") {
+          
+          
+        // horse
+        } else if (board[7-c][7-r].getLetter()=="H") {
+          
+          
+        // bishop
+        } else if (board[7-c][7-r].getLetter()=="B") {
+         
+          
+        // king
+        } else if (board[7-c][7-r].getLetter()=="K") {
+         
+          
+        // queen
+        } else if (board[7-c][7-r].getLetter()=="Q") {
+          
+        }
+      }
+    }
+    board = newTempBoard;
     changeColor();
   }
 }
