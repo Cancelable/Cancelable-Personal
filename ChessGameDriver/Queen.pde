@@ -81,11 +81,6 @@ public class Queen extends Piece {
     int y = rowY;
     boolean[][] array = new boolean[8][8];
     
-    int maxAbove = 0;
-    int maxBelow = 0;
-    int maxLeft = 0;
-    int maxRight = 0;
-    
     // get top left
     for (int i=x-1;i>=0;i--) {
       int currentY = y-(x-i);
