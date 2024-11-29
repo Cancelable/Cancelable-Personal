@@ -173,13 +173,12 @@ void initialBoardSetup() {
 void drawBoard() {
   for (int r=0;r<board.length;r++) {
     for (int c=0;c<board[r].length;c++) {
+      // board square colors
       if ((r + c) % 2 == 0) {
-        if (colorC==white) {fill(200);}
-        else if (colorC==black) {fill(100);}
+        fill(200);
       }
       else {
-        if (colorC==white) {fill(100);}
-        else if (colorC==black) {fill(200);}
+        fill(100);
       }
       // spots you can move to-yellow
       if (canMove[r][c]) {
