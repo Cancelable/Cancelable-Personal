@@ -75,80 +75,84 @@ public class Bishop extends Piece {
     return yVal;
   }
   
+  /*private void isValidTopLeft(boolean[][] bools, Piece[][] b, int spotX, int spotY, int x, int y, int maxTo) {
+    int differenceX = x - spotX;
+    int differenceY = y - spotY;
+    if (differenceX==differenceY && spotX < x && spotX >= x - maxTo) {
+      if (b[spotY][spotX]==null) {
+        bools[spotY][spotX] = true;
+      }
+      else if (b[y][x].getTeam()!=b[spotY][spotX].getTeam()) {
+        bools[spotY][spotX] = true;
+      } else {
+        bools[spotY][spotX] = false;
+      }
+    }
+  }*/
+  
   //@Override
   public boolean[][] getCanMove() {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
     
-    int topLeft = 0;
-    int topRight = 0;
-    int lowLeft = 0;
-    int lowRight = 0;
+    int topLeft = 4;
+    int topRight = 4;
+    int lowLeft = 4;
+    int lowRight = 4;
     
-    // get topLeft right
-    for (int i=0;i<(board[x].length);i++) {
-      int currentX = x - i;
-      int currentY = y - i;
-      //if (board[yval][i]==this) {}
-      if (board[currentY][currentX]==null) {System.out.println("lol");topLeft++;}
-      else if (board[currentY][currentX]!=null) {
-        if (board[currentY][currentX].getTeam()==getTeam()) {break;}
-        else if (board[currentY][currentX].getTeam()!=getTeam()) {topLeft++;break;}
-      }
-    }
-    
-    // get topRight right
-    for (int i=x;i<board.length;i++) {
-      int yval = y - (i-x);
-      //if (board[yval][i]==this) {}
-      if (board[yval][i]==null) {topRight++;}
-      else if (board[yval][i]!=null) {
-        if (board[yval][i].getTeam()==getTeam()) {break;}
-        else if (board[yval][i].getTeam()!=getTeam()) {topRight++;break;}
-      }
-    }
-    
-    // get lowLeft right
-    for (int i=x;i>=0;i--) {
-      int yval = y + (x-i);
-      //if (board[yval][i]==this) {}
-      if (board[yval][i]==null) {lowLeft++;}
-      else if (board[yval][i]!=null) {
-        if (board[yval][i].getTeam()==getTeam()) {break;}
-        else if (board[yval][i].getTeam()!=getTeam()) {lowLeft++;break;}
-      }
-    }
-    
-    // get lowRight right
-    for (int i=x;i<board.length;i++) {
-      int yval = y + (i-x);
-      //if (board[yval][i]==this) {}
-      if (board[yval][i]==null) {lowRight++;}
-      else if (board[yval][i]!=null) {
-        if (board[yval][i].getTeam()==getTeam()) {break;}
-        else if (board[yval][i].getTeam()!=getTeam()) {lowRight++;break;}
-      }
-    }
-    
-    
-    for (int r=0;r<array.length;r++) {
-      for (int c=0;c<array[r].length;c++) {
-        
-        if ((c+r == r - (y-r) + 4)) {
-          if (board[c][r]==null) {
-            
-          }
+    // get top left
+    for (int i=x-1;i>0;i--) {
+      int currentY = y-(x-i);
+      if (currentY >= 0) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
         }
-        
-       
-        System.out.println("topleft"+topLeft);
-        System.out.println("topright"+topRight);
-        System.out.println("lowleft"+lowLeft);
-        System.out.println("lowright"+lowRight);
-              
+      } else {
+        break;
       }
     }
+    
+    // get bottom right
+    for (int i=x+1;i<board.length;i++) {
+      int currentY = y+(i-x);
+      if (currentY < board.length) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // get bottom left
+    for (int i=x-1;i>0;i--) {
+      int currentY = y+(x-i);
+      if (currentY<board.length) {
+        if (board[currentY][i]==null) {
+          
+        } else if () {
+          
+        } else if () {
+          
+        }
+      } else {
+        break;
+      }
+    }
+    
+    
+    // return array
     return array;
   }
   
