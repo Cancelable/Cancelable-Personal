@@ -7,10 +7,6 @@ public class Pawn extends Piece {
   private int xVal;
   private int yVal;
   
-  // 1 for pieces from bottom
-  // -1 for pieces from top
-  private int upDownConstant;
-  
   public Pawn(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
@@ -80,16 +76,17 @@ public class Pawn extends Piece {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
+
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
         // if spot ahead directly is free, make it available
-        if (board[r][c]==null && c==x && r==y-(1*upDownConstant) && (y+1 <= 8) && (y-1 >= 0)) {
+        if (board[r][c]==null && c==x && r==y-(1/**upDownConstant*/) && (y+1 <= 8) && (y-1 >= 0)) {
           array[r][c] = true;
         // else if piece on left
-        } else if (board[r][c]!=null && c==(x-1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+        } else if (board[r][c]!=null && c==(x-1) && r==y-(1/**upDownConstant*/) && board[r][c].getTeam()!=getTeam()) {
           array[r][c] = true;
         // else if piece on right
-        } else if (board[r][c]!=null && c==(x+1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+        } else if (board[r][c]!=null && c==(x+1) && r==y-(1/**upDownConstant*/) && board[r][c].getTeam()!=getTeam()) {
           array[r][c] = true;
         // else
         } else {
@@ -97,6 +94,8 @@ public class Pawn extends Piece {
         }
       }
     }
+    
+    // return array
     return array;
   }
   
