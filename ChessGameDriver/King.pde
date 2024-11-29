@@ -109,10 +109,9 @@ public class King extends Piece {
     
     for (int r=0;r<b.length;r++) {
       for (int c=0;c<b[r].length;c++) {
-        if ((r!=y||c!=x) && b[r][c]!=null) {
-          boolean[][] lol = b[r][c].getCanMove();
-          if (lol[y][x] == true) {
-            System.out.println("check");
+        if (b[r][c]!=null && b[r][c].getTeam()!=getTeam()) {
+          boolean[][] lol = b[r][c].getUnfilteredMove();
+          if (lol[y][x]==true) {
             isInCheck = true;
           }
         }

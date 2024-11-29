@@ -70,7 +70,7 @@ public class Pawn extends Piece {
   }
   
   //@Override
-  public boolean[][] getCanMove() {
+  public boolean[][] getUnfilteredMove() {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
@@ -96,7 +96,11 @@ public class Pawn extends Piece {
         }
       }
     }
+    return array;
+  }
     
+  public boolean[][] getCanMove() {
+    boolean[][] array = unfilteredMove();
     for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
         if (array[r][c]==true) {
@@ -106,7 +110,6 @@ public class Pawn extends Piece {
         }
       }
     }
-    
     // return array
     return array;
   }

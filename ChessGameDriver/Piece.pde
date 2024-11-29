@@ -20,6 +20,8 @@ public abstract class Piece {
   
   public abstract int getPieceY();
   
+  public abstract boolean[][] getUnfilteredMove();
+  
   public abstract boolean[][] getCanMove();
   
   protected abstract boolean wouldNotPlaceInCheck();
