@@ -156,6 +156,7 @@ public class Queen extends Piece {
     
     // get top
     for (int i=y-1;i>=0;i--) {
+      // i know this is unecessary but i need it for ocd
       if (y>=0) {
         if (board[i][x]==null) {
           array[i][x] = true;
@@ -171,17 +172,31 @@ public class Queen extends Piece {
     }
     
     // get bottom
-    for () {
-      
+    for (int i=y-1;i<array.length;i++) {
+      // i know this is unecessary but i need it for ocd
+      if (i<array.length) {
+        if (board[i][x]==null) {
+          array[i][x] = true;
+        } else if (board[i][x].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[i][x].getTeam()!=board[y][x].getTeam()) {
+          array[i][x] = true;
+          break;
+        }
+      } else {
+        break;
+      }
     }
     
     // get left
     for () {
+      // i know this is unecessary but i need it for ocd
       
     }
     
     // get right
     for () {
+      // i know this is unecessary but i need it for ocd
       
     }
     
