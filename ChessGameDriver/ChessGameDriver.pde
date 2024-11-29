@@ -64,7 +64,8 @@ String setStartColor() {
 }
 
 void changeColor() {
-  if (turnOver) {
+  //if (turnOver) {
+  if (true) {
     if (colorC == black) {
       colorC = white;
     } else if (colorC == white) {
@@ -212,6 +213,7 @@ void makeMove() {
     board[(int)pieceOver.y][(int)pieceOver.x].setPieceCoords((int)pieceOver.x,(int)pieceOver.y);
     
     canMove = new boolean[8][8];
+    changeColor();
   }
 }
 
