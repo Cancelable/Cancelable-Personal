@@ -24,4 +24,6 @@ public abstract class Piece {
   
   protected abstract boolean wouldNotPlaceInCheck();
   
+  protected abstract boolean isMoveLegal(Piece[][] b, int toX, int toY);
+  
 }

@@ -106,6 +106,16 @@ public class Pawn extends Piece {
    return true;
   }
   
+  //@Override
+  protected boolean isMoveLegal(Piece[][] b, int toX, int toY) {
+    boolean moveLegal = true;
+    Piece[][] draft = b;
+    
+    
+    
+    return moveLegal;
+  }
+  
 
   
 }
