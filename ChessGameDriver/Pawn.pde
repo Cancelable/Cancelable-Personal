@@ -97,6 +97,16 @@ public class Pawn extends Piece {
       }
     }
     
+    for (int r=0;r<array.length;r++) {
+      for (int c=0;c<array[r].length;c++) {
+        if (array[r][c]==true) {
+          if (!isMoveLegal(board,c,r)) {
+            array[r][c] = false;
+          }
+        }
+      }
+    }
+    
     // return array
     return array;
   }
@@ -108,12 +118,30 @@ public class Pawn extends Piece {
   
   //@Override
   protected boolean isMoveLegal(Piece[][] b, int toX, int toY) {
+    int x = columnX;
+    int y = rowY;
     boolean moveLegal = true;
     Piece[][] draft = b;
-    
-    
+    draft[toY][toX] = new Pawn(toX,toY,getTeam());
+    draft[y][x] = null;
+    for (int r=0;r<draft.length;r++) {
+      for (int c=0;c<draft[r].length;c++) {
+        if (draft[r][c] != null &&
+        draft[r][c].getLetter()=="K" &&
+        draft[r][c].getTeam()==getTeam()) {
+          if (draft[r][c].isInCheck(draft)) {
+            moveLegal = false;
+          }
+        }
+      }
+    }
     
     return moveLegal;
+  }
+  
+  //@Override
+  public boolean isInCheck(Piece[][] b) {
+    return false;
   }
   
 

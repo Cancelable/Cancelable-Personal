@@ -101,6 +101,7 @@ public class King extends Piece {
    return true;
   }
   
+  //@Override
   public boolean isInCheck(Piece[][] b) {
     int x = columnX;
     int y = rowY;
@@ -108,17 +109,23 @@ public class King extends Piece {
     
     for (int r=0;r<b.length;r++) {
       for (int c=0;c<b[r].length;c++) {
-        boolean[][] lol = b[r][c].getCanMove();
-        if (lol[y][x] == true) {
-          System.out.println("check");
-          isInCheck = true;
+        if ((r!=y||c!=x) && b[r][c]!=null) {
+          boolean[][] lol = b[r][c].getCanMove();
+          if (lol[y][x] == true) {
+            System.out.println("check");
+            isInCheck = true;
+          }
         }
       }
     }
+    
     // return isIncheck
     return isInCheck;
   }
   
-  
+  //@Override
+  public boolean isMoveLegal(Piece[][] b, int toX, int toY) {
+    return true;
+  }
   
 }
