@@ -26,6 +26,4 @@ public abstract class Piece {
   
   protected abstract void setUpDownConstant();
   
-  public abstract void switchAppearanceCoords();
-  
 }
