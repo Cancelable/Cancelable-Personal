@@ -181,22 +181,25 @@ void drawBoard() {
         if (colorC==white) {fill(100);}
         else if (colorC==black) {fill(200);}
       }
+      // spots you can move to-yellow
       if (canMove[r][c]) {
         fill(255,255,0);
       }
+      // selected piece-pink
       if ((pieceSelected!=null) && (board[r][c]!=null) &&
       (board[r][c].getRowY()==pieceSelected.getRowY()) &&
       (board[r][c].getColX()==pieceSelected.getColX())
       ) {
         fill(255,192,203);
       }
+      // cursor-green
       if (r==pieceOver.y && c==pieceOver.x) {
         fill(0,255,0);
       }
       // drawSquares
       square(c*pieceLength,r*pieceLength,pieceLength);
+      // draw circles
       if(board[r][c]!=null) {
-        // draw circles
         board[r][c].drawPiece();
       }
     }
