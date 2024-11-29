@@ -194,25 +194,7 @@ public class Queen extends Piece {
       }
     }
     
-    /*for (int r=0;r<array.length;r++) {
-      for (int c=0;c<array[r].length;c++) {
-        if (c==x && r < y && r >= (y - maxBelow)) {
-          array[r][c] = true;
-        }
-        else if (c==x && r > y && r <= (y + maxAbove)) {
-          array[r][c] = true;
-        }
-        else if (r==y && c < x && c >= (x - maxLeft)) {
-          array[r][c] = true;
-        }
-        else if (r==y && c > x && c <= (x + maxRight)) {
-          array[r][c] = true;
-        }
-        else {
-          array[r][c] = false;
-        }
-      }
-    }*/
+    
     
     
     return array;
