@@ -75,21 +75,6 @@ public class Bishop extends Piece {
     return yVal;
   }
   
-  /*private void isValidTopLeft(boolean[][] bools, Piece[][] b, int spotX, int spotY, int x, int y, int maxTo) {
-    int differenceX = x - spotX;
-    int differenceY = y - spotY;
-    if (differenceX==differenceY && spotX < x && spotX >= x - maxTo) {
-      if (b[spotY][spotX]==null) {
-        bools[spotY][spotX] = true;
-      }
-      else if (b[y][x].getTeam()!=b[spotY][spotX].getTeam()) {
-        bools[spotY][spotX] = true;
-      } else {
-        bools[spotY][spotX] = false;
-      }
-    }
-  }*/
-  
   //@Override
   public boolean[][] getCanMove() {
     int x = columnX;
