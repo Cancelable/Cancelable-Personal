@@ -7,10 +7,6 @@ public class Horse extends Piece {
   private int xVal;
   private int yVal;
   
-  // 1 for pieces from bottom
-  // -1 for pieces from top
-  private int upDownConstant;
-  
   public Horse(int columnXSpot, int rowYSpot,String teamColor) {
     columnX = columnXSpot;
     rowY = rowYSpot;
@@ -18,8 +14,6 @@ public class Horse extends Piece {
     
     xVal = columnX*pieceLength + (pieceLength/2);
     yVal = rowY*pieceLength + (pieceLength/2);
-    
-    setUpDownConstant();
   }
   
   //@Override
@@ -119,15 +113,6 @@ public class Horse extends Piece {
   //@Override
   protected boolean wouldNotPlaceInCheck() {
    return true;
-  }
-  
-  //@Override
-  protected void setUpDownConstant() {
-    if (colorC==team) {
-      upDownConstant = 1;
-    } else {
-      upDownConstant = -1;
-    }
   }
   
   

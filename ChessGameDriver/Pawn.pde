@@ -14,8 +14,6 @@ public class Pawn extends Piece {
     
     xVal = columnX*pieceLength + (pieceLength/2);
     yVal = rowY*pieceLength + (pieceLength/2);
-    
-    setUpDownConstant();
   }
   
   //@Override
@@ -92,6 +90,10 @@ public class Pawn extends Piece {
         } else {
           array[r][c] = false;
         }
+        // checks for can move 2 pieces
+        if (y==6 && (y-2)==r && board[r][c]==null && c==x) {
+          array[r][c] = true;
+        }
       }
     }
     
@@ -104,15 +106,6 @@ public class Pawn extends Piece {
    return true;
   }
   
-  //@Override
-  protected void setUpDownConstant() {
-    if (colorC==team) {
-      upDownConstant = 1;
-    } else {
-      upDownConstant = -1;
-    }
-  }
-  
-  
+
   
 }
