@@ -96,13 +96,8 @@ public class Bishop extends Piece {
     int y = rowY;
     boolean[][] array = new boolean[8][8];
     
-    int topLeft = 4;
-    int topRight = 4;
-    int lowLeft = 4;
-    int lowRight = 4;
-    
     // get top left
-    for (int i=x-1;i>0;i--) {
+    for (int i=x-1;i>=0;i--) {
       int currentY = y-(x-i);
       if (currentY >= 0) {
         if (board[currentY][i]==null) {
@@ -136,15 +131,33 @@ public class Bishop extends Piece {
     }
     
     // get bottom left
-    for (int i=x-1;i>0;i--) {
+    for (int i=x-1;i>=0;i--) {
       int currentY = y+(x-i);
       if (currentY<board.length) {
         if (board[currentY][i]==null) {
-          
-        } else if () {
-          
-        } else if () {
-          
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // get top right
+    for (int i=x+1;i<board.length;i++) {
+      int currentY = y-(i-x);
+      if (currentY >= 0) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
         }
       } else {
         break;
