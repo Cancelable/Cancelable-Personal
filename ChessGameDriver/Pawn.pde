@@ -60,7 +60,7 @@ public class Pawn extends Piece {
   public void setPieceCoords(int x, int y) {
     columnX = x;
     rowY = y;
-    // placeholder bool
+    
     xVal = x*pieceLength + (pieceLength/2);
     yVal = y*pieceLength + (pieceLength/2);
   }
@@ -114,6 +114,8 @@ public class Pawn extends Piece {
     }
   }
   
-  
+  public void switchAppearanceCoords() {
+    
+  }
   
 }
