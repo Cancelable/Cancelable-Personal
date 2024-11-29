@@ -45,6 +45,7 @@ void draw() {
   }
 }
 
+// this makes game end if you kill king
 void checkIfGameOver() {
   int whiteKingCount = 0;
   int blackKingCount = 0;

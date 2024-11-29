@@ -91,12 +91,32 @@ public class King extends Piece {
         
       }//inside
     }
+    
+    
     return array;
   }
   
   //@Override
   protected boolean wouldNotPlaceInCheck() {
    return true;
+  }
+  
+  public boolean isInCheck(Piece[][] b) {
+    int x = columnX;
+    int y = rowY;
+    boolean isInCheck = false;
+    
+    for (int r=0;r<b.length;r++) {
+      for (int c=0;c<b[r].length;c++) {
+        boolean[][] lol = b[r][c].getCanMove();
+        if (lol[y][x] == true) {
+          System.out.println("check");
+          isInCheck = true;
+        }
+      }
+    }
+    // return isIncheck
+    return isInCheck;
   }
   
   

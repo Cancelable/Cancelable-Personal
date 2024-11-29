@@ -115,7 +115,7 @@ public class Queen extends Piece {
       if (currentY<board.length) {
         if (board[currentY][i]==null) {
           array[currentY][i] = true;
-        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+
           break;
         } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
           array[currentY][i] = true;
