@@ -169,47 +169,8 @@ public class Queen extends Piece {
       }
     }
     
-    /*// max below
-    for (int i=rowY;i<board.length;i++) {
-      if (board[i][columnX]==this) {}
-      else if (board[i][columnX]==null) {array[i][x]=true;}
-      else if (board[i][columnX]!=null) {
-        if (board[i][columnX].getTeam()==getTeam()) {break;}
-        else if (board[i][columnX].getTeam()!=getTeam()) {array[i][x]=true;break;}
-      }
-    }
     
-    // max above
-    for (int i=rowY;i>=0;i--) {
-      if (board[i][columnX]==this) {}
-      else if (board[i][columnX]==null) {array[x][i]=true;}
-      else if (board[i][columnX]!=null) {
-        if (board[i][columnX].getTeam()==getTeam()) {break;}
-        else if (board[i][columnX].getTeam()!=getTeam()) {array[x][i]=true;break;}
-      }
-    }
-    
-    // max right
-    for (int i=columnX;i<board[rowY].length;i++) {
-      if (board[rowY][i]==this) {}
-      else if (board[rowY][i]==null) {array[y][i]=true;}
-      else if (board[rowY][i]!=null) {
-        if (board[rowY][i].getTeam()==getTeam()) {break;}
-        else if (board[rowY][i].getTeam()!=getTeam()) {array[y][i]=true;break;}
-      }
-    }
-    
-    // check left
-    for (int i=columnX;i>=0;i--) {
-      if (board[rowY][i]==this) {}
-      else if (board[rowY][i]==null) {array[y][i]=true;}
-      else if (board[rowY][i]!=null) {
-        if (board[rowY][i].getTeam()==getTeam()) {break;}
-        else if (board[rowY][i].getTeam()!=getTeam()) {array[y][i]=true;break;}
-      }
-    }*/
-    
-    
+    // return array
     return array;
   }
   
