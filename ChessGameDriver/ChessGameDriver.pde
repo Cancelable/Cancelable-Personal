@@ -217,29 +217,31 @@ void makeMove() {
     Piece[][] newTempBoard = new Piece[8][8];
     for (int r=0;r<board.length;r++) {
       for (int c=0;c<board[r].length;c++) {
-        // pawn
-        if (board[7-r][7-c].getLetter()=="P") {
-          newTempBoard[r][c] = new Pawn(r,c,board[7-r][7-c].getTeam());
-          
-        // castle
-        } else if (board[7-c][7-r].getLetter()=="C") {
-          
-          
-        // horse
-        } else if (board[7-c][7-r].getLetter()=="H") {
-          
-          
-        // bishop
-        } else if (board[7-c][7-r].getLetter()=="B") {
-         
-          
-        // king
-        } else if (board[7-c][7-r].getLetter()=="K") {
-         
-          
-        // queen
-        } else if (board[7-c][7-r].getLetter()=="Q") {
-          
+        if (board[7-r][7-c]!=null) {
+          // pawn
+          if (board[7-r][7-c].getLetter()=="P") {
+            newTempBoard[r][c] = new Pawn(c,r,board[7-r][7-c].getTeam());
+            
+          // castle
+          } else if (board[7-r][7-c].getLetter()=="C") {
+            newTempBoard[r][c]= new Castle(c,r,board[7-r][7-c].getTeam());
+            
+          // horse
+          } else if (board[7-r][7-c].getLetter()=="H") {
+            newTempBoard[r][c] = new Horse(c,r,board[7-r][7-c].getTeam());
+            
+          // bishop
+          } else if (board[7-r][7-c].getLetter()=="B") {
+            newTempBoard[r][c] = new Bishop(c,r,board[7-r][7-c].getTeam());
+            
+          // king
+          } else if (board[7-r][7-c].getLetter()=="K") {
+            newTempBoard[r][c] = new King(c,r,board[7-r][7-c].getTeam());
+            
+          // queen
+          } else if (board[7-r][7-c].getLetter()=="Q") {
+            newTempBoard[r][c] = new Queen(c,r,board[7-r][7-c].getTeam());
+          }
         }
       }
     }
