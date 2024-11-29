@@ -80,23 +80,141 @@ public class Queen extends Piece {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
-    for (int r=0;r<array.length;r++) {
+    
+    int maxAbove = 0;
+    int maxBelow = 0;
+    int maxLeft = 0;
+    int maxRight = 0;
+    
+    // get top left
+    for (int i=x-1;i>=0;i--) {
+      int currentY = y-(x-i);
+      if (currentY >= 0) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // get bottom right
+    for (int i=x+1;i<board.length;i++) {
+      int currentY = y+(i-x);
+      if (currentY < board.length) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // get bottom left
+    for (int i=x-1;i>=0;i--) {
+      int currentY = y+(x-i);
+      if (currentY<board.length) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // get top right
+    for (int i=x+1;i<board.length;i++) {
+      int currentY = y-(i-x);
+      if (currentY >= 0) {
+        if (board[currentY][i]==null) {
+          array[currentY][i] = true;
+        } else if (board[currentY][i].getTeam()==board[y][x].getTeam()) {
+          break;
+        } else if (board[currentY][i].getTeam()!=board[y][x].getTeam()) {
+          array[currentY][i] = true;
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    
+    // max below
+    for (int i=rowY;i<board.length;i++) {
+      if (board[i][columnX]==this) {}
+      else if (board[i][columnX]==null) {array[i][x]=true;}
+      else if (board[i][columnX]!=null) {
+        if (board[i][columnX].getTeam()==getTeam()) {break;}
+        else if (board[i][columnX].getTeam()!=getTeam()) {array[i][x]=true;break;}
+      }
+    }
+    
+    // max above
+    for (int i=rowY;i>=0;i--) {
+      if (board[i][columnX]==this) {}
+      else if (board[i][columnX]==null) {array[x][i]=true;}
+      else if (board[i][columnX]!=null) {
+        if (board[i][columnX].getTeam()==getTeam()) {break;}
+        else if (board[i][columnX].getTeam()!=getTeam()) {array[x][i]=true;break;}
+      }
+    }
+    
+    // max right
+    for (int i=columnX;i<board[rowY].length;i++) {
+      if (board[rowY][i]==this) {}
+      else if (board[rowY][i]==null) {array[y][i]=true;}
+      else if (board[rowY][i]!=null) {
+        if (board[rowY][i].getTeam()==getTeam()) {break;}
+        else if (board[rowY][i].getTeam()!=getTeam()) {array[y][i]=true;break;}
+      }
+    }
+    
+    // check left
+    for (int i=columnX;i>=0;i--) {
+      if (board[rowY][i]==this) {}
+      else if (board[rowY][i]==null) {array[y][i]=true;}
+      else if (board[rowY][i]!=null) {
+        if (board[rowY][i].getTeam()==getTeam()) {break;}
+        else if (board[rowY][i].getTeam()!=getTeam()) {array[y][i]=true;break;}
+      }
+    }
+    
+    /*for (int r=0;r<array.length;r++) {
       for (int c=0;c<array[r].length;c++) {
-        // if spot ahead directly is free, make it available
-        if (board[r][c]==null && c==x && r==y-(1*upDownConstant) && (y+1 <= 8) && (y-1 >= 0)) {
+        if (c==x && r < y && r >= (y - maxBelow)) {
           array[r][c] = true;
-        // else if piece on left
-        } else if (board[r][c]!=null && c==(x-1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+        }
+        else if (c==x && r > y && r <= (y + maxAbove)) {
           array[r][c] = true;
-        // else if piece on right
-        } else if (board[r][c]!=null && c==(x+1) && r==y-(1*upDownConstant) && board[r][c].getTeam()!=getTeam()) {
+        }
+        else if (r==y && c < x && c >= (x - maxLeft)) {
           array[r][c] = true;
-        // else
-        } else {
+        }
+        else if (r==y && c > x && c <= (x + maxRight)) {
+          array[r][c] = true;
+        }
+        else {
           array[r][c] = false;
         }
       }
-    }
+    }*/
+    
+    
     return array;
   }
   
