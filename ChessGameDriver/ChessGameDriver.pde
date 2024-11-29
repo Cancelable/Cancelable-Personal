@@ -9,8 +9,9 @@ PVector pieceOver;
 Piece pieceSelected;
 PVector spotToBeChanged;
 String spotToBeChangedColor; 
-
 boolean isPaused;
+boolean gameOver;
+String teamLost;
 
 void setup() {
   size(400,400);
@@ -22,6 +23,7 @@ void setup() {
   pieceSelected = null;
   isPaused = false;
   spotToBeChanged = null;
+  gameOver = false;
   
   // function calls
   frameRate(30);
@@ -30,13 +32,50 @@ void setup() {
 }
 
 void draw() {
-  if (!isPaused) {
+  if (!isPaused && !gameOver) {
+    checkIfGameOver();
     spotToBeChanged = null;
     turnPawnInto();
     drawBoard();
   } else {
     pickReplacementPiece();
   }
+  if (gameOver) {
+    gameOverScreen();
+  }
+}
+
+void checkIfGameOver() {
+  int whiteKingCount = 0;
+  int blackKingCount = 0;
+  for (int r=0;r<board.length;r++) {
+    for (int c=0;c<board[r].length;c++) {
+      if (board[r][c]!=null && board[r][c].getLetter()=="K") {
+        if (board[r][c].getTeam()==white) {
+          whiteKingCount++;
+        }
+        if (board[r][c].getTeam()==black) {
+          blackKingCount++;
+        }
+      }
+    }
+  }
+  if (whiteKingCount!=1) {
+    teamLost = white;
+    gameOver = true;
+  }
+  if (blackKingCount!=1) {
+    teamLost = black;
+    gameOver = true;
+  }
+}
+
+void gameOverScreen() {
+  background(255);
+  textAlign(CENTER,TOP);
+  textSize(width/15);
+  fill(255,192,203);
+  text(teamLost + " lost.. Click r to restart",width/2,height/2);
 }
 
 boolean spaceSelectable() {
@@ -299,11 +338,11 @@ void pickReplacementPiece() {
 }
 
 void keyPressed() {
-  if (!isPaused) {
   if (key=='r') {
     setup();
   }
-  
+  if (!isPaused && !gameOver) {
+    
   // move the green
   if (keyCode==DOWN && (pieceOver.y)+1 < 8) {
     pieceOver.set(pieceOver.x,(pieceOver.y)+1);
@@ -326,9 +365,7 @@ void keyPressed() {
   if (key==' ') {
     makeMove();
   }
-  
-  
-  
+    
   }// end of unpaused code
 }
 
