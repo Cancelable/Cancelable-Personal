@@ -154,7 +154,22 @@ public class Queen extends Piece {
       }
     }
     
-    // max below
+    // get top
+    for (int i=y-1;i>=0;i--) {
+      if (y>=0) {
+        if (board[i][y]==null) {
+          
+        } else if () {
+          break;
+        } else if () {
+          
+        }
+      } else {
+        break;
+      }
+    }
+    
+    /*// max below
     for (int i=rowY;i<board.length;i++) {
       if (board[i][columnX]==this) {}
       else if (board[i][columnX]==null) {array[i][x]=true;}
@@ -192,9 +207,7 @@ public class Queen extends Piece {
         if (board[rowY][i].getTeam()==getTeam()) {break;}
         else if (board[rowY][i].getTeam()!=getTeam()) {array[y][i]=true;break;}
       }
-    }
-    
-    
+    }*/
     
     
     return array;
