@@ -157,16 +157,32 @@ public class Queen extends Piece {
     // get top
     for (int i=y-1;i>=0;i--) {
       if (y>=0) {
-        if (board[i][y]==null) {
-          
-        } else if () {
+        if (board[i][x]==null) {
+          array[i][x] = true;
+        } else if (board[i][x].getTeam()==board[y][x].getTeam()) {
           break;
-        } else if () {
-          
+        } else if (board[i][x].getTeam()!=board[y][x].getTeam()) {
+          array[i][x]=true;
+          break;
         }
       } else {
         break;
       }
+    }
+    
+    // get bottom
+    for () {
+      
+    }
+    
+    // get left
+    for () {
+      
+    }
+    
+    // get right
+    for () {
+      
     }
     
     
