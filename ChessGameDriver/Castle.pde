@@ -70,7 +70,7 @@ public class Castle extends Piece {
   }
   
   //@Override
-  public boolean[][] getCanMove() {
+  public boolean[][] getUnfilteredMove() {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
@@ -142,11 +142,46 @@ public class Castle extends Piece {
     return array;
   }
   
+  public boolean[][] getCanMove() {
+    boolean[][] array = getUnfilteredMove();
+    for (int r=0;r<array.length;r++) {
+      for (int c=0;c<array[r].length;c++) {
+        if (array[r][c]==true) {
+          if (!isMoveLegal(board,c,r)) {
+            array[r][c] = false;
+          }
+        }
+      }
+    }
+    // return array
+    return array;
+  }
+  
   //@Override
-  protected boolean wouldNotPlaceInCheck() {
+  public boolean isInCheck(Piece[][] b) {
     return true;
   }
   
-  
+  //@Override
+  protected boolean isMoveLegal(Piece[][] b, int toX, int toY) {
+    int x = columnX;
+    int y = rowY;
+    boolean moveLegal = true;
+    Piece[][] draft = b;
+    draft[toY][toX] = new Pawn(toX,toY,getTeam());
+    draft[y][x] = null;
+    for (int r=0;r<draft.length;r++) {
+      for (int c=0;c<draft[r].length;c++) {
+        if (draft[r][c] != null &&
+        draft[r][c].getLetter()=="K" &&
+        draft[r][c].getTeam()==getTeam()) {
+          if (draft[r][c].isInCheck(draft)) {
+            moveLegal = false;
+          }
+        }
+      }
+    }
+    return moveLegal;
+  }
   
 }

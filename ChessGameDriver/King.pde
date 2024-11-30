@@ -70,7 +70,7 @@ public class King extends Piece {
   }
   
   //@Override
-  public boolean[][] getCanMove() {
+  public boolean[][] getUnfilteredMove() {
     int x = columnX;
     int y = rowY;
     boolean[][] array = new boolean[8][8];
@@ -91,8 +91,21 @@ public class King extends Piece {
         
       }//inside
     }
-    
-    
+    return array;
+  }
+  
+  public boolean[][] getCanMove() {
+    boolean[][] array = getUnfilteredMove();
+    for (int r=0;r<array.length;r++) {
+      for (int c=0;c<array[r].length;c++) {
+        if (array[r][c]==true) {
+          if (!isMoveLegal(board,c,r)) {
+            array[r][c] = false;
+          }
+        }
+      }
+    }
+    // return array
     return array;
   }
   
@@ -117,7 +130,6 @@ public class King extends Piece {
         }
       }
     }
-    
     // return isIncheck
     return isInCheck;
   }
