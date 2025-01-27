@@ -126,6 +126,7 @@ public class Pawn extends Piece {
     boolean moveLegal = true;
     Piece[][] draft = b;
     draft[toY][toX] = new Pawn(toX,toY,getTeam());
+    draft[y][x].setPieceCoords(toX,toY);
     draft[y][x] = null;
     for (int r=0;r<draft.length;r++) {
       for (int c=0;c<draft[r].length;c++) {
