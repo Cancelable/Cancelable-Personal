@@ -10,6 +10,8 @@ public abstract class Tile {
   
   public abstract void drawTile();
   
+  public abstract void drawTile(color cColor);
+  
   public abstract void affectZombies();
   
 }
