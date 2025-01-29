@@ -16,6 +16,10 @@ public class TileNormal extends Tile {
     return rowY;
   }
   
+  public String getTileType() {
+    return NORMAL_TILE;
+  }
+  
   public void drawTile() {
     
   }

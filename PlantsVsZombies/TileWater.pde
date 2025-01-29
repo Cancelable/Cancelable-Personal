@@ -16,6 +16,10 @@ public class TileWater extends Tile {
     return rowY;
   }
   
+  public String getTileType() {
+    return WATER_TILE;
+  }
+  
   public void drawTile() {
     
   }
