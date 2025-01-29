@@ -30,8 +30,6 @@ public int level;
 public boolean paused;
 // objects
 public Map map;
-public Sun oneSun;
-// arraylists of stuff
 public ArrayList<Sun> sunArray;
 
 // ---SETUP / DRAW---
@@ -65,7 +63,7 @@ void keyPressed() {
 // ---OTHER METHODS---
 
 public void initializeAsign() {
-  sunValue = 0;
+  sunValue = 50;
   coins = 0;
   level = 1;
   paused = false;
@@ -74,9 +72,41 @@ public void initializeAsign() {
 }
 
 public void unpausedDraw() {
-  map.drawMap();
+  animate();
 }
 
 public void pausedDraw() {
+  
+}
+
+public void animate() {
+  // draw map
+  map.drawMap();
+  // draw plants
+  // draw zombies
+  // draw sun
+  for (int i=0;i<sunArray.size();i++) {
+    sunArray.get(i).drawSun();
+  }
+}
+
+public void manageSuns() {
+  // new sun every 15 seconds
+  if (frameCount % 15*60 == 0) {
+    sunArray.add(new Sun());
+  }
+  // kill collected suns
+  for (int i=0;i<sunArray.size();i++) {
+    if (sunArray.get(i).isCollected()) {
+      sunArray.remove(i);
+    }
+  }
+}
+
+public void managePlants() {
+  
+}
+
+public void manageZombies() {
   
 }

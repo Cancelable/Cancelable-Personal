@@ -9,11 +9,14 @@ public class Map {
     
     mapItself = new Tile[5][9]; // y,x (i think, double check)
     
-    for (int r=0;r<5;r++) {
-      for (int c=0;c<9;c++) {
-        mapItself[r][c] = new TileNormal(c,r);
+    if (mapType == DEFAULT_MAP) {
+      for (int r=0;r<5;r++) {
+        for (int c=0;c<9;c++) {
+          mapItself[r][c] = new TileNormal(c,r);
+        }
       }
     }
+    
   }
   
   public void drawMap() {
@@ -31,6 +34,10 @@ public class Map {
         }
       }
     }
+  }// end of function
+  
+  public String getTileTypeAt(int x, int y) {
+    return mapItself[y][x].getTileType();
   }
   
 }
