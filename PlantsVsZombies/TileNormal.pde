@@ -8,12 +8,16 @@ public class TileNormal extends Tile {
   
   private Plant myPlant;
   
-  public TileNormal(int colX, int rowY) {
+  public TileNormal(int colX, int rowY, Plant myPlant) {
     this.colX = colX;
     this.rowY = rowY;
-    
     xActual = TILE_WIDTH * colX;
     yActual = TILE_HEIGHT * rowY;
+    this.myPlant = myPlant;
+  }
+  
+  public TileNormal(int colX, int rowY) {
+    this(colX,rowY,null);
   }
   
   public int getColX() {
@@ -24,8 +28,20 @@ public class TileNormal extends Tile {
     return rowY;
   }
   
+  public int getActualX() {
+    return xActual;
+  }
+  
+  public int getActualY() {
+    return yActual;
+  }
+  
   public String getTileType() {
     return NORMAL_TILE;
+  }
+  
+  public Plant getPlant() {
+    return myPlant;
   }
   
   public void drawTile() {

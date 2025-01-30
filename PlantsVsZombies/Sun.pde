@@ -16,6 +16,10 @@ public class Sun { // class just deals with an INDIVIDUAL SUN
     collected = false;
   }
   
+  public Sun(int colX, int rowY) {
+    this(colX,rowY,0);
+  }
+  
   public Sun() {
     this((int)random(9),0,(int)random(REAL_HEIGHT/10,(REAL_HEIGHT*9)/10));
   }

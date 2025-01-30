@@ -2,9 +2,13 @@ public abstract class Plant {
   
   public Plant() {}
   
-  public abstract void execute();
-  
   public abstract String getPlantType();
+  
+  public abstract boolean shouldDie();
+  
+  public abstract void loseHealth(int amount);
+  
+  public abstract void execute();
   
   // general plant methods
   

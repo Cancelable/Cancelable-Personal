@@ -40,4 +40,18 @@ public class Map {
     return mapItself[y][x].getTileType();
   }
   
+  public void managePlants() {
+    for (int r=0;r<mapItself.length;r++) {
+      for (int c=0;c<mapItself[r].length;c++) {
+        if (mapItself[r][c].getPlant()!=null) {
+          mapItself[r][c].getPlant().execute();
+        }
+      }
+    }
+  }
+  
+  public Tile[][] getMapItself() {
+    return mapItself;
+  }
+  
 }

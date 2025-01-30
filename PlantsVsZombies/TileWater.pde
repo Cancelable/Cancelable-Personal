@@ -6,12 +6,18 @@ public class TileWater extends Tile {
   private int xActual;
   private int yActual;
   
-  public TileWater(int colX, int rowY) {
+  private Plant myPlant;
+  
+  public TileWater(int colX, int rowY, Plant myPlant) {
     this.colX = colX;
     this.rowY = rowY;
-    
     xActual = TILE_WIDTH * colX;
     yActual = TILE_HEIGHT * rowY;
+    this.myPlant = myPlant;
+  }
+  
+  public TileWater(int colX, int rowY) {
+    this(colX,rowY,null);
   }
   
   public int getColX() {
@@ -22,8 +28,20 @@ public class TileWater extends Tile {
     return rowY;
   }
   
+  public int getActualX() {
+    return xActual;
+  }
+  
+  public int getActualY() {
+    return yActual;
+  }
+  
   public String getTileType() {
     return WATER_TILE;
+  }
+  
+  public Plant getPlant() {
+    return myPlant;
   }
   
   public void drawTile() {
