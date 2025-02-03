@@ -37,7 +37,7 @@ public class Peashooter extends Plant {
   }
   
   public void shootPea() {
-    projectiles.add(new Projectile());
+    projectiles.add(new Projectile(colX*TILE_WIDTH,rowY*TILE_HEIGHT));
   }
   
   public void execute() {

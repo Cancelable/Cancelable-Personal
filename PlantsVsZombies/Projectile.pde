@@ -31,7 +31,7 @@ public class Projectile {
     return shouldDie;
   }
   
-  public void attackZombie() {
+  public void attackZombie() { // to use?
     
   }
   
