@@ -48,6 +48,7 @@ public class Map {
         }
       }
     }
+    killDeadPlants();
   }
   
   public Tile[][] getMapItself() {
