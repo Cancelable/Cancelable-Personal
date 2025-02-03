@@ -30,6 +30,12 @@ public class ZombieManager {
     }
   }
   
+  public void drawZombies() {
+    for (int i=0;i<zombiesArray.size();i++) {
+      zombiesArray.get(i).drawZombie();
+    }
+  }
+  
   public int getNumZombiesPerWave() {
     return numZombiesPerWave;
   }

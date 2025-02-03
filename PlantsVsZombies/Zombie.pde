@@ -53,7 +53,7 @@ public class Zombie {
     return health;
   }
   
-  public void drawZombie() {
+  public void drawZombie() { // not complete
     
   }
   
@@ -61,12 +61,7 @@ public class Zombie {
     if (frameCount%5==0) {
       actualX -= speed;
     }
-    // figure out what tile we're on
-    for (int i=0;i<tiles[rowY].length;i++) {
-      if (actualX > tiles[rowY][i].getActualX() && actualX <= tiles[rowY][i].getActualX() + TILE_WIDTH) {
-        colX = i;
-      }
-    }
+    findSetColX();
   }
   
   public void attackPlant(Tile[][] tiles) {
@@ -75,7 +70,7 @@ public class Zombie {
     }
   }
   
-  public void checkWhatTileIsOver() {
+  public void findSetColX() {
     if (actualX > REAL_WIDTH || actualX < 0) {
       colX = -1;
     } else {

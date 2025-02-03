@@ -43,6 +43,7 @@ public Map map;
 public ArrayList<Sun> sunArray;
 public ArrayList<Zombie> zombiesArray;
 public ArrayList<Projectile> projectiles;
+public ZombieManager zombieManager;
 
 // ---SETUP / DRAW---
 public void setup() {
@@ -91,6 +92,7 @@ public void initializeAsign() {
   mouseMode = DEFAULT_MOUSE_MODE;
   projectiles = new ArrayList<Projectile>();
   defaultZombie = loadImage("zombie.jpg");
+  zombieManager = new ZombieManager();
 }
 
 public void unpausedDraw() {
@@ -137,7 +139,7 @@ public void manageThePlants() {
 }
 
 public void manageZombies() {
-  
+  zombieManager.
 }
 
 public void manageProjectiles() {
