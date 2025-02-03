@@ -14,7 +14,7 @@ public class Zombie {
   public Zombie(int rowY, int actualX, String zombieType) {
     this.rowY = rowY;
     colX = -1;
-    actualY = rowY * TILE_HEIGHT;
+    actualY = rowY * TILE_HEIGHT; // on the top (lower y) edge of the square
     this.actualX = actualX;
     
     if (zombieType==DEFAULT_ZOMBIE) {
@@ -24,6 +24,10 @@ public class Zombie {
     }
     
   } // end of constructor
+  
+  public Zombie(int rowY) {
+    this(rowY,REAL_WIDTH + (int)random(TILE_WIDTH * 3),DEFAULT_ZOMBIE);
+  }
   
   public Zombie(String zombieType) {
     this((int)random(5),REAL_WIDTH + (int)random(TILE_WIDTH * 3),zombieType);
@@ -53,13 +57,15 @@ public class Zombie {
     return health;
   }
   
-  public void drawZombie() { // not complete
-    
+  // draws the zombie, not complete - right now they are red dots
+  public void drawZombie() {
+    fill(255,0,0);
+    circle(actualX,actualY + TILE_HEIGHT/2,TILE_WIDTH);
   }
   
   public void move(Tile[][] tiles) {
     if (frameCount%5==0) {
-      actualX -= speed;
+      actualX += speed;
     }
     findSetColX();
   }
@@ -71,7 +77,7 @@ public class Zombie {
   }
   
   public void findSetColX() {
-    if (actualX > REAL_WIDTH || actualX < 0) {
+    if (actualX >= REAL_WIDTH || actualX < 0) {
       colX = -1;
     } else {
       colX = (int) (actualX/TILE_WIDTH);
@@ -79,9 +85,10 @@ public class Zombie {
   }
   
   public void execute(Tile[][] tilesArray) {
-    if (frameCount % 2 == 0) {
-      move(tilesArray);
-    }
+    //if (frameCount % 2 == 0) {
+    //  move(tilesArray);
+    //}
+    move(tilesArray);
     if (frameCount%60==0&&getColX()!=-1) {
       attackPlant(tilesArray);
     }

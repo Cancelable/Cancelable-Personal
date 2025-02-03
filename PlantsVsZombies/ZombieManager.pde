@@ -3,14 +3,21 @@ public class ZombieManager {
   private int numZombiesPerWave;
   
   public ZombieManager() {
-    numZombiesPerWave = 0;
+    numZombiesPerWave = 1;
   }
   
   public void spawnZombie() { // spawns a zombie
     zombiesArray.add(new Zombie());
+    zombiesArray.add(new Zombie(0));
+    zombiesArray.add(new Zombie(1));
+    zombiesArray.add(new Zombie(2));
+    zombiesArray.add(new Zombie(3));
+    zombiesArray.add(new Zombie(4));
   }
   
   public void spawnZombieWave() {
+    System.out.println("spawned new zombie wave");
+    System.out.println("length of array" + zombiesArray.size());
     totalWaveCount++;
     for (int i=0;i<numZombiesPerWave;i++) {
       spawnZombie();
@@ -45,7 +52,8 @@ public class ZombieManager {
     if (shouldGetNewWave()) {
       spawnZombieWave();
     }
+    for (int i=0;i<zombiesArray.size();i++) {
+      zombiesArray.get(i).execute(map.getMapItself());
+    }
   }
-  
-  
 }

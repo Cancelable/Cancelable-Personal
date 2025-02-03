@@ -11,6 +11,7 @@ public final color DARKEST_GREEN = #88B874;
 public final color WATER_BLUE = #6FDAD9;
 public final color INSIDE_SUN = #FFE100;
 public final color OUTSIDE_SUN = #FFFF80;
+public final color UI_BACKGROUND_COLOR = #6e7c7d;
 // maps
 public final String DEFAULT_MAP = "default";
 // tiles
@@ -68,8 +69,15 @@ public void draw() {
 // ---KEYBOARD / MOUSE METHODS---
 
 void keyPressed() {
+  // reset
   if (key=='r') {
     setup();
+  }
+  // pause stuff
+  if (key == ' ' && !paused) {
+    paused=true;
+  } else if (key == ' ' && paused) {
+    paused = false;
   }
 }
 
@@ -111,6 +119,7 @@ public void animate() {
   map.drawMap();
   // draw plants
   // draw zombies
+  zombieManager.drawZombies();
   // draw sun
   for (int i=0;i<sunArray.size();i++) {
     sunArray.get(i).drawSun();
@@ -139,7 +148,7 @@ public void manageThePlants() {
 }
 
 public void manageZombies() {
-  zombieManager.
+  zombieManager.run();
 }
 
 public void manageProjectiles() {
@@ -147,5 +156,14 @@ public void manageProjectiles() {
 }
 
 public void drawUI() {
-  
+  // draw background dawg
+  fill(UI_BACKGROUND_COLOR);
+  beginShape();
+  vertex(0,REAL_HEIGHT);
+  vertex(0,height);
+  vertex(width,height);
+  vertex(width,0);
+  vertex(REAL_WIDTH,0);
+  vertex(REAL_WIDTH,REAL_HEIGHT);
+  endShape();
 }
