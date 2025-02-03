@@ -2,6 +2,12 @@ public abstract class Plant {
   
   public Plant() {}
   
+  // give each one int colX, colY
+  
+  public abstract int getPlantX();
+  
+  public abstract int getPlantY();
+  
   public abstract String getPlantType();
   
   public abstract boolean shouldDie();

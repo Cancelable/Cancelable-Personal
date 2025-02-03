@@ -16,6 +16,8 @@ public abstract class Tile {
   
   public abstract Plant getPlant();
   
+  public abstract void setPlant(Plant newPlant);
+  
   public abstract void drawTile();
   
   public abstract void drawTile(color cColor);

@@ -3,9 +3,22 @@ public class Peashooter extends Plant {
   private boolean shouldDie;
   private int health;
   
-  public Peashooter() {
+  private int colX;
+  private int rowY;
+  
+  public Peashooter(int colX, int rowY) {
     shouldDie = false;
     health = 25;
+    this.colX = colX;
+    this.rowY = rowY;
+  }
+  
+  public int getPlantX() {
+    return colX;
+  }
+  
+  public int getPlantY() {
+    return rowY;
   }
   
   public String getPlantType() {

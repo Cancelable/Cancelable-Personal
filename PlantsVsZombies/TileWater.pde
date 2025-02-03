@@ -15,8 +15,7 @@ public class TileWater extends Tile {
     yActual = TILE_HEIGHT * rowY;
     this.myPlant = myPlant;
   }
-  
-  public TileWater(int colX, int rowY) {
+  public TileWater(int colX, int rowY) { // MAIN CONSTRUCTOR
     this(colX,rowY,null);
   }
   
@@ -42,6 +41,10 @@ public class TileWater extends Tile {
   
   public Plant getPlant() {
     return myPlant;
+  }
+  
+  public void setPlant(Plant newPlant) {
+    myPlant = newPlant;
   }
   
   public void drawTile() {

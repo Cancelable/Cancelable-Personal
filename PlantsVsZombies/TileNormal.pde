@@ -16,7 +16,7 @@ public class TileNormal extends Tile {
     this.myPlant = myPlant;
   }
   
-  public TileNormal(int colX, int rowY) {
+  public TileNormal(int colX, int rowY) { // MAIN CONSTRUCTOR
     this(colX,rowY,null);
   }
   
@@ -42,6 +42,10 @@ public class TileNormal extends Tile {
   
   public Plant getPlant() {
     return myPlant;
+  }
+  
+  public void setPlant(Plant newPlant) {
+    myPlant = newPlant;
   }
   
   public void drawTile() {
