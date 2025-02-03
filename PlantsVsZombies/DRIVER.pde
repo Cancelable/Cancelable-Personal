@@ -35,6 +35,7 @@ public int coins;
 public int level;
 public boolean paused;
 public int totalZombieCount;
+public int totalWaveCount;
 // mouse mode
 public String mouseMode;
 // objects
@@ -86,6 +87,7 @@ public void initializeAsign() {
   sunArray = new ArrayList<Sun>();
   zombiesArray = new ArrayList<Zombie>();
   totalZombieCount = 0;
+  totalWaveCount = 0;
   mouseMode = DEFAULT_MOUSE_MODE;
   projectiles = new ArrayList<Projectile>();
   defaultZombie = loadImage("zombie.jpg");

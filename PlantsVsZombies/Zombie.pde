@@ -10,11 +10,12 @@ public class Zombie {
   private int actualX;
   private int actualY;
   
-  public Zombie(int colX, int rowY, String zombieType) {
-    this.colX = colX;
+  //public Zombie(int colX, int rowY, String zombieType) {
+  public Zombie(int rowY, int actualX, String zombieType) {
     this.rowY = rowY;
-    actualX = colX * TILE_WIDTH;
+    colX = -1;
     actualY = rowY * TILE_HEIGHT;
+    this.actualX = actualX;
     
     if (zombieType==DEFAULT_ZOMBIE) {
       health = 25;
@@ -23,6 +24,24 @@ public class Zombie {
     }
     
   } // end of constructor
+  
+  public Zombie(String zombieType) {
+    this((int)random(5),REAL_WIDTH + (int)random(TILE_WIDTH * 3),zombieType);
+  }
+  
+  public Zombie() { // default zombie
+    this(DEFAULT_ZOMBIE);
+  }
+  
+  public int getColX() {
+    return colX; // -1 is not on board
+  }
+  
+  public int getRowY() {
+    return rowY; // -1 is not on board
+  }
+  
+  public int
   
   public void drawZombie() {
     
@@ -46,11 +65,17 @@ public class Zombie {
     }
   }
   
+  private void checkWhatTileIsOver() {
+    if (colX > REAL_WIDTH) {
+      
+    }
+  }
+  
   public void execute(Tile[][] tilesArray) {
     if (frameCount % 2 == 0) {
       move(tilesArray);
     }
-    if (frameCount % 60 == 0) {
+    if (frameCount%60==0&&getColX()!=-1) {
       attackPlant(tilesArray);
     }
   }
