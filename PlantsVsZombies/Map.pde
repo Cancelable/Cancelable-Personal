@@ -59,7 +59,7 @@ public class Map {
       for (int c=0;c<mapItself[r].length;c++) {
         if (mapItself[r][c].getPlant()!=null) { // if plant not already null
           if (mapItself[r][c].getPlant().shouldDie()) { // if plant should die
-            mapItself[r][c].getPlant() = null; // set plant to null
+            mapItself[r][c].setPlant(null); // set plant to null
           }
         }
       }
