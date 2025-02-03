@@ -40,8 +40,10 @@ public class Peashooter extends Plant {
     projectiles.add(new Projectile(colX*TILE_WIDTH,rowY*TILE_HEIGHT));
   }
   
-  public void execute() {
-    
+  public void execute() { // not just one cycle, periodically called
+    if (frameCount%60==0) {
+      shootPea();
+    }
   }
   
 }
