@@ -41,7 +41,17 @@ public class Zombie {
     return rowY; // -1 is not on board
   }
   
-  public int
+  public int getActualX() {
+    return actualX;
+  }
+  
+  public int getActualY() {
+    return actualY;
+  }
+  
+  public int getHealth() {
+    return health;
+  }
   
   public void drawZombie() {
     
@@ -65,9 +75,11 @@ public class Zombie {
     }
   }
   
-  private void checkWhatTileIsOver() {
-    if (colX > REAL_WIDTH) {
-      
+  public void checkWhatTileIsOver() {
+    if (actualX > REAL_WIDTH || actualX < 0) {
+      colX = -1;
+    } else {
+      colX = (int) (actualX/TILE_WIDTH);
     }
   }
   
