@@ -51,6 +51,9 @@ public class UI {
     // draw shovel:
     // handle
     fill(#964B00); // BROWN
+    rect(REAL_WIDTH+73/*idk if 60 CHECK LATER*/,165,57,10);
+    // silver front
+    // back spot thing
   }
   
   //
