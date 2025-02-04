@@ -84,9 +84,10 @@ void keyPressed() {
 
 void mousePressed() {
   if (!paused) {
-    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
-      map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
-    }
+    ui.mousePressedUI();
+    //if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
+    //  map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
+    //}
   }
 }
 

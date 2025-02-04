@@ -1,7 +1,9 @@
 public class UI {
   
+  private int pageNum; // page number that you're on looking through almacen
+  
   public UI() {
-    // nothing lol
+    pageNum = 0; // 0 is page 1
   }
   
   private void drawUIBackground() {
@@ -41,6 +43,8 @@ public class UI {
     text(money,REAL_WIDTH+90,120);
   }
   
+  //
+  
   // ---METHODS THAT ARE IMPORTANT---
   
   // draws all the UI stuff
@@ -49,8 +53,18 @@ public class UI {
     drawValueDisplay();
   }
   
-  public void mousePressedUI() {
-    
+  public void mousePressedUI() { // when you click that is the singular event in which it's running
+    // collect sun
+    for (int i=0;i<sunArray.size();i++) {
+      int sW = (2*TILE_WIDTH)/3;
+      // if mouse coords within range of sun
+      if ((mouseX>sunArray.get(i).getActualX()-sW)
+      &&(mouseX<sunArray.get(i).getActualX()+sW)
+      &&(mouseY>sunArray.get(i).getActualY()-sW)
+      &&(mouseY<sunArray.get(i).getActualY()+sW)) {
+        sunArray.get(i).collect();
+      }
+    }
   }
   
 }
