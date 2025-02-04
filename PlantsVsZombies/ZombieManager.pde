@@ -3,11 +3,12 @@ public class ZombieManager {
   private int numZombiesPerWave;
   
   public ZombieManager() {
-    numZombiesPerWave = 1;
+    numZombiesPerWave = 1; // keep as 1 so that initial wave can spawn
   }
   
   public void spawnZombie() { // spawns a zombie
-    zombiesArray.add(new Zombie());
+    zombiesArray.add(new Zombie()); // permanent
+    // temps:
     zombiesArray.add(new Zombie(0));
     zombiesArray.add(new Zombie(1));
     zombiesArray.add(new Zombie(2));
@@ -47,6 +48,14 @@ public class ZombieManager {
     return numZombiesPerWave;
   }
   
+  public void killDeadZombies() {
+    for (int i=0;i<zombiesArray.size();i++) {
+      if (zombiesArray.get(i).getHealth() <= 0) {
+        zombiesArray.remove(i);
+      }
+    }
+  }
+  
   // run as periodic
   public void run() {
     if (shouldGetNewWave()) {
@@ -55,5 +64,7 @@ public class ZombieManager {
     for (int i=0;i<zombiesArray.size();i++) {
       zombiesArray.get(i).execute(map.getMapItself());
     }
+    killDeadZombies();
   }
+  
 }

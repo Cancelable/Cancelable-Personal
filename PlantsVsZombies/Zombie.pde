@@ -70,6 +70,10 @@ public class Zombie {
     findSetColX();
   }
   
+  public void takeDamage(int dmg) {
+    health -= dmg;
+  }
+  
   public void attackPlant(Tile[][] tiles) {
     if (tiles[rowY][colX].getPlant()!=null) {
       tiles[rowY][colX].getPlant().loseHealth(damage);

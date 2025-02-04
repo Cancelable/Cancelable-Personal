@@ -152,7 +152,9 @@ public void manageZombies() {
 }
 
 public void manageProjectiles() {
-  
+  for (int i=0;i<projectiles.size();i++) {
+    
+  }
 }
 
 public void drawUI() {
