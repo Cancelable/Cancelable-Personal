@@ -43,6 +43,16 @@ public class UI {
     text(money,REAL_WIDTH+90,120);
   }
   
+  private void drawShovelAndIcon() {
+    // draw box behind
+    fill(UI_BACKGROUND_COLOR);
+    if (mouseMode==SHOVEL_MOUSE_MODE) {fill(LIGHTER_UI_BACKGROUND_COLOR);}
+    rect(REAL_WIDTH+30,145,125,50);
+    // draw shovel:
+    // handle
+    fill(#964B00); // BROWN
+  }
+  
   //
   
   // ---METHODS THAT ARE IMPORTANT---
@@ -51,10 +61,12 @@ public class UI {
   public void drawUI() {
     drawUIBackground();
     drawValueDisplay();
+    drawShovelAndIcon();
   }
   
   // one cycle of mousePressed when not paused
   public void mousePressedUI() {
+    
     // collect sun
     if (mouseMode==DEFAULT_MOUSE_MODE) {
       for (int i=0;i<sunArray.size();i++) {
@@ -67,7 +79,15 @@ public class UI {
           sunArray.get(i).collect();
         }
       }
+    }//collect sun
+    
+    // pick the shovel
+    if (true) {
+      
     }
+    
+    // stuff
+    
   }
   
 }

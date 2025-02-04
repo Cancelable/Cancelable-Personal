@@ -41,13 +41,24 @@ public class Peashooter extends Plant {
     circle(colX * TILE_WIDTH + TILE_WIDTH/2,rowY * TILE_HEIGHT + TILE_HEIGHT/2, TILE_WIDTH/2);
   }
   
+  private boolean isZombieInRow() {
+    for (int i=0;i<zombiesArray.size();i++) {
+      if (zombiesArray.get(i).getRowY()==rowY) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public void shootPea() {
-    projectiles.add(new Projectile(colX*TILE_WIDTH,rowY*TILE_HEIGHT));
+    if (isZombieInRow()) {
+      projectiles.add(new Projectile(colX*TILE_WIDTH,rowY*TILE_HEIGHT));
+    }
   }
   
   public void execute() { // not just one cycle, periodically called
     // time between shooting of every pea 
-    if (frameCount%60*2==0) {
+    if (frameCount%(60*2)==0) {
       shootPea();
     }
   }

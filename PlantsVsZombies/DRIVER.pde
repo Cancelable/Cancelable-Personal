@@ -12,6 +12,7 @@ public final color WATER_BLUE = #6FDAD9;
 public final color INSIDE_SUN = #FFE100;
 public final color OUTSIDE_SUN = #FFFF80;
 public final color UI_BACKGROUND_COLOR = #6e7c7d;
+public final color LIGHTER_UI_BACKGROUND_COLOR = #98a3a2;
 // maps
 public final String DEFAULT_MAP = "default";
 // tiles
@@ -19,7 +20,7 @@ public final String NORMAL_TILE = "normal tile";
 public final String WATER_TILE = "water tile";
 // mouse mode
 public final String DEFAULT_MOUSE_MODE = "default mouse mode";
-public final String SHOVEL_MOUSE_MOPDE = "shovel mouse mode";
+public final String SHOVEL_MOUSE_MODE = "shovel mouse mode";
 // plants
 public final String PEASHOOTER = "pea shooter";
 public final String SUNFLOWER = "sun flower";
@@ -85,9 +86,9 @@ void keyPressed() {
 void mousePressed() {
   if (!paused) {
     ui.mousePressedUI();
-    //if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
-    //  map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
-    //}
+    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
+      map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
+    }
   }
 }
 
@@ -140,8 +141,8 @@ public void animate() {
 }
 
 public void manageSuns() {
-  // new sun every 8 seconds
-  if (frameCount % (8*60) == 0) {
+  // new sun every 10 seconds
+  if (frameCount % (10*60) == 0) {
     sunArray.add(new Sun());
   }
   for (int i=0;i<sunArray.size();i++) {
