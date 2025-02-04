@@ -46,7 +46,8 @@ public class Peashooter extends Plant {
   }
   
   public void execute() { // not just one cycle, periodically called
-    if (frameCount%60==0) {
+    // time between shooting of every pea 
+    if (frameCount%60*2==0) {
       shootPea();
     }
   }

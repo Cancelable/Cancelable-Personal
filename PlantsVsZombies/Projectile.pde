@@ -32,6 +32,9 @@ public class Projectile {
   public void moveProjectile() {
     xActual += speedX;
     yActual += speedY;
+    if (xActual>REAL_WIDTH||xActual<0||yActual<0||yActual>REAL_HEIGHT) {
+      shouldDie = true;
+    }
   }
   
   public boolean getShouldDie() {
@@ -45,7 +48,7 @@ public class Projectile {
   
   public void attackZombie() {
     for (int i=0;i<zombiesArray.size();i++) {
-      System.out.println("ran attackZombie");
+      //System.out.println("ran attackZombie");
       if (zombiesArray.get(i).getRowY()==rowY
       &&zombiesArray.get(i).getActualX()>xActual-projectileWidth
       &&zombiesArray.get(i).getActualX()<xActual+projectileWidth) {

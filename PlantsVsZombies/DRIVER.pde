@@ -45,6 +45,7 @@ public ArrayList<Sun> sunArray;
 public ArrayList<Zombie> zombiesArray;
 public ArrayList<Projectile> projectiles;
 public ZombieManager zombieManager;
+public UI ui;
 
 // ---SETUP / DRAW---
 public void setup() {
@@ -83,9 +84,9 @@ void keyPressed() {
 
 void mousePressed() {
   if (!paused) {
-    /*if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
+    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
       map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
-    }*/
+    }
   }
 }
 
@@ -105,6 +106,7 @@ public void initializeAsign() {
   projectiles = new ArrayList<Projectile>();
   defaultZombie = loadImage("zombie.jpg");
   zombieManager = new ZombieManager();
+  ui = new UI();
 }
 
 public void unpausedDraw() {
@@ -133,7 +135,7 @@ public void animate() {
     sunArray.get(i).drawSun();
   }
   // draw ui
-  drawUI();
+  ui.drawUI();
 }
 
 public void manageSuns() {
@@ -167,17 +169,4 @@ public void manageProjectiles() {
       projectiles.remove(i);
     }
   }
-}
-
-public void drawUI() {
-  // draw background dawg
-  fill(UI_BACKGROUND_COLOR);
-  beginShape();
-  vertex(0,REAL_HEIGHT);
-  vertex(0,height);
-  vertex(width,height);
-  vertex(width,0);
-  vertex(REAL_WIDTH,0);
-  vertex(REAL_WIDTH,REAL_HEIGHT);
-  endShape();
 }
