@@ -45,6 +45,7 @@ public class Projectile {
   
   public void attackZombie() {
     for (int i=0;i<zombiesArray.size();i++) {
+      System.out.println("ran attackZombie");
       if (zombiesArray.get(i).getRowY()==rowY
       &&zombiesArray.get(i).getActualX()>xActual-projectileWidth
       &&zombiesArray.get(i).getActualX()<xActual+projectileWidth) {

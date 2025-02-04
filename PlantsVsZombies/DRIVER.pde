@@ -83,9 +83,9 @@ void keyPressed() {
 
 void mousePressed() {
   if (!paused) {
-    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
+    /*if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
       map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
-    }
+    }*/
   }
 }
 
@@ -162,6 +162,7 @@ public void manageZombies() {
 public void manageProjectiles() {
   for (int i=0;i<projectiles.size();i++) {
     projectiles.get(i).moveProjectile();
+    projectiles.get(i).attackZombie();
     if (projectiles.get(i).getShouldDie()) {
       projectiles.remove(i);
     }
