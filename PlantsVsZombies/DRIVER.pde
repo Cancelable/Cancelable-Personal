@@ -32,7 +32,7 @@ PImage defaultZombie;
 // ---VAR DECLARATION---
 // values
 public int sunValue; // make game start at 50 though
-public int coins;
+public int money;
 public int level;
 public boolean paused;
 public int totalZombieCount;
@@ -93,8 +93,8 @@ void mousePressed() {
 // ---OTHER METHODS---
 
 public void initializeAsign() {
-  sunValue = 50;
-  coins = 0;
+  sunValue = 25;
+  money = 0;
   level = 1;
   paused = false;
   map = new Map(DEFAULT_MAP);
@@ -118,7 +118,7 @@ public void unpausedDraw() {
 }
 
 public void pausedDraw() {
-  
+  //println(projectiles.size()); maxes out about 305
 }
 
 public void animate() {

@@ -17,6 +17,7 @@ public class ZombieManager {
   }
   
   public void spawnZombieWave() {
+    //money += 5; // 5 new coins every new wave
     //System.out.println("spawned new zombie wave");
     //System.out.println("length of array" + zombiesArray.size());
     totalWaveCount++;
@@ -51,6 +52,7 @@ public class ZombieManager {
   public void killDeadZombies() {
     for (int i=0;i<zombiesArray.size();i++) {
       if (zombiesArray.get(i).getHealth() <= 0) {
+        money++; // 1 more money for every zombie killed
         zombiesArray.remove(i);
       }
     }
