@@ -9,11 +9,14 @@ public class ZombieManager {
   public void spawnZombie() { // spawns a zombie
     zombiesArray.add(new Zombie()); // permanent
     // temps:
-    zombiesArray.add(new Zombie(0));
-    zombiesArray.add(new Zombie(1));
-    zombiesArray.add(new Zombie(2));
-    zombiesArray.add(new Zombie(3));
-    zombiesArray.add(new Zombie(4));
+    /*
+    * FOR TESTING
+    * zombiesArray.add(new Zombie(0));
+    * zombiesArray.add(new Zombie(1));
+    * zombiesArray.add(new Zombie(2));
+    * zombiesArray.add(new Zombie(3));
+    * zombiesArray.add(new Zombie(4));
+    */
   }
   
   public void spawnZombieWave() {
