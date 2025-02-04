@@ -38,7 +38,7 @@ public boolean paused;
 public int totalZombieCount;
 public int totalWaveCount;
 // mouse mode
-public String mouseMode;
+public String mouseMode; // mode / action that mouse is in
 // objects
 public Map map;
 public ArrayList<Sun> sunArray;

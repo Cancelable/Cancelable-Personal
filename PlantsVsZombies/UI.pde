@@ -53,16 +53,19 @@ public class UI {
     drawValueDisplay();
   }
   
-  public void mousePressedUI() { // when you click that is the singular event in which it's running
+  // one cycle of mousePressed when not paused
+  public void mousePressedUI() {
     // collect sun
-    for (int i=0;i<sunArray.size();i++) {
-      int sW = (2*TILE_WIDTH)/3;
-      // if mouse coords within range of sun
-      if ((mouseX>sunArray.get(i).getActualX()-sW)
-      &&(mouseX<sunArray.get(i).getActualX()+sW)
-      &&(mouseY>sunArray.get(i).getActualY()-sW)
-      &&(mouseY<sunArray.get(i).getActualY()+sW)) {
-        sunArray.get(i).collect();
+    if (mouseMode==DEFAULT_MOUSE_MODE) {
+      for (int i=0;i<sunArray.size();i++) {
+        int sW = (2*TILE_WIDTH)/3;
+        // if mouse coords within range of sun
+        if ((mouseX>sunArray.get(i).getActualX()-sW)
+        &&(mouseX<sunArray.get(i).getActualX()+sW)
+        &&(mouseY>sunArray.get(i).getActualY()-sW)
+        &&(mouseY<sunArray.get(i).getActualY()+sW)) {
+          sunArray.get(i).collect();
+        }
       }
     }
   }
