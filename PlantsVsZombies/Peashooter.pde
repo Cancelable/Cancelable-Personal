@@ -38,7 +38,7 @@ public class Peashooter extends Plant {
   
   public void drawPlant() {
     fill(255,0,100); // no idea what color - temp
-    
+    circle(colX * TILE_WIDTH + TILE_WIDTH/2,rowY * TILE_HEIGHT + TILE_HEIGHT/2, TILE_WIDTH/2);
   }
   
   public void shootPea() {

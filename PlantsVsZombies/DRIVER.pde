@@ -82,7 +82,11 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  
+  if (!paused) {
+    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&mouseY<REAL_HEIGHT) {
+      map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
+    }
+  }
 }
 
 // ---OTHER METHODS---
@@ -107,6 +111,7 @@ public void unpausedDraw() {
   animate();
   manageSuns();
   manageThePlants();
+  manageProjectiles();
   manageZombies();
 }
 
@@ -116,10 +121,13 @@ public void pausedDraw() {
 
 public void animate() {
   // draw map
-  map.drawMap();
-  // draw plants --- IGNORE THIS LINE - PLANTS ARE DRAWN AS PART OF THE MAP
+  map.drawMap(); // draws grid and plants
   // draw zombies
   zombieManager.drawZombies();
+  // draw projectiles
+  for (int i=0;i<projectiles.size();i++) {
+    projectiles.get(i).drawProjectile();
+  }
   // draw sun
   for (int i=0;i<sunArray.size();i++) {
     sunArray.get(i).drawSun();
@@ -153,6 +161,7 @@ public void manageZombies() {
 
 public void manageProjectiles() {
   for (int i=0;i<projectiles.size();i++) {
+    projectiles.get(i).moveProjectile();
     if (projectiles.get(i).getShouldDie()) {
       projectiles.remove(i);
     }

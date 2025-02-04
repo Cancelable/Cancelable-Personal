@@ -10,6 +10,7 @@ public class Projectile {
   private int projectileWidth;
   
   public Projectile(int xActual, int yActual, int speedX, int speedY, int damage) {
+    //println("spawned projectile");
     this.xActual = xActual;
     this.yActual = yActual;
     rowY = yActual/TILE_HEIGHT;
@@ -39,10 +40,10 @@ public class Projectile {
   
   public void drawProjectile() {
     fill(0,255,255); // yellow - temp
-    circle(xActual,yActual,projectileWidth);
+    circle(xActual,yActual + TILE_HEIGHT/2,projectileWidth);
   }
   
-  public void attackZombie() { // to use?
+  public void attackZombie() {
     for (int i=0;i<zombiesArray.size();i++) {
       if (zombiesArray.get(i).getRowY()==rowY
       &&zombiesArray.get(i).getActualX()>xActual-projectileWidth

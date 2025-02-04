@@ -17,8 +17,8 @@ public class ZombieManager {
   }
   
   public void spawnZombieWave() {
-    System.out.println("spawned new zombie wave");
-    System.out.println("length of array" + zombiesArray.size());
+    //System.out.println("spawned new zombie wave");
+    //System.out.println("length of array" + zombiesArray.size());
     totalWaveCount++;
     for (int i=0;i<numZombiesPerWave;i++) {
       spawnZombie();
