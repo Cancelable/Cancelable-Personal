@@ -117,7 +117,7 @@ public void pausedDraw() {
 public void animate() {
   // draw map
   map.drawMap();
-  // draw plants
+  // draw plants --- IGNORE THIS LINE - PLANTS ARE DRAWN AS PART OF THE MAP
   // draw zombies
   zombieManager.drawZombies();
   // draw sun
@@ -153,7 +153,9 @@ public void manageZombies() {
 
 public void manageProjectiles() {
   for (int i=0;i<projectiles.size();i++) {
-    
+    if (projectiles.get(i).getShouldDie()) {
+      projectiles.remove(i);
+    }
   }
 }
 

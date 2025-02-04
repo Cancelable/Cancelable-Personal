@@ -32,6 +32,10 @@ public class Map {
         if (mapItself[r][c].getTileType()==WATER_TILE) {
           mapItself[r][c].drawTile();
         }
+        // draw plants
+        if (mapItself[r][c].getPlant()!=null) {
+          mapItself[r][c].getPlant().drawPlant();
+        }
       }
     }
   }// end of function

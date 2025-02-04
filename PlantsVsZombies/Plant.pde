@@ -14,6 +14,8 @@ public abstract class Plant {
   
   public abstract void loseHealth(int amount);
   
+  public abstract void drawPlant();
+  
   public abstract void execute();
   
   // general plant methods

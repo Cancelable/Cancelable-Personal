@@ -36,6 +36,11 @@ public class Peashooter extends Plant {
     }
   }
   
+  public void drawPlant() {
+    fill(255,0,100); // no idea what color - temp
+    
+  }
+  
   public void shootPea() {
     projectiles.add(new Projectile(colX*TILE_WIDTH,rowY*TILE_HEIGHT));
   }
