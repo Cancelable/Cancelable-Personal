@@ -154,7 +154,7 @@ public class UI {
       }//first page
     }
     // SECOND BOX
-    if (true) {
+    if () {
       // first page
       if (pageNum==0) {
         if (mouseMode!=SUNFLOWER) {
