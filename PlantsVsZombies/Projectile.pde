@@ -10,7 +10,6 @@ public class Projectile {
   private int projectileWidth;
   
   public Projectile(int xActual, int yActual, int speedX, int speedY, int damage) {
-    //println("spawned projectile");
     this.xActual = xActual;
     this.yActual = yActual;
     rowY = yActual/TILE_HEIGHT;
@@ -26,7 +25,7 @@ public class Projectile {
   }
   
   public Projectile(int xActual, int yActual) { // sends min damage (peashooter)
-    this(xActual,yActual,1,0,5);
+    this(xActual,yActual,2,0,5);
   }
   
   public void moveProjectile() {
@@ -48,7 +47,6 @@ public class Projectile {
   
   public void attackZombie() {
     for (int i=0;i<zombiesArray.size();i++) {
-      //System.out.println("ran attackZombie");
       if (zombiesArray.get(i).getRowY()==rowY
       &&zombiesArray.get(i).getActualX()>xActual-projectileWidth
       &&zombiesArray.get(i).getActualX()<xActual+projectileWidth) {

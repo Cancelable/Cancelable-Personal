@@ -92,7 +92,7 @@ void mousePressed() {
 // ---OTHER METHODS---
 
 public void initializeAsign() {
-  sunValue = 25;
+  sunValue = 100; // should be 25 - set other for testing
   money = 0;
   level = 1;
   paused = false;
