@@ -61,7 +61,11 @@ public class UI {
     // make boxes
     for (int i=0;i<3;i++) {
       fill(UI_BACKGROUND_COLOR);
-      if (pageNum==0&&i==0&&mouseMode==PEASHOOTER) {fill(LIGHTER_UI_BACKGROUND_COLOR);}
+      // ***
+      // ADD FOR EACH PLANT
+      // ***
+      if (pageNum==0&&i==0&&mouseMode==PEASHOOTER) {fill(LIGHTER_UI_BACKGROUND_COLOR);} // peashooter
+      if (pageNum==0&&i==1&&mouseMode==SUNFLOWER) {fill(LIGHTER_UI_BACKGROUND_COLOR);} // sunflower
       rect(45+i*3*TILE_WIDTH,REAL_HEIGHT+20,150,55);
     }
     // box 1(leftmost): topleft(45,REAL_HEIGHT+20) , bottomright(45+150,REAL_HEIGHT+20+55)
@@ -69,11 +73,14 @@ public class UI {
     // box 3 (rightmost): topleft(45+2*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+2*3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
     
     // put the text name
+    // ***
+    // ADD HERE FOR EACH PLANT
+    // ***
     fill(255);
     textSize(21);
     if (pageNum==0) {
-      text("PeaShooter(100)",47,REAL_HEIGHT+55);
-      // sunflower
+      text("Peashooter(100)",47,REAL_HEIGHT+55); // peashooter
+      text("Sunflower(50)",300,REAL_HEIGHT+55); // sunflower
       // whatever tf
     }
   }
@@ -131,7 +138,10 @@ public class UI {
       // box 2(middle): topleft(45+1*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
       // box 3 (rightmost): topleft(45+2*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+2*3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
       
-    // if click first box
+    // ***
+    // ADD HERE FOR EACH PLANT
+    // ***
+    // FIRST BOX
     if (mouseX>45&&mouseX<45+150&&mouseY>REAL_HEIGHT+20&&mouseY<REAL_HEIGHT+20+55) {
       // first page
       if (pageNum==0) {
@@ -143,14 +153,18 @@ public class UI {
         }
       }//first page
     }
-    // if click second box
+    // SECOND BOX
     if (true) {
       // first page
       if (pageNum==0) {
-        
+        if (mouseMode!=SUNFLOWER) {
+          mouseMode = SUNFLOWER;
+        } else {
+          mouseMode = DEFAULT_MOUSE_MODE;
+        }
       }
     }
-    // if click third box
+    // THIRD BOX
     if (true) {
       // first page
       if (pageNum==0) {
@@ -158,16 +172,24 @@ public class UI {
       }
     }
     
+    // ***
+    // ADD HERE FOR EACH PLANT
+    // ***
     // place plants
     if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&
     mouseY<REAL_HEIGHT&&map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()==null) {// (if no plants and within map)
       
       // place peashooter
       if (mouseMode==PEASHOOTER && sunValue>=100) {
-        map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
+        map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT)); // peashooter
         sunValue-=100;
       }
       
+      // place sunflower
+      if (mouseMode==SUNFLOWER && sunValue>=50) {
+        map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Sunflower(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT)); // sunflower
+        sunValue-=50;
+      }
       
       
     }//place plants
