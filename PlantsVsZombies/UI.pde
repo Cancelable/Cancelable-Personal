@@ -85,16 +85,25 @@ public class UI {
       }
     }//collect sun
     
-    // if using shovel
+    // using shovel
     if (mouseMode==SHOVEL_MOUSE_MODE) {
       if (mouseX<REAL_WIDTH&&mouseX>0&&mouseY<REAL_HEIGHT&&mouseY>0) {
         if (map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()!=null) {
           map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(null);
         }
       }
-    }
+    }//using shovel
     
-    // stuff
+    // click/unclick shovel
+    if (mouseX>REAL_WIDTH+30&&mouseY>145&&mouseX<REAL_WIDTH+30+125&&mouseY<145+50) {
+      if (mouseMode == SHOVEL_MOUSE_MODE) {
+        println("top");
+        mouseMode = DEFAULT_MOUSE_MODE;
+      } else {
+        println("bottom");
+        mouseMode = SHOVEL_MOUSE_MODE;
+      }
+    }
     
   }
   
