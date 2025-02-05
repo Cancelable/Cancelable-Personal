@@ -43,7 +43,8 @@ public class Peashooter extends Plant {
   
   private boolean isZombieInRow() {
     for (int i=0;i<zombiesArray.size();i++) {
-      if (zombiesArray.get(i).getRowY()==rowY) {
+      if (zombiesArray.get(i).getRowY()==rowY
+      &&zombiesArray.get(i).getActualX()<=REAL_WIDTH/*+TILE_WIDTH*/) {
         return true;
       }
     }

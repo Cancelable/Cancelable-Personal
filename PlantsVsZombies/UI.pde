@@ -52,8 +52,9 @@ public class UI {
     // handle
     fill(#964B00); // BROWN
     rect(REAL_WIDTH+73/*idk if 60 CHECK LATER*/,165,57,10);
-    // silver front
-    // back spot thing
+    // blade part of shovel
+    fill(WATER_BLUE);
+    arc(REAL_WIDTH+70, 165, 40, 40, 0, PI, CHORD);
   }
   
   //
@@ -84,9 +85,13 @@ public class UI {
       }
     }//collect sun
     
-    // pick the shovel
-    if (true) {
-      
+    // if using shovel
+    if (mouseMode==SHOVEL_MOUSE_MODE) {
+      if (mouseX<REAL_WIDTH&&mouseX>0&&mouseY<REAL_HEIGHT&&mouseY>0) {
+        if (map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()!=null) {
+          map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(null);
+        }
+      }
     }
     
     // stuff
