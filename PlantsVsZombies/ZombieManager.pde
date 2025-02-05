@@ -7,7 +7,13 @@ public class ZombieManager {
   }
   
   public void spawnZombie() { // spawns a zombie
-    zombiesArray.add(new Zombie()); // permanent
+    // first zombie
+    if (numZombiesPerWave==1) {
+      zombiesArray.add(new Zombie((int)random(5),REAL_WIDTH + TILE_WIDTH + (int)random(TILE_WIDTH * 3),DEFAULT_ZOMBIE));
+    // rest of cases
+    } else {
+      zombiesArray.add(new Zombie());
+    } // permanent
   }
   
   public void spawnZombieWave() {
