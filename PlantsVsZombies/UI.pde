@@ -57,6 +57,27 @@ public class UI {
     arc(REAL_WIDTH+70, 165, 40, 40, 0, PI, CHORD);
   }
   
+  private void drawPlantMenu() {
+    // make boxes
+    for (int i=0;i<3;i++) {
+      fill(UI_BACKGROUND_COLOR);
+      if (pageNum==0&&i==0&&mouseMode==PEASHOOTER) {fill(LIGHTER_UI_BACKGROUND_COLOR);}
+      rect(45+i*3*TILE_WIDTH,REAL_HEIGHT+20,150,55);
+    }
+    // box 1(leftmost): topleft(45,REAL_HEIGHT+20) , bottomright(45+150,REAL_HEIGHT+20+55)
+    // box 2(middle): topleft(45+1*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
+    // box 3 (rightmost): topleft(45+2*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+2*3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
+    
+    // put the text name
+    fill(255);
+    textSize(21);
+    if (pageNum==0) {
+      text("PeaShooter(100)",47,REAL_HEIGHT+55);
+      // sunflower
+      // whatever tf
+    }
+  }
+  
   //
   
   // ---METHODS THAT ARE IMPORTANT---
@@ -66,6 +87,7 @@ public class UI {
     drawUIBackground();
     drawValueDisplay();
     drawShovelAndIcon();
+    drawPlantMenu();
   }
   
   // one cycle of mousePressed when not paused
@@ -104,6 +126,52 @@ public class UI {
         mouseMode = SHOVEL_MOUSE_MODE;
       }
     }
+    
+    // set mouseMode to plants based off menu
+      // box 2(middle): topleft(45+1*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
+      // box 3 (rightmost): topleft(45+2*3*TILE_WIDTH,REAL_HEIGHT+20) , bottomright(45+2*3*TILE_WIDTH+150,REAL_HEIGHT+20+55)
+      
+    // if click first box
+    if (mouseX>45&&mouseX<45+150&&mouseY>REAL_HEIGHT+20&&mouseY<REAL_HEIGHT+20+55) {
+      // first page
+      if (pageNum==0) {
+        // if already selected it
+        if (mouseMode!=PEASHOOTER) {
+          mouseMode = PEASHOOTER;
+        } else {
+          mouseMode = DEFAULT_MOUSE_MODE;
+        }
+      }//first page
+    }
+    // if click second box
+    if (true) {
+      // first page
+      if (pageNum==0) {
+        
+      }
+    }
+    // if click third box
+    if (true) {
+      // first page
+      if (pageNum==0) {
+        
+      }
+    }
+    
+    // place plants
+    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&
+    mouseY<REAL_HEIGHT&&map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()==null) {// (if no plants and within map)
+      
+      // place peashooter
+      if (mouseMode==PEASHOOTER && sunValue>=100) {
+        map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT));
+        sunValue-=100;
+      }
+      
+      
+      
+    }//place plants
+    
     
   }
   

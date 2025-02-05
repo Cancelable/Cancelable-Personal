@@ -8,21 +8,9 @@ public class ZombieManager {
   
   public void spawnZombie() { // spawns a zombie
     zombiesArray.add(new Zombie()); // permanent
-    // temps:
-    /*
-    * FOR TESTING
-    * zombiesArray.add(new Zombie(0));
-    * zombiesArray.add(new Zombie(1));
-    * zombiesArray.add(new Zombie(2));
-    * zombiesArray.add(new Zombie(3));
-    * zombiesArray.add(new Zombie(4));
-    */
   }
   
   public void spawnZombieWave() {
-    //money += 5; // 5 new coins every new wave
-    //System.out.println("spawned new zombie wave");
-    //System.out.println("length of array" + zombiesArray.size());
     totalWaveCount++;
     for (int i=0;i<numZombiesPerWave;i++) {
       spawnZombie();
