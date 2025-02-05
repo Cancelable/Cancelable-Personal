@@ -154,7 +154,7 @@ public class UI {
       }//first page
     }
     // SECOND BOX
-    if () {
+    if (mouseX>45+3*TILE_WIDTH&&mouseY>REAL_HEIGHT+20&&mouseX<45+3*TILE_WIDTH+150&&mouseY<REAL_HEIGHT+20+55) {
       // first page
       if (pageNum==0) {
         if (mouseMode!=SUNFLOWER) {
