@@ -41,10 +41,9 @@ public class Sunflower extends Plant {
   }
   
   public void execute() {
-    int aX = colX * TILE_WIDTH + (int)random(TILE_WIDTH) * 3/2;
-    int aY = rowY * TILE_HEIGHT + (int)random(TILE_HEIGHT) * 3/2;
     if (frameCount%(60*10)==0) {
-      sunArray.add(new Sun(aX,aY));
+      //println("ran");
+      sunArray.add(new Sun(colX,rowY));
     }
   }
   
