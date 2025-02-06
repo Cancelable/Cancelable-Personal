@@ -12,7 +12,6 @@ public class Sunflower extends Plant {
     this.colX = colX;
     this.rowY = rowY;
     shouldDie = false;
-    //println("start" + frameCountStart / 60);
   }
   
   public int getPlantX() {
@@ -45,7 +44,6 @@ public class Sunflower extends Plant {
   
   public void execute() {
     if ((frameCount-frameCountStart)%(60*10)==0) {
-      //println("ran" + (frameCount/60));
       sunArray.add(new Sun(colX,rowY));
     }
   }

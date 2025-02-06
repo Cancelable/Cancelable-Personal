@@ -53,10 +53,6 @@ public void setup() {
   background(100);
   size(900,500);
   initializeAsign();
-  //fill(255,0,0);
-  //rect(0,0,REAL_WIDTH,REAL_HEIGHT);
-  //println(TILE_WIDTH + "width");
-  //println(TILE_HEIGHT + "height");
   frameRate(60);
 }
   

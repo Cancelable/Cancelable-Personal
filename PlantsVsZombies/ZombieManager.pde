@@ -22,6 +22,7 @@ public class ZombieManager {
       spawnZombie();
       totalZombieCount++;
     }
+    if (totalWaveCount>3) {numZombiesPerWave++;}
   }
   
   // decides if you need a new wave - ZOMBIE COUNT BASED

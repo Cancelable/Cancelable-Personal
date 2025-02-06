@@ -182,12 +182,14 @@ public class UI {
       // place peashooter
       if (mouseMode==PEASHOOTER && sunValue>=100) {
         map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Peashooter(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT)); // peashooter
+        mouseMode = DEFAULT_MOUSE_MODE;
         sunValue-=100;
       }
       
       // place sunflower
       if (mouseMode==SUNFLOWER && sunValue>=50) {
         map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(new Sunflower(mouseX/TILE_WIDTH,mouseY/TILE_HEIGHT)); // sunflower
+        mouseMode = DEFAULT_MOUSE_MODE;
         sunValue-=50;
       }
       
