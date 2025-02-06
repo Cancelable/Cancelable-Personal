@@ -30,6 +30,7 @@ public class ZombieManager {
     int numZombiesAlive = zombiesArray.size();
     if (numZombiesPerWave < 15 && numZombiesAlive <= 0) {
       return true; // true = needs new wave ; false = doesn't need new wave
+    // makes one more zombie per wave after certain
     } else if (numZombiesAlive < 3 + (numZombiesPerWave-15)) {
       return true;
     } else {
