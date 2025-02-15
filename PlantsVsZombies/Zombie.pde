@@ -10,6 +10,8 @@ public class Zombie {
   private int actualX;
   private int actualY;
   
+  private PImage zombiePic = loadImage("zombie.png"); //create the PImage object
+  
   //public Zombie(int colX, int rowY, String zombieType) {
   public Zombie(int rowY, int actualX, String zombieType) {
     this.rowY = rowY;
@@ -21,8 +23,9 @@ public class Zombie {
       health = 25;
       damage = 5;
       speed = -1;
+      zombiePic.resize(TILE_WIDTH, TILE_HEIGHT); //change the size (width, height)
     }
-    
+    zombiePic.resize(TILE_WIDTH, TILE_HEIGHT); //change the size (width, height)
   } // end of constructor
   
   public Zombie(int rowY) {
@@ -59,8 +62,9 @@ public class Zombie {
   
   // draws the zombie, not complete - right now they are red dots
   public void drawZombie() {
-    fill(255,0,0);
-    circle(actualX,actualY + TILE_HEIGHT/2,TILE_WIDTH);
+    //fill(255,0,0);
+    //circle(actualX,actualY + TILE_HEIGHT/2,TILE_WIDTH);
+    image(zombiePic, actualX, rowY*TILE_HEIGHT);
   }
   
   public void move(Tile[][] tiles) {

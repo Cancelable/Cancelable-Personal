@@ -6,11 +6,14 @@ public class Peashooter extends Plant {
   private int colX;
   private int rowY;
   
+  private PImage psPic = loadImage("monkey.png"); //create the PImage object
+  
   public Peashooter(int colX, int rowY) {
     shouldDie = false;
     health = 25;
     this.colX = colX;
     this.rowY = rowY;
+    psPic.resize(TILE_WIDTH, TILE_HEIGHT); //change the size (width, height)
   }
   
   public int getPlantX() {
@@ -37,8 +40,9 @@ public class Peashooter extends Plant {
   }
   
   public void drawPlant() {
-    fill(255,0,100); // no idea what color - temp
-    circle(colX * TILE_WIDTH + TILE_WIDTH/2,rowY * TILE_HEIGHT + TILE_HEIGHT/2, TILE_WIDTH/2);
+    //fill(255,0,100); // no idea what color - temp
+    //circle(colX * TILE_WIDTH + TILE_WIDTH/2,rowY * TILE_HEIGHT + TILE_HEIGHT/2, TILE_WIDTH/2);
+    image(psPic, colX*TILE_WIDTH, rowY*TILE_HEIGHT);
   }
   
   private boolean isZombieInRow() {
