@@ -80,7 +80,9 @@ void keyPressed() {
 }
 
 void mousePressed() {
+  // if unpaused
   if (!paused) {
+    // putting all the sun stuff because that means you can hold down to pick up sun
     ui.mousePressedUI();
   }
 }
