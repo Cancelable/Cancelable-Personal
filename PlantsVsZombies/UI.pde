@@ -99,23 +99,26 @@ public class UI {
   
   // one cycle of mousePressed when not paused
   public void mousePressedUI() {
-    
+    boolean hoveringOverSun = false;
     // collect sun
-    if (mouseMode==DEFAULT_MOUSE_MODE) {
+    //if (mouseMode==DEFAULT_MOUSE_MODE) {
+    if (true) {
       for (int i=0;i<sunArray.size();i++) {
-        int sW = (2*TILE_WIDTH)/3;
+        int sW = (2*TILE_WIDTH)/3; // sun width
         // if mouse coords within range of sun
         if ((mouseX>sunArray.get(i).getActualX()-sW)
         &&(mouseX<sunArray.get(i).getActualX()+sW)
         &&(mouseY>sunArray.get(i).getActualY()-sW)
         &&(mouseY<sunArray.get(i).getActualY()+sW)) {
+          // if clicked on a sun
+          hoveringOverSun = true;
           sunArray.get(i).collect();
         }
       }
     }//collect sun
     
     // using shovel
-    if (mouseMode==SHOVEL_MOUSE_MODE) {
+    if (mouseMode==SHOVEL_MOUSE_MODE && !hoveringOverSun) {
       if (mouseX<REAL_WIDTH&&mouseX>0&&mouseY<REAL_HEIGHT&&mouseY>0) {
         if (map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()!=null) {
           map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].setPlant(null);
@@ -175,8 +178,8 @@ public class UI {
     // ***
     // ADD HERE FOR EACH PLANT
     // ***
-    // place plants
-    if (mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&
+    // PLACE PLANTS
+    if (!hoveringOverSun&&mouseX>0&&mouseY>0&&mouseX<REAL_WIDTH&&
     mouseY<REAL_HEIGHT&&map.getMapItself()[mouseY/TILE_HEIGHT][mouseX/TILE_WIDTH].getPlant()==null) {// (if no plants and within map)
       
       // place peashooter
