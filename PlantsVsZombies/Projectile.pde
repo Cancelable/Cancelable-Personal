@@ -28,6 +28,10 @@ public class Projectile {
     this(xActual,yActual,2,0,5);
   }
   
+  public Projectile(String specialProjectileType) {
+    
+  }
+  
   public void moveProjectile() {
     xActual += speedX;
     yActual += speedY;

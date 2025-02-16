@@ -29,6 +29,8 @@ public final String DEFAULT_ZOMBIE = "default zombie";
 // images
 // PApplet
 public PApplet parent = this;
+// lawnmowers
+
 
 
 // ---VAR DECLARATION---
@@ -91,7 +93,7 @@ void mousePressed() {
 // ---OTHER METHODS---
 
 public void initializeAsign() {
-  sunValue = 100; // should be 25 - set other for testing
+  sunValue = 25; // should be 25 - set otherwise for testing
   money = 0;
   level = 1;
   paused = false;

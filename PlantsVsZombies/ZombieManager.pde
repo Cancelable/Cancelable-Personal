@@ -16,14 +16,15 @@ public class ZombieManager {
     } // permanent
   }
   
+  // expand on this
   public void spawnZombieWave() {
-    zombiesArray.add(new Zombie(3,600,DEFAULT_ZOMBIE)); // TEMPORARY ------
+    //zombiesArray.add(new Zombie(3,600,DEFAULT_ZOMBIE)); // TEMPORARY ------ FOR TESTING
     totalWaveCount++;
     for (int i=0;i<numZombiesPerWave;i++) {
       spawnZombie();
       totalZombieCount++;
     }
-    if (totalWaveCount>3) {numZombiesPerWave++;}
+    if (totalWaveCount>2) {numZombiesPerWave+=2;}
   }
   
   // decides if you need a new wave - ZOMBIE COUNT BASED
@@ -67,6 +68,8 @@ public class ZombieManager {
       zombiesArray.get(i).execute(map.getMapItself());
     }
     killDeadZombies();
+    println(zombiesArray.size() + "zombies");
+    println(projectiles.size() + "projectiles");
   }
   
 }

@@ -82,7 +82,10 @@ public class Zombie {
   
   public void attackPlant(Tile[][] tiles) {
     if (tiles[rowY][colX].getPlant()!=null) {
+      speed = 0;
       tiles[rowY][colX].getPlant().loseHealth(damage);
+    } else {
+      speed = -1;
     }
   }
   
@@ -95,9 +98,6 @@ public class Zombie {
   }
   
   public void execute(Tile[][] tilesArray) {
-    //if (frameCount % 2 == 0) {
-    //  move(tilesArray);
-    //}
     move(tilesArray);
     if (frameCount%60==0&&getColX()!=-1) {
       attackPlant(tilesArray);

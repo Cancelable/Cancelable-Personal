@@ -50,7 +50,7 @@ public class Sunflower extends Plant {
   }
   
   public void execute() {
-    if ((frameCount-frameCountStart)%(60*10)==0) {
+    if ((frameCount-frameCountStart)%(60*24)==0) {
       sunArray.add(new Sun(colX,rowY));
     }
   }
