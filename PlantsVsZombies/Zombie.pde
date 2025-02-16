@@ -25,8 +25,7 @@ public class Zombie {
       health = 25;
       damage = 5;
       speed = -1;
-      zombieGIF = new Gif(parent,"zombieGIF2.gif");
-      //zombieGIF.resize(TILE_WIDTH,TILE_HEIGHT); DON'T RESIZE
+      zombieGIF = new Gif(parent,"zombieGIF.gif");
       zombieGIF.loop();
     }
   } // end of constructor
