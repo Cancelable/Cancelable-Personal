@@ -12,7 +12,7 @@ public class Zombie {
   private int actualX;
   private int actualY;
   
-  Gif zombieGIF;
+  private Gif zombieGIF;
   
   //public Zombie(int colX, int rowY, String zombieType) {
   public Zombie(int rowY, int actualX, String zombieType) {

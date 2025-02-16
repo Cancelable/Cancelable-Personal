@@ -17,6 +17,7 @@ public class ZombieManager {
   }
   
   public void spawnZombieWave() {
+    zombiesArray.add(new Zombie(3,600,DEFAULT_ZOMBIE)); // TEMPORARY ------
     totalWaveCount++;
     for (int i=0;i<numZombiesPerWave;i++) {
       spawnZombie();
