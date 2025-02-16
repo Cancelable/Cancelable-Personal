@@ -1,3 +1,5 @@
+import gifAnimation.*;
+
 public class Zombie {
   
   private int health;
@@ -10,7 +12,7 @@ public class Zombie {
   private int actualX;
   private int actualY;
   
-  private PImage zombiePic = loadImage("zombie.png"); //create the PImage object
+  Gif zombieGIF;
   
   //public Zombie(int colX, int rowY, String zombieType) {
   public Zombie(int rowY, int actualX, String zombieType) {
@@ -23,9 +25,10 @@ public class Zombie {
       health = 25;
       damage = 5;
       speed = -1;
-      zombiePic.resize(TILE_WIDTH, TILE_HEIGHT); //change the size (width, height)
+      zombieGIF = new Gif(parent,"zombieGIF2.gif");
+      //zombieGIF.resize(TILE_WIDTH,TILE_HEIGHT);
+      zombieGIF.loop();
     }
-    zombiePic.resize(TILE_WIDTH, TILE_HEIGHT); //change the size (width, height)
   } // end of constructor
   
   public Zombie(int rowY) {
@@ -64,7 +67,7 @@ public class Zombie {
   public void drawZombie() {
     //fill(255,0,0);
     //circle(actualX,actualY + TILE_HEIGHT/2,TILE_WIDTH);
-    image(zombiePic, actualX, rowY*TILE_HEIGHT);
+    image(zombieGIF, actualX, rowY*TILE_HEIGHT);
   }
   
   public void move(Tile[][] tiles) {

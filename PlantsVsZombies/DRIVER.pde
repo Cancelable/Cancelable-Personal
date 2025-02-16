@@ -27,7 +27,8 @@ public final String SUNFLOWER = "sun flower";
 // zombies
 public final String DEFAULT_ZOMBIE = "default zombie";
 // images
-PImage defaultZombie;
+// PApplet
+public PApplet parent = this;
 
 
 // ---VAR DECLARATION---
@@ -101,7 +102,7 @@ public void initializeAsign() {
   totalWaveCount = 0;
   mouseMode = DEFAULT_MOUSE_MODE;
   projectiles = new ArrayList<Projectile>();
-  defaultZombie = loadImage("zombie.jpg");
+  //defaultZombie = loadImage("zombie.jpg");
   zombieManager = new ZombieManager();
   ui = new UI();
 }
