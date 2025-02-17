@@ -26,7 +26,6 @@ public class Zombie {
       damage = 5;
       speed = -1;
       zombieGIF = new Gif(parent,"zombieGIF.gif");
-      zombieGIF.loop();
     }
   } // end of constructor
   
@@ -62,11 +61,11 @@ public class Zombie {
     return health;
   }
   
-  // draws the zombie, not complete - right now they are red dots
   public void drawZombie() {
-    //fill(255,0,0);
-    //circle(actualX,actualY + TILE_HEIGHT/2,TILE_WIDTH);
-    image(zombieGIF, actualX, rowY*TILE_HEIGHT);
+    if ((actualX - TILE_WIDTH/2) <= REAL_WIDTH) {
+      zombieGIF.loop();
+      image(zombieGIF, actualX, rowY*TILE_HEIGHT);
+    }
   }
   
   public void move(Tile[][] tiles) {
