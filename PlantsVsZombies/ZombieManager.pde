@@ -68,9 +68,6 @@ public class ZombieManager {
       zombiesArray.get(i).execute(map.getMapItself());
     }
     killDeadZombies();
-    //println(zombiesArray.size() + "zombies");
-    //println(projectiles.size() + "projectiles");
-    //println(frameCount + "fps:time" + System.currentTimeMillis());
   }
   
 }

@@ -58,9 +58,9 @@ public void setup() {
   initializeAsign();
   frameRate(60);
   
-  for (int i=0;i<4000;i++) {
+  /*for (int i=0;i<4000;i++) {
     zombieManager.spawnZombie();
-  }
+  }*/
 }
   
 public void draw() {
