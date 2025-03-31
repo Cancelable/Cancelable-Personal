@@ -9,6 +9,9 @@ class Player {
   PImage sprite;
   color c;
   float distBulletSpawn;
+  float numMadeRecently;
+  float bulletLifeSpan;
+  String team;
 
   Player(float x, float y, float direction, String spritePath) {
     position = new PVector(x,y);
@@ -19,10 +22,13 @@ class Player {
     distBulletSpawn = 25;
     sprite = loadImage(spritePath);
     sprite.resize(25,25);
+    bulletLifeSpan = 0.5;
     if (x<width/2) {
       c = color(255,0,0);
+      team = RED;
     } else {
-     c = color(0,0,255); 
+     c = color(0,0,255);
+     team = BLUE;
     }
   }
   
@@ -43,7 +49,9 @@ class Player {
   }
 
   void createBullet(ArrayList<Bullet> b) {
-    b.add(new Bullet(position.x + distBulletSpawn*(cos(direction)),position.y + distBulletSpawn*(sin(direction)),cos(direction),sin(direction),damage,this,"bullet1.png"));
+    b.add(new Bullet(position.x + distBulletSpawn*(cos(direction)),
+    position.y + distBulletSpawn*(sin(direction)),cos(direction),sin(direction),damage,team,"bullet1.png",bulletLifeSpan));
+    bulletLifeSpan = 0.5;
   }
 
   void move(int xDirection, int yDirection,ArrayList<Rectangle> array) {

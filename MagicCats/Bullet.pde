@@ -3,19 +3,22 @@ class Bullet {
   PVector position;
   float angle; // radians
   PVector speed;
-  Player immune;
+  String team;
   int damage;
   float size;
   boolean shouldDie;
   PImage sprite;
   int bounces;
-    
-  Bullet(float x, float y, float xSpeed, float ySpeed, int damage, Player immune, String spritePath) {
+  float lifeTicks;
+  
+  Bullet(float x, float y, float xSpeed, float ySpeed, int damage, String team, String spritePath, float lifeSpan) {
     position = new PVector(x,y);
     speed = new PVector(xSpeed,ySpeed);
-    this.damage = damage;
+    this.damage = 1;
     this.angle = angle;
     size = 5;
+    this.team = team;
+    lifeTicks = frameRate*lifeSpan;println(lifeTicks);
     shouldDie = false;
     sprite = loadImage(spritePath);
     bounces = 5;    
@@ -34,7 +37,7 @@ class Bullet {
   }
   
   void drainPlayer(Player other) {
-    if (immune!=other) {
+    if (other!=null&&team!=other.team) {
       other.takeDamage(damage);
       //shouldDie = true;
     }

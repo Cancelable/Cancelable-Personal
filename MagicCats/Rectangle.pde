@@ -51,5 +51,15 @@ class Rectangle {
     }
     return new PVector(x,y);
   }
+  
+  PVector getNewBulletSpeed(float x, float y, float xSpeed, float ySpeed) {
+    if (isTouchingWall(x+xSpeed,y)) {
+        xSpeed = -xSpeed;
+    }
+    if (isTouchingWall(x,y+ySpeed)) {
+      ySpeed = -ySpeed;
+    }
+    return new PVector(xSpeed,ySpeed);
+  }
 
 }

@@ -11,6 +11,9 @@ final int KK = 17;
 final int KL = 18;
 final int KO = 19;
 final int KSPACE = 20;
+// teams
+final String RED = "red";
+final String BLUE = "blue";
 
 boolean paused;
 int timer;
@@ -118,20 +121,17 @@ void bulletManager() {
     // bullets
     // check if is on walls
     for (int w=0;w<walls.size();w++) {
-      //if (walls.get(w).isTouchingHorizontal((int)bullets.get(i).position.x,(int)bullets.get(i).position.y)) {
-      if (walls.get(w).isTouchingWall(bullets.get(i).position.x,bullets.get(i).position.y)) {
-        bullets.get(i).bounceX();
-      }
-      if (walls.get(w).isTouchingWall(bullets.get(i).position.x,bullets.get(i).position.y)) {
-        bullets.get(i).bounceY();
-      }
+      bullets.get(i).speed.x = walls.get(w).getNewBulletSpeed(bullets.get(i).position.x,
+      bullets.get(i).position.y,bullets.get(i).speed.x,bullets.get(i).speed.y).x;
+      bullets.get(i).speed.y = walls.get(w).getNewBulletSpeed(bullets.get(i).position.x,
+      bullets.get(i).position.y,bullets.get(i).speed.x,bullets.get(i).speed.y).y;
     }
     // hurt players
     if (p1.position.dist(bullets.get(i).position) < bullets.get(i).size) {
-      bullets.get(i).drainPlayer(p1);
+      bullets.get(i).drainPlayer(p1);println("drained p1");
     }
     if (p2.position.dist(bullets.get(i).position) < bullets.get(i).size) {
-      bullets.get(i).drainPlayer(p2);
+      bullets.get(i).drainPlayer(p2);println("drained p2");
     }
     if (bullets.get(i).position.x <= 0) {
       bullets.get(i).speed.x = -bullets.get(i).speed.x;
@@ -145,7 +145,8 @@ void bulletManager() {
     if (bullets.get(i).position.y >= height) {
       bullets.get(i).speed.y = -bullets.get(i).speed.y;
     }
-    
+    bullets.get(i).lifeTicks--;
+    if (bullets.get(i).lifeTicks<=0) {bullets.get(i).shouldDie=true;}
     // move
     bullets.get(i).move();
     
@@ -162,6 +163,8 @@ void playerManager() {
   p2.pDisplay();
   p1.turnDirection();
   p2.turnDirection();
+  p1.bulletLifeSpan+=0.1;
+  p2.bulletLifeSpan+=0.1;
   
 }
 
