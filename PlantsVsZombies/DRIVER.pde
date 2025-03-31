@@ -123,6 +123,7 @@ public void unpausedDraw() {
 
 public void pausedDraw() {
   //println(projectiles.size()); maxes out about 305
+  
 }
 
 public void animate() {
