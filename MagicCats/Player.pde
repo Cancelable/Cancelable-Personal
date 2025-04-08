@@ -50,7 +50,12 @@ class Player {
 
   void createBullet(ArrayList<Bullet> b) {
     b.add(new Bullet(position.x + distBulletSpawn*(cos(direction)),
-    position.y + distBulletSpawn*(sin(direction)),cos(direction),sin(direction),damage,team,"bullet1.png",bulletLifeSpan));
+                     position.y + distBulletSpawn*(sin(direction)),
+                     cos(direction),
+                     sin(direction),
+                     damage,
+                     team,
+                     bulletLifeSpan));
     bulletLifeSpan = 0.5;
   }
 

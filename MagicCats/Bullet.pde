@@ -1,7 +1,7 @@
 class Bullet {
   
   PVector position;
-  float angle; // radians
+  float angle; // radians // for image
   PVector speed;
   String team;
   int damage;
@@ -11,17 +11,19 @@ class Bullet {
   int bounces;
   float lifeTicks;
   
-  Bullet(float x, float y, float xSpeed, float ySpeed, int damage, String team, String spritePath, float lifeSpan) {
+  Bullet(float x, float y, float xSpeed, float ySpeed, int damage, String team, float lifeSpan) {
     position = new PVector(x,y);
     speed = new PVector(xSpeed,ySpeed);
     this.damage = 1;
     this.angle = angle;
     size = 5;
     this.team = team;
-    lifeTicks = frameRate*lifeSpan;println(lifeTicks);
+    lifeTicks = frameRate*lifeSpan;//println(lifeTicks);
     shouldDie = false;
-    sprite = loadImage(spritePath);
-    bounces = 5;    
+    //sprite = loadImage(spritePath);
+    //sprite = loadImage("bullet1.png");
+    sprite = null; // prevents lag
+    bounces = 5;
   }
   
   void bounceX() {
