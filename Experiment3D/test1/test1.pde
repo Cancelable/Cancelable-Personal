@@ -66,8 +66,8 @@ void drawCylinder(float topRadius, float bottomRadius, float tall, int sides) {
 float xmag, ymag = 0;
 float newXmag, newYmag = 0;
 
-float xT = 0;
-float yT = 0;
+PVector coordinates = new PVector(0,0,0); // player coords for translation
+float speed = 10; // speed of camera movement - likely to turn into different variables
  
 void setup()  { 
   size(640, 360, P3D); 
@@ -84,7 +84,7 @@ void draw()  {
   //newXmag = mouseX/float(width) * TWO_PI;
   //newYmag = mouseY/float(height) * TWO_PI;
   //translate(mouseX-(width/2),mouseY-(height/2));
-  translate(xT,yT);
+  translate(coordinates.x,coordinates.y,coordinates.z);
   
   float diff = xmag-newXmag;
   if (abs(diff) >  0.01) { 
@@ -139,7 +139,10 @@ void draw()  {
 }
 
 void keyPressed() {
-  if (key=='d') {
-    xT+=10;
-  }
+  if (key=='d') {coordinates.x-=speed;}
+  if (key=='a') {coordinates.x+=speed;}
+  if (key=='w') {coordinates.z+=speed;}
+  if (key=='s') {coordinates.z-=speed;}
+  if (key==' ') {coordinates.y+=speed;}
+  if (keyCode==SHIFT) {coordinates.y-=speed;}
 }
