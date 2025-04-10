@@ -65,6 +65,9 @@ void drawCylinder(float topRadius, float bottomRadius, float tall, int sides) {
  
 float xmag, ymag = 0;
 float newXmag, newYmag = 0;
+
+float xT = 0;
+float yT = 0;
  
 void setup()  { 
   size(640, 360, P3D); 
@@ -76,11 +79,12 @@ void draw()  {
   background(0.5);
   
   pushMatrix(); 
-  translate(width/2, height/2, -30); 
+  translate(width/2, height/2, -30);
   
-  newXmag = mouseX/float(width) * TWO_PI;
-  newYmag = mouseY/float(height) * TWO_PI;
-  translate(mouseX-(width/2),mouseY-(height/2));
+  //newXmag = mouseX/float(width) * TWO_PI;
+  //newYmag = mouseY/float(height) * TWO_PI;
+  //translate(mouseX-(width/2),mouseY-(height/2));
+  translate(xT,yT);
   
   float diff = xmag-newXmag;
   if (abs(diff) >  0.01) { 
@@ -132,4 +136,10 @@ void draw()  {
   
   popMatrix();
   
-} 
+}
+
+void keyPressed() {
+  if (key=='d') {
+    xT+=10;
+  }
+}
