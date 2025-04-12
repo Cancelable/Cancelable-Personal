@@ -43,8 +43,8 @@ void drawObjects() {
 void manageCameraPosition(float x, float y, float z) {
   // translates so everything in center
   translate(coords.x,coords.y,coords.z); // sets camera perspective
-  rotateY(-2*map(width/2 - mouseX, 0, width, -PI/2, PI/2)); // rotate camera
-  camera(width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+  //rotateY(-2*map(width/2 - mouseX, 0, width, -PI/2, PI/2)); // rotate camera
+  camera(coords.x,coords.y, coords.z , 2*(width/2.0 - mouseX), -2*(height/2.0 - mouseY), 0, 0, 1, 0);
 }
 
 void keyPressed() {
@@ -66,13 +66,14 @@ void keyReleased() {
 
 // real keypressed
 void actualKeyPressedBruh() {
-  if (keys['w']) {coords.z+=speed;/*println("w");*/}
+  if (keys['w']) {coords.z+=speed;}
   if (keys['s']) {coords.z-=speed;}
   if (keys['a']) {coords.x+=speed;}
   if (keys['d']) {coords.x-=speed;}
   if (keys[KSHIFT]) {coords.y-=speed;}
   if (keys[' ']) {coords.y+=speed;}
 }
+
 
 /*
 // https : // forum.processing.org/two/discussion/24912/radar-view-of-infinite-3d-space#latest
