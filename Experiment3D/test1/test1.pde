@@ -3,6 +3,7 @@ final int KSHIFT = 128;
 
 // variables
 PVector coords;
+float angle;
 boolean[] keys;
 float speed = 10;
 
@@ -12,6 +13,7 @@ void setup() {
   size(600,600,P3D);
   coords = new PVector(0,0,0);
   keys = new boolean[129]; // ascii, and then shift is index 128
+  angle = 0;
   for (int i=0;i<keys.length;i++) {keys[i] = false;}
 }
 
@@ -41,10 +43,23 @@ void drawObjects() {
 
 // manage the camera so that it fits the direction faced and the
 void manageCameraPosition(float x, float y, float z) {
-  // translates so everything in center
+  float rmx = (mouseX - width/2);
+  float rmy = (mouseY - height/2);
+  
+  angle = map(rmx, width/2, 0, 0, 359); // left right 
+
+  // look at 
+  float xlookat = (speed*sin(radians(angle)) + coords.x)/10;
+  //float ylookat = map(rmy, -300, coords.y, -270, height); // look up / down
+  //float ylookat = map(rmy, 0, height/2, -height/2, height)/100; // look up / downf
+  float ylookat = map(rmy, -300, coords.y-120, -270, height)/100; // look up / down
+  float zlookat = speed*cos(radians(angle)) + coords.z;
+  
+  // translates so everything in center (???)
   translate(coords.x,coords.y,coords.z); // sets camera perspective
   //rotateY(-2*map(width/2 - mouseX, 0, width, -PI/2, PI/2)); // rotate camera
-  camera(coords.x,coords.y, coords.z , 2*(width/2.0 - mouseX), -2*(height/2.0 - mouseY), 0, 0, 1, 0);
+  //camera(coords.x,coords.y, coords.z , 4*(width/2.0 - mouseX), -4*(height/2.0 - mouseY), 0, 0, 1, 0);
+  camera(coords.x,coords.y,coords.z,xlookat,ylookat,zlookat,0,1,0);
 }
 
 void keyPressed() {
