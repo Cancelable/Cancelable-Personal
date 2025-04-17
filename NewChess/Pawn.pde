@@ -1,9 +1,27 @@
 public class Pawn extends Piece {
   
+  boolean isFirstMove;
+  
   public Pawn(int x, int y, String teamOn) {
     super(x,y,teamOn);
-    if (teamOn) {
-      
+    if (teamOn==TEAM_ONE) {
+      pieceImage = loadImage("BlackPawn.png");
+    } else if (teamOn==TEAM_TWO) {
+      pieceImage = loadImage("WhitePawn.png");
+    }
+    isFirstMove = true;
+  }
+  
+  @Override
+  public void changeAvailableSpots() {
+    for (int r=0;r<8;r++) {
+      for (int c=0;c<8;c++) {
+        if () {
+          availableSpots[c][r] = true;
+        } else {
+          availableSpots[c][r] = false;
+        }
+      }
     }
   }
   

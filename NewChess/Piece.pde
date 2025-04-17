@@ -19,11 +19,16 @@ public class Piece {
     availableSpots = new boolean[8][8];
   }
   
-  // Override this in smaller classes
   public void drawPiece() {
     if (pieceImage!=null) {
       image(pieceImage,xCol*TILE_SIZE,yRow*TILE_SIZE);
     }
   }
+  
+  // override this
+  public void changeAvailableSpots() {}
+  
+  // override this
+  public void movePiece() {}
   
 }
