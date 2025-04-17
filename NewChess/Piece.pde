@@ -7,10 +7,10 @@ class Piece {
   PImage pieceImage;
   boolean[][] canGo;
   
-  Piece(int x, int y, String pieceTeam) {
+  Piece(int x, int y, String team) {
     xCol = x;
     yRow = y;
-    team = pieceTeam;
+    this.team = team;
     if (team==TEAM_ONE) {
       pieceColor = WHITE_PIECE_COLOR;
     } else if (team==TEAM_TWO) {
@@ -19,6 +19,10 @@ class Piece {
     canGo = new boolean[8][8];
   }
   
-  void drawPiece() {}
+  void drawPiece() {
+    if (pieceImage!=null) {
+      image(pieceImage,xCol*TILE_SIZE,yRow*TILE_SIZE);
+    }
+  }
   
 }
