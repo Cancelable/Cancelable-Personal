@@ -1,5 +1,8 @@
 public class Camera {
   
+  // made by me, this class is basically QueasyCam
+  // but customized a bit for my program
+  
   private boolean controllable;
   private float speed;
   private float sensitivity;
@@ -34,34 +37,7 @@ public class Camera {
   }
   
   public void drawCamera(boolean[] k) {
-    //if (!controllable) return;
-    
-    int w = width;
-    int h = height;
-    
-    //if (mouseX < 1 && (mouseX - pmouseX) < 0){
-    //  //robot.mouseMove(w-2, mouseY);
-    //  mouseX = w-2;
-    //  pmouseX = w-2;
-    //}
-        
-    //if (mouseX > w-2 && (mouseX - pmouseX) > 0){
-    //  //robot.mouseMove(2, mouseY);
-    //  mouseX = 2;
-    //  pmouseX = 2;
-    //}
-    
-    //if (mouseY < 1 && (mouseY - pmouseY) < 0){
-    //  //robot.mouseMove(mouseX, h-2);
-    //  mouseY = h-2;
-    //  pmouseY = h-2;
-    //}
-    
-    //if (mouseY > h-1 && (mouseY - pmouseY) > 0){
-    //  //robot.mouseMove(mouseX, 2);
-    //  mouseY = 2;
-    //  pmouseY = 2;
-    //}
+    if (!controllable) return;
     
     pan += map(mouseX - pmouseX, 0, width, 0, TWO_PI) * sensitivity;
     tilt += map(mouseY - pmouseY, 0, height, 0, PI) * sensitivity;
