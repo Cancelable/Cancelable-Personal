@@ -56,18 +56,18 @@ public class Camera {
     
     if (k['a']) {velocity.add(PVector.mult(right, speed));}
     if (k['d']) {velocity.sub(PVector.mult(right, speed));}
-    if (k['w']) {velocity.add(PVector.mult(forward, speed));}
-    if (k['s']) {velocity.sub(PVector.mult(forward, speed));}
+    if (k['w']) {velocity.add(PVector.mult(forward, speed));
+                 velocity.y -= PVector.mult(forward,speed).y;} // makes w not contribute to vertical level
+    if (k['s']) {velocity.sub(PVector.mult(forward, speed));
+                 velocity.y += PVector.mult(forward,speed).y;} // makes s not contribute to vertical level
     if (k['c']) {velocity.add(PVector.mult(up, speed));}
     if (k[' ']) {velocity.sub(PVector.mult(up, speed));}
 
     velocity.mult(friction);
     position.add(velocity);
     
-    position.y = position.y - velocity.y; // makes it not go vertically
-    
     center = PVector.add(position, forward);
-    //println("ran");
+    
     camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
   }
   
