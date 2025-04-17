@@ -1,5 +1,3 @@
-import queasycam.*;
-
 // final variables
 final int KSHIFT = 128;
 
@@ -8,14 +6,14 @@ PVector coords;
 float angle;
 boolean[] keys;
 float speed = 10;
-QueasyCam cam;
+Camera cam;
 
 
 // setup
 void setup() {
   size(1000,563,P3D);
   coords = new PVector(0,0,0);
-  cam = new QueasyCam(this);
+  cam = new Camera();
   keys = new boolean[129]; // ascii, and then shift is index 128
   angle = 0;
   for (int i=0;i<keys.length;i++) {keys[i] = false;}
@@ -28,6 +26,7 @@ void draw() {
   translate(width/2,height/2,width/2);
   actualKeyPressedBruh();
   animate();
+  cam.drawCamera(keys);
 }
 
 // draw for all of the animation aspects of the game
@@ -43,11 +42,6 @@ void drawObjects() {
   translate(150,0,0);
   box(100);
   popMatrix();
-}
-
-// manage the camera so that it fits the direction faced and the
-void manageCameraPosition(float x, float y, float z) {
-  
 }
 
 void keyPressed() {
