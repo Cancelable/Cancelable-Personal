@@ -69,9 +69,9 @@ public class Camera {
     
     if (tilt == PConstants.PI/2) tilt += 0.001f;
 
-    forward = new PVector(PApplet.cos(pan), PApplet.tan(tilt), PApplet.sin(pan));
+    forward = new PVector(cos(pan), tan(tilt), sin(pan));
     forward.normalize();
-    right = new PVector(PApplet.cos(pan - PConstants.PI/2), 0, PApplet.sin(pan - PConstants.PI/2));
+    right = new PVector(cos(pan - PI/2), 0, sin(pan - PI/2));
         
     target = PVector.add(position, forward);
         
@@ -82,14 +82,14 @@ public class Camera {
     if (k['d']) {velocity.sub(PVector.mult(right, speed));}
     if (k['w']) {velocity.add(PVector.mult(forward, speed));}
     if (k['s']) {velocity.sub(PVector.mult(forward, speed));}
-    if (k['c']) {println("c");velocity.add(PVector.mult(up, speed));}
-    if (k[' ']) {println(" ");velocity.sub(PVector.mult(up, speed));}
-    
-    //forward.y = 0;
-    //right.y = 0;
+    if (k['c']) {velocity.add(PVector.mult(up, speed));}
+    if (k[' ']) {velocity.sub(PVector.mult(up, speed));}
 
     velocity.mult(friction);
     position.add(velocity);
+    
+    position.y = position.y - velocity.y; // makes it not go vertically
+    
     center = PVector.add(position, forward);
     //println("ran");
     camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
