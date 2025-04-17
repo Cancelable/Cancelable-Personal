@@ -4,6 +4,8 @@ final color BLACK_TILE = color(50);
 final color WHITE_TILE = color(205);
 final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
+final color WHITE_PIECE_COLOR = color(#99FCBB);
+final color BLACK_PIECE_COLOR = color(#7BC193);
 
 // non final variables
 Piece[][] pieces;
