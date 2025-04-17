@@ -5,6 +5,7 @@ class Piece {
   String team;
   color pieceColor;
   PImage pieceImage;
+  boolean[][] canGo;
   
   Piece(int x, int y, String pieceTeam) {
     xCol = x;
@@ -15,10 +16,9 @@ class Piece {
     } else if (team==TEAM_TWO) {
       pieceColor = BLACK_PIECE_COLOR;
     }
+    canGo = new boolean[8][8];
   }
   
-  void drawPiece() {
-    
-  }
+  void drawPiece() {}
   
 }
