@@ -66,10 +66,10 @@ void keyReleased() {
 
 // real keypressed
 void actualKeyPressedBruh() {
-  if (keys['w']) {}
-  if (keys['s']) {}
-  if (keys['a']) {}
-  if (keys['d']) {}
-  if (keys[KSHIFT]) {}
-  if (keys[' ']) {}
+  //if (keys['w']) {}
+  //if (keys['s']) {}
+  //if (keys['a']) {}
+  //if (keys['d']) {}
+  //if (keys[KSHIFT]) {}
+  //if (keys[' ']) {}
 }

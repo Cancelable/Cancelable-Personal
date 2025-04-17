@@ -43,12 +43,12 @@ public class Camera {
     tilt += map(mouseY - pmouseY, 0, height, 0, PI) * sensitivity;
     tilt = clamp(tilt, -PI/2.01f, PI/2.01f);
     
-    if (tilt == PConstants.PI/2) tilt += 0.001f;
+    if (tilt == PI/2) tilt += 0.001f;
 
     forward = new PVector(cos(pan), tan(tilt), sin(pan));
     forward.normalize();
     right = new PVector(cos(pan - PI/2), 0, sin(pan - PI/2));
-        
+    
     target = PVector.add(position, forward);
         
     //pmouseX = mouseX;
@@ -76,5 +76,7 @@ public class Camera {
     if (x < min) return min;
     return x;
   }
+  
+  
   
 }
