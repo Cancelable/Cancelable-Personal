@@ -17,11 +17,24 @@ public class Camera {
   // mouseX,mouseY,pmouseX,pmouseY
   
   public Camera() {
-    
+
+    controllable = true;
+    speed = 3f;
+    sensitivity = 2f;
+    position = new PVector(0f, 0f, 0f);
+    up = new PVector(0f, 1f, 0f);
+    right = new PVector(1f, 0f, 0f);
+    forward = new PVector(0f, 0f, 1f);
+    velocity = new PVector(0f, 0f, 0f);
+    pan = 0f;
+    tilt = 0f;
+    friction = 0.75f;
+
+    perspective(PI/3f, (float)width/(float)height, 0.01f, 1000f);
   }
   
   public void drawCamera(boolean[] k) {
-    if (!controllable) return;
+    //if (!controllable) return;
     
     int w = width;
     int h = height;
@@ -65,19 +78,20 @@ public class Camera {
     //pmouseX = mouseX;
     //pmouseY = mouseY;
     
-    if (k['a']) velocity.add(PVector.mult(right, speed));
-    if (k['d']) velocity.sub(PVector.mult(right, speed));
-    if (k['w']) velocity.add(PVector.mult(forward, speed));
-    if (k['s']) velocity.sub(PVector.mult(forward, speed));
-    if (k[' ']) velocity.add(PVector.mult(up, speed));
-    if (k['c']) velocity.sub(PVector.mult(up, speed));
+    if (k['a']) {velocity.add(PVector.mult(right, speed));}
+    if (k['d']) {velocity.sub(PVector.mult(right, speed));}
+    if (k['w']) {velocity.add(PVector.mult(forward, speed));}
+    if (k['s']) {velocity.sub(PVector.mult(forward, speed));}
+    if (k['c']) {println("c");velocity.add(PVector.mult(up, speed));}
+    if (k[' ']) {println(" ");velocity.sub(PVector.mult(up, speed));}
     
-    forward.y = 0;
-    right.y = 0;
+    //forward.y = 0;
+    //right.y = 0;
 
     velocity.mult(friction);
     position.add(velocity);
     center = PVector.add(position, forward);
+    //println("ran");
     camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
   }
   

@@ -38,6 +38,7 @@ void animate() {
 // place all of the Figures inside of an array of figures
 void drawObjects() {
   pushMatrix();
+  translate(0,75,0);
   box(150);
   translate(150,0,0);
   box(100);
@@ -51,6 +52,7 @@ void keyPressed() {
   if (key=='d') {keys['d'] = true;}
   if (key==' ') {keys[' '] = true;}
   if (keyCode==SHIFT) {keys[KSHIFT] = true;}
+  if (key=='c') {keys['c'] = true;}
 }
 void keyReleased() {
   if (key=='w') {keys['w'] = false;}
@@ -59,6 +61,7 @@ void keyReleased() {
   if (key=='d') {keys['d'] = false;}
   if (key==' ') {keys[' '] = false;}
   if (keyCode==SHIFT) {keys[KSHIFT] = false;}
+  if (key=='c') {keys['c'] = false;}
 }
 
 // real keypressed
