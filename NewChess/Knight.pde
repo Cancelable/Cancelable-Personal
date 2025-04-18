@@ -4,9 +4,9 @@ public class Knight extends Piece {
     super(x,y,teamOn);
     isKnight = true;
     if (teamOn==TEAM_ONE) {
-      pieceImage = loadImage("WhiteKnight.png");
+      pieceImage = loadImage("WhiteHorse.png");
     } else {
-      
+      pieceImage = loadImage("BlackHorse.png");
     }
   }
   
