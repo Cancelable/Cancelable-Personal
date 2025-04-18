@@ -4,8 +4,8 @@ final color BLACK_TILE = color(50);
 final color WHITE_TILE = color(205);
 final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
-final color SELECTED_COLOR = color(#99FCBB);
-//final color BLACK_PIECE_COLOR = color(#7BC193);
+final color SELECTED_COLOR = color(255,255,0);
+final color MOVEABLE_COLOR = color(0,255,0);
 
 // non final variables
 Piece[][] pieces;
@@ -25,6 +25,7 @@ void setup() {
   teamOneCanCastle = true;
   teamTwoCanCastle = true;
   currentKingXY = new PVector(4,7);
+  setupPieces();
 }
 
 // setup board pieces
@@ -32,7 +33,9 @@ void setupPieces() {
   // set up pawns
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      
+      if (r==6) {
+        pieces[r][c] = new Pawn(c,r,TEAM_ONE);
+      }
     }
   }
 }
@@ -59,6 +62,10 @@ void drawBoard() {
       if (selectedPiece!=null&&selectedPiece.xCol==p&&selectedPiece.yRow==i) {
         fill(SELECTED_COLOR);
       }
+      // if can move there, draw green background
+      if (selectedPiece!=null&&selectedPiece.availableSpots[i][p]) {
+        fill(MOVEABLE_COLOR);
+      }
       
       // draw individual square
       square(p*TILE_SIZE,i*TILE_SIZE,TILE_SIZE);
@@ -76,7 +83,7 @@ void madeMove() {
   Piece[][] fakePieces = new Piece[8][8];
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      fakePieces[r][c] = pieces[7-r][7-c];fakePieces[r][c].setPos(c,r);
+      if (pieces[7-r][7-c]!=null) {fakePieces[r][c] = pieces[7-r][7-c];fakePieces[r][c].setPos(c,r);}
     }
   }
   pieces = fakePieces; // update
@@ -102,25 +109,24 @@ void madeMove() {
 
 // mouse clicked
 void mouseClicked() {
+  int clickedX = (int)(mouseX/TILE_SIZE);
+  int clickedY = (int)(mouseY/TILE_SIZE);
   // if no selected piece, and the piece you're over isn't null and it is the currently playing team
   if (selectedPiece==null) {
-    if ((pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]!=null)
-         &&(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].team==currentTeam)) {
-      //// update available spots
-      //pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].changeAvailableSpots(pieces);
-      // get rid of moves that would put king in check
-      fixAvailableSpots(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]);
+    if ((pieces[clickedY][clickedX]!=null)
+         &&(pieces[clickedY][clickedX].team==currentTeam)) {
+      // update where specified piece can move to
+      fixAvailableSpots(pieces[clickedY][clickedX]);
       // make it official selected piece
-      selectedPiece = pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)];
+      selectedPiece = pieces[clickedY][clickedX];
     }
   }
   // if there is a selected piece
   else {
     // if place hovered over is a spot you can move to
-    if (selectedPiece.canMoveTo((int)(mouseX/TILE_SIZE),(int)(mouseY/TILE_SIZE))) {
+    if (selectedPiece.canMoveTo(clickedY,clickedX)) {
       // move it
-      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)] = selectedPiece;
-      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].setPos((int)(mouseX/TILE_SIZE),(int)(mouseY/TILE_SIZE));
+      selectedPiece.movePiece(pieces,clickedX,clickedY);
       madeMove();
     } else {
       selectedPiece = null;
@@ -133,7 +139,14 @@ void fixAvailableSpots(Piece specified) {
   specified.changeAvailableSpots(pieces);
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      
+      // if it's a spot that's true in current available spots
+      if (specified.availableSpots[r][c]) {
+        // if it puts king in check
+        if (fakeMoveChecksKing(specified,c,r)) {
+          // update the spot in the available spots array
+          specified.availableSpots[r][c] = false;
+        }
+      }
     }
   }
 }
@@ -141,6 +154,9 @@ void fixAvailableSpots(Piece specified) {
 // says if king in check if specific move made
 // true if puts king in check, false if doesn't put king in check
 boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
+  // save old specified x/y
+  int oldX = specified.xCol;
+  int oldY = specified.yRow;
   // create fake board and copy board onto fake board
   Piece[][] fakeBoard = new Piece[8][8];
   for (int r=0;r<8;r++) {
@@ -149,10 +165,15 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
     }
   }
   // make the fake move on the fake board
-  fakeBoard[specified.yRow][specified.xCol].setPos(newX,newY);
+  if (fakeBoard[specified.yRow][specified.xCol]!=null) {
+    fakeBoard[specified.yRow][specified.xCol].setPos(newX,newY);
+  }
   fakeBoard[newY][newX] = fakeBoard[specified.yRow][specified.xCol];
-  // 
-  
+  fakeBoard[oldY][oldX] = null;
+  // check if king is in check on fake board
+  if (isKingInCheck(fakeBoard)) {
+    
+  }
   return false;
 }
 
