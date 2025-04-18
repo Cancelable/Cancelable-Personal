@@ -44,9 +44,17 @@ public class Piece {
     return false;
   }
   
-  void setPos(int x, int y) {
+  public void setPos(int x, int y) {
     xCol = x;
     yRow = y;
+  }
+  
+  // if can move to exact spot
+  public boolean canMoveTo(int x, int y) {
+    if (availableSpots[y][x]) {
+      return true;
+    }
+    return false;
   }
   
 }

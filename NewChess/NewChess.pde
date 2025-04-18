@@ -60,7 +60,7 @@ void drawBoard() {
 }
 
 // flips move and makes the other team playable
-void makeMove() {
+void madeMove() {
   // flip board and update pieces with flipped
   Piece[][] fakePieces = new Piece[8][8];
   for (int r=0;r<8;r++) {
@@ -80,9 +80,17 @@ void makeMove() {
   selectedPiece = null;
 }
 
-void mousePressed() {
-  
-}
-void mouseReleased() {
-  
+// mouse clicked
+void mouseClicked() {
+  // if no selected piece, and the piece you're over isn't null and it is the currently playing team
+  if (selectedPiece==null) {
+    if ((pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]!=null)
+         &&(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].team==currentTeam)) {
+      selectedPiece = pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)];
+    }
+  } else {
+    if (selectedPiece.canMoveTo((int)(mouseX/TILE_SIZE),(int)(mouseY/TILE_SIZE))) {
+      
+    }
+  }
 }
