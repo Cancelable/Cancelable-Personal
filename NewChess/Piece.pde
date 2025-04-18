@@ -81,4 +81,8 @@ public class Piece {
   //
   */
   
+  public String getTeam() {
+    return team;
+  }
+  
 }

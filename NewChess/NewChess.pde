@@ -6,12 +6,6 @@ final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
 final color SELECTED_COLOR = color(255,255,0);
 final color MOVEABLE_COLOR = color(0,255,0);
-//final String PAWN = "PAWN";
-//final String KNIGHT = "KNIGHT";
-//final String QUEEN = "QUEEN";
-//final String KING = "KING";
-//final String CASTLE = "CASTLE";
-//final String BISHOP = "BISHOP";
 
 // non final variables
 Piece[][] pieces;
@@ -65,9 +59,29 @@ void setupPieces() {
         }
       }
       // queens
+      if (c==3) {
+        if (r==0) {
+          pieces[r][c] = new Queen(c,r,TEAM_TWO);
+        } else if (r==7) {
+          pieces[r][c] = new Queen(c,r,TEAM_ONE);
+        }
+      }
       // bishops
+      if (c==2||c==5) {
+        if (r==0) {
+          pieces[r][c] = new Bishop(c,r,TEAM_TWO);
+        } else if (r==7) {
+          pieces[r][c] = new Bishop(c,r,TEAM_ONE);
+        }
+      }
       // rooks/castles
-      
+      if (c==0||c==7) {
+        if (r==0) {
+          pieces[r][c] = new Castle(c,r,TEAM_TWO);
+        } else if (r==7) {
+          pieces[r][c] = new Castle(c,r,TEAM_ONE);
+        }
+      }
       
       
     }
@@ -162,7 +176,7 @@ void mousePressed() {
     if ((pieces[clickedY][clickedX]!=null)
          &&(pieces[clickedY][clickedX].team==currentTeam)) {
       // make it official selected piece
-      println("selected set not null");
+      //println("selected set not null");
       selectedPiece = pieces[clickedY][clickedX];
     }
   }
@@ -175,7 +189,7 @@ void mousePressed() {
       // move it
       selectedPiece.movePiece(pieces,clickedX,clickedY);
       madeMove();
-      println("move made");
+      //println("move made");
     } else {
       if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
         selectedPiece = pieces[clickedY][clickedX];
@@ -220,17 +234,18 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
         Piece copy = null;
         
         // pawns
-        if (original.isPawn) {copy = new Pawn(c, r, original.team);}
+        if (original.isPawn) {copy = new Pawn(c,r,original.team);}
         // kings
-        if (original.isKing) {copy = new King(c, r, original.team);}
-        // knights
-        if (original.isKnight) {copy = new Knight(c, r, original.team);}
+        if (original.isKing) {copy = new King(c,r,original.team);}
+        // knights/horses
+        if (original.isKnight) {copy = new Knight(c,r,original.team);}
         // bishop
+        if (original.isBishop) {copy = new Bishop(c,r,original.team);}
         // rook
+        if (original.isCastle) {copy = new Castle(c,r,original.team);}
         // queen
+        if (original.isQueen) {copy = new Queen(c,r,original.team);}
         
-        
-
         if (copy != null) {
           fakeBoard[r][c] = copy;
           if (copy.isKing && copy.team == currentTeam) {
