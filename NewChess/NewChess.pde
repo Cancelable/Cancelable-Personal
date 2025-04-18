@@ -21,6 +21,8 @@ void setup() {
   pieces = new Piece[8][8];
   selectedPiece = null;
   currentTeam = TEAM_ONE;
+  teamOneCanCastle = true;
+  teamTwoCanCastle = true;
 }
 
 // setup board pieces
@@ -67,10 +69,20 @@ void makeMove() {
     }
   }
   pieces = fakePieces; // update
+  
   // switch team
   if (currentTeam==TEAM_ONE) {
     currentTeam = TEAM_TWO;
   } else {
     currentTeam = TEAM_ONE;
   }
+  // make selected piece null
+  selectedPiece = null;
+}
+
+void mousePressed() {
+  
+}
+void mouseReleased() {
+  
 }
