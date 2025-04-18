@@ -36,8 +36,8 @@ public class Piece {
   // override this
   public void changeAvailableSpots(Piece[][] p) {}
   
-  // override this
-  public void movePiece() {}
+  //// override this
+  //public void movePiece() {}
   
   protected boolean isOtherTeam(Piece other) {
     if (other!=null&&team!=other.team) {

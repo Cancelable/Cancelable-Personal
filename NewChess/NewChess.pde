@@ -106,10 +106,10 @@ void mouseClicked() {
   if (selectedPiece==null) {
     if ((pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]!=null)
          &&(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].team==currentTeam)) {
-      // update available spots
-      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].changeAvailableSpots(pieces);
+      //// update available spots
+      //pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].changeAvailableSpots(pieces);
       // get rid of moves that would put king in check
-      fixAvailableSpots();
+      fixAvailableSpots(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]);
       // make it official selected piece
       selectedPiece = pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)];
     }
@@ -128,16 +128,41 @@ void mouseClicked() {
   }
 }
 
-void fixAvailableSpots() {
-  
-}
-
-boolean isKingInCheck() {
+// checks selected piece's potential moves to see if they cause check
+void fixAvailableSpots(Piece specified) {
+  specified.changeAvailableSpots(pieces);
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      if (pieces[r][c]!=null&&pieces[r][c].team!=currentTeam) {
-        pieces[r][c].changeAvailableSpots(pieces);
-        if (pieces[r][c].canMoveTo((int)currentKingXY.x,(int)currentKingXY.y)) {
+      
+    }
+  }
+}
+
+// says if king in check if specific move made
+// true if puts king in check, false if doesn't put king in check
+boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
+  // create fake board and copy board onto fake board
+  Piece[][] fakeBoard = new Piece[8][8];
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      fakeBoard[r][c] = pieces[r][c];
+    }
+  }
+  // make the fake move on the fake board
+  fakeBoard[specified.yRow][specified.xCol].setPos(newX,newY);
+  fakeBoard[newY][newX] = fakeBoard[specified.yRow][specified.xCol];
+  // 
+  
+  return false;
+}
+
+// is king in check on custom board
+boolean isKingInCheck(Piece[][] board) {
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      if (board[r][c]!=null&&board[r][c].team!=currentTeam) {
+        board[r][c].changeAvailableSpots(pieces);
+        if (board[r][c].canMoveTo((int)currentKingXY.x,(int)currentKingXY.y)) {
           return true;
         }
       }
