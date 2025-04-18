@@ -4,7 +4,7 @@ final color BLACK_TILE = color(50);
 final color WHITE_TILE = color(205);
 final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
-//final color WHITE_PIECE_COLOR = color(#99FCBB);
+final color SELECTED_COLOR = color(#99FCBB);
 //final color BLACK_PIECE_COLOR = color(#7BC193);
 
 // non final variables
@@ -13,6 +13,7 @@ Piece selectedPiece;
 String currentTeam;
 boolean teamOneCanCastle;
 boolean teamTwoCanCastle;
+PVector currentKingXY;
 
 
 // setup
@@ -23,6 +24,7 @@ void setup() {
   currentTeam = TEAM_ONE;
   teamOneCanCastle = true;
   teamTwoCanCastle = true;
+  currentKingXY = new PVector(4,7);
 }
 
 // setup board pieces
@@ -46,12 +48,21 @@ void drawBoard() {
     for (int p=0;p<8;p++) {
       
       // draw board itself
+      
+      // pick colors
       if (!((i+p) % 2 == 0)) {
         fill(BLACK_TILE);
       } else {
         fill(WHITE_TILE);
       }
+      // if selected, draw selected background
+      if (selectedPiece!=null&&selectedPiece.xCol==p&&selectedPiece.yRow==i) {
+        fill(SELECTED_COLOR);
+      }
+      
+      // draw individual square
       square(p*TILE_SIZE,i*TILE_SIZE,TILE_SIZE);
+      
       
       // draw pieces
       if (pieces[i][p]!=null) {pieces[i][p].drawPiece();}
@@ -78,6 +89,15 @@ void madeMove() {
   }
   // make selected piece null
   selectedPiece = null;
+  // update kingXY
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      if (pieces[r][c]!=null&&pieces[r][c].isKing&&pieces[r][c].team==currentTeam) {
+        currentKingXY = new PVector(c,r);
+        break;
+      }
+    }
+  }
 }
 
 // mouse clicked
@@ -110,4 +130,19 @@ void mouseClicked() {
 
 void fixAvailableSpots() {
   
+}
+
+boolean isKingInCheck() {
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      if (pieces[r][c]!=null&&pieces[r][c].team!=currentTeam) {
+        pieces[r][c].changeAvailableSpots(pieces);
+        if (pieces[r][c].canMoveTo((int)currentKingXY.x,(int)currentKingXY.y)) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
 }

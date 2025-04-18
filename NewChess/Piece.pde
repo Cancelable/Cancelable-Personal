@@ -6,6 +6,7 @@ public class Piece {
   //protected color pieceColor;
   protected PImage pieceImage; // initialize this in smaller classes
   public boolean[][] availableSpots;
+  boolean isKing;
   
   public Piece(int x, int y, String team) {
     xCol = x;
@@ -23,6 +24,7 @@ public class Piece {
         availableSpots[i][i2] = false;
       }
     }
+    isKing = false; // in king class, change this
   }
   
   public void drawPiece() {
