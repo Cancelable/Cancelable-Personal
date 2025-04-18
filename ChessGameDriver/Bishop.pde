@@ -171,7 +171,8 @@ public class Bishop extends Piece {
     int x = columnX;
     int y = rowY;
     boolean moveLegal = true;
-    Piece[][] draft = b;
+    Piece[][] draft = new Piece[8][8];
+    for (int r=0;r<8;r++) {for (int c=0;c<8;c++) {draft[r][c]=b[r][c];}}
     draft[toY][toX] = new Pawn(toX,toY,getTeam());
     draft[y][x] = null;
     for (int r=0;r<draft.length;r++) {

@@ -58,7 +58,7 @@ void managePieces() {
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
       // change their availablespots[][]
-      pieces[r][c].changeAvailableSpots();
+      pieces[r][c].changeAvailableSpots(pieces);
       
     }
   }
