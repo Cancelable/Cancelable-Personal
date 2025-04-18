@@ -1,6 +1,6 @@
 // variables
 final int TILE_SIZE = 600/8;
-final color BLACK_TILE = color(50);
+final color BLACK_TILE = color(100);
 final color WHITE_TILE = color(205);
 final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
@@ -39,9 +39,30 @@ void setupPieces() {
   // set up pawns
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
+      
+      
+      // pawns
       if (r==6) {
         pieces[r][c] = new Pawn(c,r,TEAM_ONE);
       }
+      if (r==1) {
+        pieces[r][c] = new Pawn(c,r,TEAM_TWO);
+      }
+      // knights/horses
+      if (c==1||c==6) {
+        if (r==0) {
+          pieces[r][c] = new Knight(c,r,TEAM_TWO);
+        } else if (r==7) {
+          pieces[r][c] = new Knight(c,r,TEAM_ONE);
+        }
+      }
+      // kings
+      // queens
+      // bishops
+      // rooks/castles
+      
+      
+      
     }
   }
 }

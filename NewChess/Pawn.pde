@@ -23,7 +23,7 @@ public class Pawn extends Piece {
             availableSpots[r][c] = true;
           }
           // check space in front 2 spots if hasnt moved pawn yet
-          if (yRow==6&&r==yRow-2&&p[r-2][c]==null&&p[r-1][c]==null) {
+          if (yRow==6&&r==yRow-2&&p[r][c]==null&&p[r+1][c]==null) {
             availableSpots[r][c] = true;
           }
         }
