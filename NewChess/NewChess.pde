@@ -30,8 +30,8 @@ void setup() {
   currentTeam = TEAM_ONE;
   teamOneCanCastle = true;
   teamTwoCanCastle = true;
-  currentKingXY = new PVector(4,7);
   setupPieces();
+  updateCurrentKingCoords();
 }
 
 // setup board pieces
@@ -130,6 +130,11 @@ void madeMove() {
   }
   // make selected piece null
   selectedPiece = null;
+  // update king coords
+  updateCurrentKingCoords();
+}
+
+void updateCurrentKingCoords() {
   // update kingXY
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
@@ -143,9 +148,15 @@ void madeMove() {
 
 // mouse clicked
 void mousePressed() {
-  if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
+  //if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
   int clickedX = (int)(mouseX/TILE_SIZE);
   int clickedY = (int)(mouseY/TILE_SIZE);
+  
+  // fix the spots of any thing clicked on
+  if (pieces[clickedY][clickedX]!=null) {
+    fixAvailableSpots(pieces[clickedY][clickedX]);
+  }
+  
   // if no selected piece, and the piece you're over isn't null and it is the currently playing team
   if (selectedPiece==null) {
     if ((pieces[clickedY][clickedX]!=null)
@@ -174,10 +185,6 @@ void mousePressed() {
       }
     }
   }
-  // fix the spots of any thing clicked on
-  if (pieces[clickedY][clickedX]!=null) {
-    fixAvailableSpots(pieces[clickedY][clickedX]);
-  }
 }
 
 // checks selected piece's potential moves to see if they cause check
@@ -200,48 +207,79 @@ void fixAvailableSpots(Piece specified) {
 // says if king in check if specific move made
 // true if puts king in check, false if doesn't put king in check
 boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
-  // save old specified x/y
   int oldX = specified.xCol;
   int oldY = specified.yRow;
-  // create fake board and copy board onto fake board
+  
   Piece[][] fakeBoard = new Piece[8][8];
-  for (int r=0;r<8;r++) {
-    for (int c=0;c<8;c++) {
-      if (pieces[r][c]!=null) {
+  PVector kingPos = null; // well use this to find the king
+  
+  for (int r=0; r<8; r++) {
+    for (int c=0; c<8; c++) {
+      if (pieces[r][c] != null) {
+        Piece original = pieces[r][c];
+        Piece copy = null;
+        
         // pawns
-        if (pieces[r][c].isPawn) {fakeBoard[r][c] = new Pawn(c,r,pieces[r][c].team);}
+        if (original.isPawn) {copy = new Pawn(c, r, original.team);}
         // kings
-        if (pieces[r][c].isKing) {fakeBoard[r][c] = new King(c,r,pieces[r][c].team);}
-        // bishops
-        // queens
-        // towers
-        // knights/horses
-        if (pieces[r][c].isKnight) {fakeBoard[r][c] = new Knight(c,r,pieces[r][c].team);}
+        if (original.isKing) {copy = new King(c, r, original.team);}
+        // knights
+        if (original.isKnight) {copy = new Knight(c, r, original.team);}
+        // bishop
+        // rook
+        // queen
+        
+        
+
+        if (copy != null) {
+          fakeBoard[r][c] = copy;
+          if (copy.isKing && copy.team == currentTeam) {
+            kingPos = new PVector(c, r); // track the king's position
+          }
+        }
       }
     }
   }
-  // make the fake move on the fake board
-  if (fakeBoard[specified.yRow][specified.xCol]!=null) {
-    fakeBoard[specified.yRow][specified.xCol].setPos(newX,newY);
-    fakeBoard[newY][newX] = fakeBoard[specified.yRow][specified.xCol];
+  
+
+  // perform the fake move
+  if (fakeBoard[oldY][oldX] != null) {
+    fakeBoard[oldY][oldX].setPos(newX, newY);
+    fakeBoard[newY][newX] = fakeBoard[oldY][oldX];
     fakeBoard[oldY][oldX] = null;
+
+    // if we moved the king, update position
+    if (fakeBoard[newY][newX].isKing && fakeBoard[newY][newX].team == currentTeam) {
+      kingPos = new PVector(newX, newY);
+    }
   }
-  // check if king is in check on fake board
-  if (isKingInCheck(fakeBoard)) {
-    return true;
+  
+  // flip fakeBoard
+  Piece[][] evenFakerBoard = new Piece[8][8];
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      evenFakerBoard[r][c] = fakeBoard[7-r][7-c];
+      if (evenFakerBoard[r][c]!=null) {
+        evenFakerBoard[r][c].setPos(c,r);
+      }
+    }
   }
-  return false;
+  fakeBoard = evenFakerBoard;
+  
+  // flip king pos with it
+  kingPos = new PVector(7 - kingPos.x, 7 - kingPos.y);
+
+  // now check if that king is in check
+  return isKingInCheck(fakeBoard, kingPos);
 }
 
 // is king in check on custom board
-boolean isKingInCheck(Piece[][] board) {
-  for (int r=0;r<8;r++) {
-    for (int c=0;c<8;c++) {
-      if (board[r][c]!=null&&board[r][c].team!=currentTeam) {
+boolean isKingInCheck(Piece[][] board, PVector kingPos) {
+  for (int r=0; r<8; r++) {
+    for (int c=0; c<8; c++) {
+      if (board[r][c] != null && board[r][c].team != currentTeam) {
         board[r][c].changeAvailableSpots(board);
-        println("first con true");
-        if (board[r][c].canMoveTo((int)currentKingXY.x,(int)currentKingXY.y)) {
-          println("king in check");
+        if (board[r][c].canMoveTo((int)kingPos.x, (int)kingPos.y)) {
           return true;
         }
       }
