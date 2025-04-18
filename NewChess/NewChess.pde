@@ -6,6 +6,12 @@ final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
 final color SELECTED_COLOR = color(255,255,0);
 final color MOVEABLE_COLOR = color(0,255,0);
+//final String PAWN = "PAWN";
+//final String KNIGHT = "KNIGHT";
+//final String QUEEN = "QUEEN";
+//final String KING = "KING";
+//final String CASTLE = "CASTLE";
+//final String BISHOP = "BISHOP";
 
 // non final variables
 Piece[][] pieces;
@@ -108,27 +114,31 @@ void madeMove() {
 }
 
 // mouse clicked
-void mouseClicked() {
+void mousePressed() {
+  if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
   int clickedX = (int)(mouseX/TILE_SIZE);
   int clickedY = (int)(mouseY/TILE_SIZE);
   // if no selected piece, and the piece you're over isn't null and it is the currently playing team
   if (selectedPiece==null) {
     if ((pieces[clickedY][clickedX]!=null)
          &&(pieces[clickedY][clickedX].team==currentTeam)) {
-      // update where specified piece can move to
-      fixAvailableSpots(pieces[clickedY][clickedX]);
       // make it official selected piece
+      println("selected set not null");
       selectedPiece = pieces[clickedY][clickedX];
     }
   }
   // if there is a selected piece
   else {
+    // update where specified piece can move to
+    fixAvailableSpots(selectedPiece);
     // if place hovered over is a spot you can move to
-    if (selectedPiece.canMoveTo(clickedY,clickedX)) {
+    if (selectedPiece.canMoveTo(clickedX,clickedY)) {
       // move it
       selectedPiece.movePiece(pieces,clickedX,clickedY);
       madeMove();
+      println("move made");
     } else {
+      println("selected piece set null");
       selectedPiece = null;
     }
   }
@@ -161,7 +171,15 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
   Piece[][] fakeBoard = new Piece[8][8];
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      fakeBoard[r][c] = pieces[r][c];
+      if (pieces[r][c]!=null) {
+        // pawns
+        if (pieces[r][c].isPawn) {fakeBoard[r][c] = new Pawn(c,r,pieces[r][c].team);}
+        // kings
+        // bishops
+        // queens
+        // towers
+        // knights
+      }
     }
   }
   // make the fake move on the fake board

@@ -7,16 +7,16 @@ public class Piece {
   protected PImage pieceImage; // initialize this in smaller classes
   public boolean[][] availableSpots;
   boolean isKing;
+  boolean isQueen;
+  boolean isPawn;
+  boolean isBishop;
+  boolean isKnight;
+  boolean isCastle;
   
   public Piece(int x, int y, String team) {
     xCol = x;
     yRow = y;
     this.team = team;
-    //if (team==TEAM_ONE) {
-    //  pieceColor = WHITE_PIECE_COLOR;
-    //} else if (team==TEAM_TWO) {
-    //  pieceColor = BLACK_PIECE_COLOR;
-    //}
     availableSpots = new boolean[8][8];
     // initially set it all false
     for (int i=0;i<8;i++) {
@@ -24,7 +24,13 @@ public class Piece {
         availableSpots[i][i2] = false;
       }
     }
-    isKing = false; // in king class, change this
+    // change the individual one in individual subclass
+    isKing = false;
+    isQueen = false;
+    isPawn = false;
+    isBishop = false;
+    isKnight = false;
+    isCastle = false;
   }
   
   public void drawPiece() {
@@ -63,5 +69,13 @@ public class Piece {
     }
     return false;
   }
+  
+  /* INSTRUCTIONS FOR CREATING A NEW TYPE OF PIECE:
+  //
+  // - Override the changeAvailableSpots(Piece[][] p) method
+  // - In the constructor, set the corresponding PieceImage
+  // - In the constructor, set true the correct isPiece boolean
+  //
+  */
   
 }

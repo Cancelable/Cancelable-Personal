@@ -3,9 +3,9 @@ public class Pawn extends Piece {
   public Pawn(int x, int y, String teamOn) {
     super(x,y,teamOn);
     if (teamOn==TEAM_ONE) {
-      pieceImage = loadImage("BlackPawn.png");
-    } else if (teamOn==TEAM_TWO) {
       pieceImage = loadImage("WhitePawn.png");
+    } else if (teamOn==TEAM_TWO) {
+      pieceImage = loadImage("BlackPawn.png");
     }
   }
   
