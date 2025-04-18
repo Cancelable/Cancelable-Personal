@@ -7,12 +7,12 @@ public class Pawn extends Piece {
     } else if (teamOn==TEAM_TWO) {
       pieceImage = loadImage("BlackPawn.png");
     }
+    isPawn = true;
   }
   
   @Override
   public void changeAvailableSpots(Piece[][] p) {
-    // reset it
-    for (int r=0;r<8;r++){for(int c=0;c<8;c++){availableSpots[r][c]=false;}}
+    super.changeAvailableSpots(p);
     // set true ones true
     for (int r=0;r<8;r++) {
       for (int c=0;c<8;c++) {

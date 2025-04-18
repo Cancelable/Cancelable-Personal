@@ -40,7 +40,10 @@ public class Piece {
   }
   
   // override this
-  public void changeAvailableSpots(Piece[][] p) {}
+  public void changeAvailableSpots(Piece[][] p) {
+    // reset it
+    for (int r=0;r<8;r++){for(int c=0;c<8;c++){availableSpots[r][c]=false;}}
+  }
   
   public void movePiece(Piece[][] board, int x, int y) {
     int oldX = xCol;

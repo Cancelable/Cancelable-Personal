@@ -138,9 +138,17 @@ void mousePressed() {
       madeMove();
       println("move made");
     } else {
-      println("selected piece set null");
-      selectedPiece = null;
+      if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
+        selectedPiece = pieces[clickedY][clickedX];
+      } else {
+        //println("selected piece set null");
+        selectedPiece = null;
+      }
     }
+  }
+  // fix the spots of any thing clicked on
+  if (pieces[clickedY][clickedX]!=null) {
+    fixAvailableSpots(pieces[clickedY][clickedX]);
   }
 }
 
@@ -215,5 +223,8 @@ void keyPressed() {
   // secret
   if (keyCode==RIGHT) {
     madeMove();
+  }
+  if (key=='r') {
+    setup();
   }
 }
