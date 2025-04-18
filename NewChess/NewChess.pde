@@ -10,6 +10,9 @@ final String TEAM_TWO = "Team Two";
 // non final variables
 Piece[][] pieces;
 Piece selectedPiece;
+String currentTeam;
+boolean teamOneCanCastle;
+boolean teamTwoCanCastle;
 
 
 // setup
@@ -17,7 +20,7 @@ void setup() {
   size(600,600);
   pieces = new Piece[8][8];
   selectedPiece = null;
-  
+  currentTeam = TEAM_ONE;
 }
 
 // setup board pieces
@@ -61,5 +64,24 @@ void managePieces() {
       pieces[r][c].changeAvailableSpots(pieces);
       
     }
+  }
+}
+
+// flips move and makes the other team playable
+void makeMove() {
+  // flip board
+  Piece[][] fakePieces = new Piece[8][8];
+  for (int r=0;r<8;r++) {
+    for (int c=0;c<8;c++) {
+      
+    }
+  }
+  pieces = fakePieces; // update board flipped
+  
+  // switch team
+  if (currentTeam==TEAM_ONE) {
+    currentTeam = TEAM_TWO;
+  } else {
+    currentTeam = TEAM_ONE;
   }
 }
