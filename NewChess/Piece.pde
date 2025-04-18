@@ -44,4 +44,9 @@ public class Piece {
     return false;
   }
   
+  void setPos(int x, int y) {
+    xCol = x;
+    yRow = y;
+  }
+  
 }
