@@ -11,8 +11,10 @@ final color MOVEABLE_COLOR = color(0,255,0);
 Piece[][] pieces;
 Piece selectedPiece;
 String currentTeam;
-boolean teamOneCanCastle;
-boolean teamTwoCanCastle;
+boolean teamOneCanLeftCastle;
+boolean teamOneCanRightCastle;
+boolean teamTwoCanLeftCastle;
+boolean teamTwoCanRightCastle;
 PVector currentKingXY;
 
 
@@ -22,8 +24,10 @@ void setup() {
   pieces = new Piece[8][8];
   selectedPiece = null;
   currentTeam = TEAM_ONE;
-  teamOneCanCastle = true;
-  teamTwoCanCastle = true;
+  teamOneCanLeftCastle = true;
+  teamOneCanRightCastle = true;
+  teamTwoCanLeftCastle = true;
+  teamTwoCanRightCastle = true;
   setupPieces();
   updateCurrentKingCoords();
 }
@@ -33,7 +37,6 @@ void setupPieces() {
   // set up pawns
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
-      
       
       // pawns
       if (r==6) {
@@ -82,7 +85,6 @@ void setupPieces() {
           pieces[r][c] = new Castle(c,r,TEAM_ONE);
         }
       }
-      
       
     }
   }
@@ -186,10 +188,50 @@ void mousePressed() {
     fixAvailableSpots(selectedPiece);
     // if place hovered over is a spot you can move to
     if (selectedPiece.canMoveTo(clickedX,clickedY)) {
+      
+      updateCurrentKingCoords();
+      int kingX = (int)currentKingXY.x;
+      int kingY = (int)currentKingXY.y;
+      
+      if (selectedPiece==pieces[kingY][kingX]) {
+        
+        // team one
+        if (currentTeam==TEAM_ONE) {
+          if (teamOneCanLeftCastle) {
+            if (clickedX==2&&clickedY==7) {
+              pieces[7][0].movePiece(pieces,3,7);
+            }
+          }
+          if (teamOneCanRightCastle) {
+            if (clickedX==6&&clickedY==7) {
+              pieces[7][7].movePiece(pieces,5,7);
+            }
+          }
+        }
+        
+        // team two
+        if (currentTeam==TEAM_TWO) {
+          if (teamTwoCanLeftCastle) {
+            if (clickedX==1&&clickedY==7) {
+              // move rook
+              pieces[7][0].movePiece(pieces,2,7);
+            }
+          }
+          if (teamTwoCanRightCastle) {
+            if (clickedX==5&&clickedY==7) {
+              // move rook
+              pieces[7][7].movePiece(pieces,4,7);
+            }
+          }
+        }
+      }
       // move it
       selectedPiece.movePiece(pieces,clickedX,clickedY);
       madeMove();
-      //println("move made");
+      //println("regular move made");
+      
+      
+      
     } else {
       if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
         selectedPiece = pieces[clickedY][clickedX];
@@ -204,6 +246,30 @@ void mousePressed() {
 // checks selected piece's potential moves to see if they cause check
 void fixAvailableSpots(Piece specified) {
   specified.changeAvailableSpots(pieces);
+  
+  // castling
+  updateCurrentKingCoords();
+  if (currentTeam==TEAM_ONE&&!isKingInCheck(pieces,currentKingXY)) {
+    if (teamOneCanLeftCastle&&pieces[7][1]==null&&pieces[7][2]==null&&pieces[7][3]==null) {
+      // left castle team one
+      pieces[(int)currentKingXY.y][(int)currentKingXY.x].availableSpots[7][2] = true;
+    }
+    if (teamOneCanRightCastle&&pieces[7][6]==null&&pieces[7][5]==null) {
+      // right castle team one
+      pieces[(int)currentKingXY.y][(int)currentKingXY.x].availableSpots[7][6] = true;
+    }
+  }
+  if (currentTeam==TEAM_TWO&&!isKingInCheck(pieces,currentKingXY)) {
+    if (teamTwoCanLeftCastle&&pieces[7][1]==null&&pieces[7][2]==null) {
+      // left castle team two
+      pieces[(int)currentKingXY.y][(int)currentKingXY.x].availableSpots[7][1] = true;
+    }
+    if (teamTwoCanRightCastle&&pieces[7][6]==null&&pieces[7][5]==null&&pieces[7][4]==null) {
+      // right castle team two
+      pieces[(int)currentKingXY.y][(int)currentKingXY.x].availableSpots[7][5] = true;
+    }
+  }
+  
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
       // if it's a spot that's true in current available spots

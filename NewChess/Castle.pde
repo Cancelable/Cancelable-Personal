@@ -1,5 +1,8 @@
 public class Castle extends Piece {
   
+  int cOriginalX;
+  int cOriginalY;
+  
   public Castle(int x, int y, String teamOn) {
     super(x,y,teamOn);
     isCastle = true;
@@ -8,6 +11,8 @@ public class Castle extends Piece {
     } else if (teamOn==TEAM_TWO) {
       pieceImage = loadImage("BlackCastle.png");
     }
+    cOriginalX = x;
+    cOriginalY = y;
   }
   
   @Override
@@ -82,6 +87,26 @@ public class Castle extends Piece {
       }
     }
     
+  }
+  
+  @Override
+  public void movePiece(Piece[][] board, int x, int y) {
+    super.movePiece(board,x,y);
+    if (xCol!=cOriginalX||yRow!=cOriginalY) {
+      if (team==TEAM_ONE) {
+        if (cOriginalX==0) {
+          teamOneCanLeftCastle = false;
+        } else if (cOriginalX==7) {
+          teamOneCanRightCastle = false;
+        }
+      } else if (team==TEAM_TWO) {
+        if (cOriginalX==0) {
+          teamTwoCanLeftCastle = false;
+        } else if (cOriginalX==7) {
+          teamTwoCanRightCastle = false;
+        }
+      }
+    }
   }
   
 }

@@ -28,4 +28,20 @@ public class King extends Piece {
     }
   }
   
+  @Override
+  void movePiece(Piece[][] board, int x, int y) {
+    super.movePiece(board,x,y);
+    if (team==TEAM_ONE) {
+      if (x!=4||y!=7) {
+        teamOneCanLeftCastle = false;
+        teamOneCanRightCastle = false;
+      }
+    } else if (team==TEAM_TWO) {
+      if (x!=4||y!=0) {
+        teamTwoCanLeftCastle = false;
+        teamTwoCanRightCastle = false;
+      }
+    }
+  }
+  
 }
