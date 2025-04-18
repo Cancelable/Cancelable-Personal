@@ -57,6 +57,13 @@ void setupPieces() {
         }
       }
       // kings
+      if (c==4) {
+        if (r==0) {
+          pieces[r][c] = new King(c,r,TEAM_TWO);
+        } else if (r==7) {
+          pieces[r][c] = new King(c,r,TEAM_ONE);
+        }
+      }
       // queens
       // bishops
       // rooks/castles
@@ -204,22 +211,24 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
         // pawns
         if (pieces[r][c].isPawn) {fakeBoard[r][c] = new Pawn(c,r,pieces[r][c].team);}
         // kings
+        if (pieces[r][c].isKing) {fakeBoard[r][c] = new King(c,r,pieces[r][c].team);}
         // bishops
         // queens
         // towers
-        // knights
+        // knights/horses
+        if (pieces[r][c].isKnight) {fakeBoard[r][c] = new Knight(c,r,pieces[r][c].team);}
       }
     }
   }
   // make the fake move on the fake board
   if (fakeBoard[specified.yRow][specified.xCol]!=null) {
     fakeBoard[specified.yRow][specified.xCol].setPos(newX,newY);
+    fakeBoard[newY][newX] = fakeBoard[specified.yRow][specified.xCol];
+    fakeBoard[oldY][oldX] = null;
   }
-  fakeBoard[newY][newX] = fakeBoard[specified.yRow][specified.xCol];
-  fakeBoard[oldY][oldX] = null;
   // check if king is in check on fake board
   if (isKingInCheck(fakeBoard)) {
-    
+    return true;
   }
   return false;
 }
@@ -229,14 +238,15 @@ boolean isKingInCheck(Piece[][] board) {
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
       if (board[r][c]!=null&&board[r][c].team!=currentTeam) {
-        board[r][c].changeAvailableSpots(pieces);
+        board[r][c].changeAvailableSpots(board);
+        println("first con true");
         if (board[r][c].canMoveTo((int)currentKingXY.x,(int)currentKingXY.y)) {
+          println("king in check");
           return true;
         }
       }
     }
   }
-  
   return false;
 }
 
