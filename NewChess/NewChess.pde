@@ -86,11 +86,28 @@ void mouseClicked() {
   if (selectedPiece==null) {
     if ((pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)]!=null)
          &&(pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].team==currentTeam)) {
+      // update available spots
+      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].changeAvailableSpots(pieces);
+      // get rid of moves that would put king in check
+      fixAvailableSpots();
+      // make it official selected piece
       selectedPiece = pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)];
     }
-  } else {
+  }
+  // if there is a selected piece
+  else {
+    // if place hovered over is a spot you can move to
     if (selectedPiece.canMoveTo((int)(mouseX/TILE_SIZE),(int)(mouseY/TILE_SIZE))) {
-      
+      // move it
+      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)] = selectedPiece;
+      pieces[(int)(mouseY/TILE_SIZE)][(int)(mouseX/TILE_SIZE)].setPos((int)(mouseX/TILE_SIZE),(int)(mouseY/TILE_SIZE));
+      madeMove();
+    } else {
+      selectedPiece = null;
     }
   }
+}
+
+void fixAvailableSpots() {
+  
 }
