@@ -210,3 +210,10 @@ boolean isKingInCheck(Piece[][] board) {
   
   return false;
 }
+
+void keyPressed() {
+  // secret
+  if (keyCode==RIGHT) {
+    madeMove();
+  }
+}

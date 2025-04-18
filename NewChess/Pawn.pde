@@ -19,7 +19,7 @@ public class Pawn extends Piece {
         // in the same column (x val)
         if (xCol==c) {
           // check space in front to see if free
-          if (yRow>0&&r==yRow-1&&p[r-1][c]==null) {
+          if (yRow>0&&r==yRow-1&&p[r][c]==null) {
             availableSpots[r][c] = true;
           }
           // check space in front 2 spots if hasnt moved pawn yet
