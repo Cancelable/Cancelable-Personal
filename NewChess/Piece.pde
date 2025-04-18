@@ -17,6 +17,12 @@ public class Piece {
     //  pieceColor = BLACK_PIECE_COLOR;
     //}
     availableSpots = new boolean[8][8];
+    // initially set it all false
+    for (int i=0;i<8;i++) {
+      for (int i2=0;i2<8;i2++) {
+        availableSpots[i][i2] = false;
+      }
+    }
   }
   
   public void drawPiece() {
@@ -26,7 +32,7 @@ public class Piece {
   }
   
   // override this
-  public void changeAvailableSpots() {}
+  public void changeAvailableSpots(Piece[][] p) {}
   
   // override this
   public void movePiece() {}

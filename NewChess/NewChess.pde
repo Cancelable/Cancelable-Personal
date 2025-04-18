@@ -49,7 +49,7 @@ void drawBoard() {
       square(p*TILE_SIZE,i*TILE_SIZE,TILE_SIZE);
       
       // draw pieces
-      if (pieces[p][i]!=null) {pieces[p][i].drawPiece();}
+      if (pieces[i][p]!=null) {pieces[i][p].drawPiece();}
     }
   }
 }
@@ -58,7 +58,7 @@ void managePieces() {
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
       // change their availablespots[][]
-      pieces[c][r].changeAvailableSpots();
+      pieces[r][c].changeAvailableSpots();
       
     }
   }

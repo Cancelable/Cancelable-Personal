@@ -13,13 +13,22 @@ public class Pawn extends Piece {
   }
   
   @Override
-  public void changeAvailableSpots() {
+  public void changeAvailableSpots(Piece[][] p) {
     for (int r=0;r<8;r++) {
       for (int c=0;c<8;c++) {
-        if () {
-          availableSpots[c][r] = true;
+        if (isFirstMove) {
+          if (p[r][c]) {
+            
+          } else {
+            
+          }
+        // if not first move
         } else {
-          availableSpots[c][r] = false;
+          if () {
+            
+          } else {
+            
+          }
         }
       }
     }
