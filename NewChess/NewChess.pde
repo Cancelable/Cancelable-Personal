@@ -6,6 +6,9 @@ final String TEAM_ONE = "Team One";
 final String TEAM_TWO = "Team Two";
 final color SELECTED_COLOR = color(255,255,0);
 final color MOVEABLE_COLOR = color(0,255,0);
+final String GAME_TIED = "TIE";
+final String CHECKMATE_ONE = "WHITE WINS! CHECKMATE";
+final String CHECKMATE_TWO = "BLACK WINS! CHECKMATE";
 
 // non final variables
 Piece[][] pieces;
@@ -16,6 +19,8 @@ boolean teamOneCanRightCastle;
 boolean teamTwoCanLeftCastle;
 boolean teamTwoCanRightCastle;
 PVector currentKingXY;
+String currentGameState;
+boolean paused;
 
 
 // setup
@@ -27,7 +32,9 @@ void setup() {
   teamOneCanLeftCastle = true;
   teamOneCanRightCastle = true;
   teamTwoCanLeftCastle = true;
+  paused = false;
   teamTwoCanRightCastle = true;
+  currentGameState = null;
   setupPieces();
   updateCurrentKingCoords();
 }
@@ -92,8 +99,39 @@ void setupPieces() {
 
 // draw
 void draw() {
-  drawBoard();
-  
+  if (currentGameState==CHECKMATE_ONE) {
+    background(255);
+    fill(255,0,0);
+    text(CHECKMATE_ONE,width/2,height/2);
+  }
+  else if (currentGameState==CHECKMATE_TWO) {
+    background(0);
+    fill(255,0,0);
+    text(CHECKMATE_TWO,width/2,height/2);
+  }
+  else if (currentGameState==GAME_TIED) {
+    background(126);
+    fill(255,0,0);
+    text(GAME_TIED,width/2,height/2);
+  }
+  // nobody's won yet
+  if (currentGameState==null) {
+    if (!paused) {
+      background(100);
+      drawBoard();
+    } else if (paused) {
+      pausedDraw();
+    }
+  } else {
+    fill(255,0,0);
+    text("Press 'r' to restart",width/2,3*height/4);
+  }
+}
+
+void pausedDraw() {
+  fill(255);
+  rect(width/2 - 2*width/5, height/5, width/6, 3*height/4);
+  rect(width/2 + width/5, height/5, width/6, 3*height/4);
 }
 
 void drawBoard() {
@@ -148,6 +186,8 @@ void madeMove() {
   selectedPiece = null;
   // update king coords
   updateCurrentKingCoords();
+  // check if game is tied/checkmate
+  updateGameResult();
 }
 
 void updateCurrentKingCoords() {
@@ -164,80 +204,82 @@ void updateCurrentKingCoords() {
 
 // mouse clicked
 void mousePressed() {
-  //if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
-  int clickedX = (int)(mouseX/TILE_SIZE);
-  int clickedY = (int)(mouseY/TILE_SIZE);
-  
-  // fix the spots of any thing clicked on
-  if (pieces[clickedY][clickedX]!=null) {
-    fixAvailableSpots(pieces[clickedY][clickedX]);
-  }
-  
-  // if no selected piece, and the piece you're over isn't null and it is the currently playing team
-  if (selectedPiece==null) {
-    if ((pieces[clickedY][clickedX]!=null)
-         &&(pieces[clickedY][clickedX].team==currentTeam)) {
-      // make it official selected piece
-      //println("selected set not null");
-      selectedPiece = pieces[clickedY][clickedX];
+  if (!paused) {
+    //if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
+    int clickedX = (int)(mouseX/TILE_SIZE);
+    int clickedY = (int)(mouseY/TILE_SIZE);
+    
+    // fix the spots of any thing clicked on
+    if (pieces[clickedY][clickedX]!=null) {
+      fixAvailableSpots(pieces[clickedY][clickedX]);
     }
-  }
-  // if there is a selected piece
-  else {
-    // update where specified piece can move to
-    fixAvailableSpots(selectedPiece);
-    // if place hovered over is a spot you can move to
-    if (selectedPiece.canMoveTo(clickedX,clickedY)) {
-      
-      updateCurrentKingCoords();
-      int kingX = (int)currentKingXY.x;
-      int kingY = (int)currentKingXY.y;
-      
-      if (selectedPiece==pieces[kingY][kingX]) {
-        
-        // team one
-        if (currentTeam==TEAM_ONE) {
-          if (teamOneCanLeftCastle) {
-            if (clickedX==2&&clickedY==7) {
-              pieces[7][0].movePiece(pieces,3,7);
-            }
-          }
-          if (teamOneCanRightCastle) {
-            if (clickedX==6&&clickedY==7) {
-              pieces[7][7].movePiece(pieces,5,7);
-            }
-          }
-        }
-        
-        // team two
-        if (currentTeam==TEAM_TWO) {
-          if (teamTwoCanLeftCastle) {
-            if (clickedX==1&&clickedY==7) {
-              // move rook
-              pieces[7][0].movePiece(pieces,2,7);
-            }
-          }
-          if (teamTwoCanRightCastle) {
-            if (clickedX==5&&clickedY==7) {
-              // move rook
-              pieces[7][7].movePiece(pieces,4,7);
-            }
-          }
-        }
-      }
-      // move it
-      selectedPiece.movePiece(pieces,clickedX,clickedY);
-      madeMove();
-      //println("regular move made");
-      
-      
-      
-    } else {
-      if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
+    
+    // if no selected piece, and the piece you're over isn't null and it is the currently playing team
+    if (selectedPiece==null) {
+      if ((pieces[clickedY][clickedX]!=null)
+           &&(pieces[clickedY][clickedX].team==currentTeam)) {
+        // make it official selected piece
+        //println("selected set not null");
         selectedPiece = pieces[clickedY][clickedX];
+      }
+    }
+    // if there is a selected piece
+    else {
+      // update where specified piece can move to
+      fixAvailableSpots(selectedPiece);
+      // if place hovered over is a spot you can move to
+      if (selectedPiece.canMoveTo(clickedX,clickedY)) {
+        
+        updateCurrentKingCoords();
+        int kingX = (int)currentKingXY.x;
+        int kingY = (int)currentKingXY.y;
+        
+        if (selectedPiece==pieces[kingY][kingX]) {
+          
+          // team one
+          if (currentTeam==TEAM_ONE) {
+            if (teamOneCanLeftCastle) {
+              if (clickedX==2&&clickedY==7) {
+                pieces[7][0].movePiece(pieces,3,7);
+              }
+            }
+            if (teamOneCanRightCastle) {
+              if (clickedX==6&&clickedY==7) {
+                pieces[7][7].movePiece(pieces,5,7);
+              }
+            }
+          }
+          
+          // team two
+          if (currentTeam==TEAM_TWO) {
+            if (teamTwoCanLeftCastle) {
+              if (clickedX==1&&clickedY==7) {
+                // move rook
+                pieces[7][0].movePiece(pieces,2,7);
+              }
+            }
+            if (teamTwoCanRightCastle) {
+              if (clickedX==5&&clickedY==7) {
+                // move rook
+                pieces[7][7].movePiece(pieces,4,7);
+              }
+            }
+          }
+        }
+        // move it
+        selectedPiece.movePiece(pieces,clickedX,clickedY);
+        madeMove();
+        //println("regular move made");
+        
+        
+        
       } else {
-        //println("selected piece set null");
-        selectedPiece = null;
+        if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
+          selectedPiece = pieces[clickedY][clickedX];
+        } else {
+          //println("selected piece set null");
+          selectedPiece = null;
+        }
       }
     }
   }
@@ -321,7 +363,6 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
       }
     }
   }
-  
 
   // perform the fake move
   if (fakeBoard[oldY][oldX] != null) {
@@ -376,5 +417,45 @@ void keyPressed() {
   }
   if (key=='r') {
     setup();
+  }
+  if (key==' ') {
+    paused = !paused;
+  }
+}
+
+// check / update if game is over yet or not
+void updateGameResult() {
+  boolean checked = false;
+  boolean cantMove = false;
+  updateCurrentKingCoords();
+  if (isKingInCheck(pieces,currentKingXY)) {checked = true;}
+  int countPossibleMoves = 0;
+  for (int r=0;(r<8)&&(countPossibleMoves==0);r++) {
+    for (int c=0;c<8;c++) {
+      if (pieces[r][c]!=null) {
+        fixAvailableSpots(pieces[r][c]);
+        for (int r2=0;r2<8;r2++) {
+          for (int c2=0;c2<8;c2++) {
+            if (pieces[r][c].availableSpots[r2][c2]) {
+              countPossibleMoves++;
+            }
+          }
+        }
+      }
+    }
+  }
+  if (countPossibleMoves==0) {
+    cantMove = true;
+  }
+  
+  if (checked&&cantMove) {
+    if (currentTeam==TEAM_ONE) {
+      currentGameState = CHECKMATE_TWO; // black/team 1 won
+    } else if (currentTeam==TEAM_TWO) {
+      currentGameState = CHECKMATE_ONE; // white/team 2 won
+    }
+  }
+  if (cantMove&&!checked) {
+    currentGameState = GAME_TIED;
   }
 }
