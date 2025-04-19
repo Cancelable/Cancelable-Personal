@@ -450,6 +450,7 @@ void updateGameResult() {
   updateCurrentKingCoords();
   if (isKingInCheck(pieces,currentKingXY)) {println("king in check");checked = true;}
   int countPossibleMoves = 0;
+  firstLoop:
   for (int r=0;r<8&&countPossibleMoves==0;r++) {
     for (int c=0;c<8;c++) {
       if (pieces[r][c]!=null&&pieces[r][c].getTeam()==currentTeam) {
@@ -458,6 +459,7 @@ void updateGameResult() {
           for (int c2=0;c2<8;c2++) {
             if (pieces[r][c].availableSpots[r2][c2]) {
               countPossibleMoves++;
+              break firstLoop;
             }
           }
         }
