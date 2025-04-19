@@ -37,6 +37,8 @@ void setup() {
   currentGameState = null;
   setupPieces();
   updateCurrentKingCoords();
+  textSize(35);
+  textAlign(CENTER);
 }
 
 // setup board pieces
@@ -110,7 +112,7 @@ void draw() {
     text(CHECKMATE_TWO,width/2,height/2);
   }
   else if (currentGameState==GAME_TIED) {
-    background(126);
+    background(#F0B3D3); // pink
     fill(255,0,0);
     text(GAME_TIED,width/2,height/2);
   }
@@ -130,8 +132,10 @@ void draw() {
 
 void pausedDraw() {
   fill(255);
-  rect(width/2 - 2*width/5, height/5, width/6, 3*height/4);
-  rect(width/2 + width/5, height/5, width/6, 3*height/4);
+  rect(30+15,15+10,20,60);
+  rect(70+15,15+10,20,60);
+  text("Paused",width/2,height/2 - height/10);
+  text("Click SPACE to resume",width/2,height/2 + height/10);
 }
 
 void drawBoard() {
