@@ -186,12 +186,12 @@ void madeMove() {
   } else {
     currentTeam = TEAM_ONE;
   }
-  // make selected piece null
-  selectedPiece = null;
   // update king coords
   updateCurrentKingCoords();
   // check if game is tied/checkmate
   updateGameResult();
+  // make selected piece null
+  selectedPiece = null;
 }
 
 void updateCurrentKingCoords() {
@@ -432,11 +432,11 @@ void updateGameResult() {
   boolean checked = false;
   boolean cantMove = false;
   updateCurrentKingCoords();
-  if (isKingInCheck(pieces,currentKingXY)) {checked = true;}
+  if (isKingInCheck(pieces,currentKingXY)) {println("king in check");checked = true;}
   int countPossibleMoves = 0;
-  for (int r=0;(r<8)&&(countPossibleMoves==0);r++) {
+  for (int r=0;r<8&&countPossibleMoves==0;r++) {
     for (int c=0;c<8;c++) {
-      if (pieces[r][c]!=null) {
+      if (pieces[r][c]!=null&&pieces[r][c].getTeam()==currentTeam) {
         fixAvailableSpots(pieces[r][c]);
         for (int r2=0;r2<8;r2++) {
           for (int c2=0;c2<8;c2++) {
@@ -448,11 +448,13 @@ void updateGameResult() {
       }
     }
   }
+  println("possible moves" + countPossibleMoves);
   if (countPossibleMoves==0) {
     cantMove = true;
   }
   
   if (checked&&cantMove) {
+    println("checkmate");
     if (currentTeam==TEAM_ONE) {
       currentGameState = CHECKMATE_TWO; // black/team 1 won
     } else if (currentTeam==TEAM_TWO) {
