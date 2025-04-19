@@ -4,7 +4,7 @@ public class Piece {
   public int yRow;
   public String team;
   //protected color pieceColor;
-  protected PImage pieceImage; // initialize this in smaller classes
+  public PImage pieceImage; // initialize this in smaller classes
   public boolean[][] availableSpots;
   boolean isKing;
   boolean isQueen;

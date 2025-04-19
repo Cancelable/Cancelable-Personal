@@ -164,7 +164,16 @@ void drawBoard() {
       
       
       // draw pieces
-      if (pieces[i][p]!=null) {pieces[i][p].drawPiece();}
+      if (selectedPiece!=null) {
+        int sX = selectedPiece.xCol;
+        int sY = selectedPiece.yRow;
+        if (pieces[i][p]!=null&&pieces[i][p]!=selectedPiece) {
+          pieces[i][p].drawPiece();
+        }
+        image(selectedPiece.pieceImage,mouseX - (width/20),mouseY - (height/20));
+      } else {
+        if (pieces[i][p]!=null) {pieces[i][p].drawPiece();}
+      }
     }
   }
 }
@@ -276,13 +285,20 @@ void mousePressed() {
         //println("regular move made");
         
         
-        
+      // if piece hovered over isn't moveable to
       } else {
+        // if is your own team you click on
         if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
-          selectedPiece = pieces[clickedY][clickedX];
+          // if click on the specified piece, unselect
+          if (clickedY==selectedPiece.yRow&&clickedX==selectedPiece.xCol) {
+            selectedPiece = null;
+          } else {
+            selectedPiece = pieces[clickedY][clickedX]; // make selected piece that one
+          }
+        // if is just in a bum space
         } else {
           //println("selected piece set null");
-          selectedPiece = null;
+          selectedPiece = null; // set selected piece null
         }
       }
     }
