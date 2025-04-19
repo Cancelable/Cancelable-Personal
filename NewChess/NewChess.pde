@@ -305,6 +305,78 @@ void mousePressed() {
   }
 }
 
+void mouseReleased() {
+  int clickedX = (int)(mouseX/TILE_SIZE);
+  int clickedY = (int)(mouseY/TILE_SIZE);
+  
+  // if there is a selected piece
+    if (selectedPiece!=null) {
+      // update where specified piece can move to
+      fixAvailableSpots(selectedPiece);
+      // if place hovered over is a spot you can move to
+      if (selectedPiece.canMoveTo(clickedX,clickedY)) {
+        
+        updateCurrentKingCoords();
+        int kingX = (int)currentKingXY.x;
+        int kingY = (int)currentKingXY.y;
+        
+        if (selectedPiece==pieces[kingY][kingX]) {
+          
+          // team one
+          if (currentTeam==TEAM_ONE) {
+            if (teamOneCanLeftCastle) {
+              if (clickedX==2&&clickedY==7) {
+                pieces[7][0].movePiece(pieces,3,7);
+              }
+            }
+            if (teamOneCanRightCastle) {
+              if (clickedX==6&&clickedY==7) {
+                pieces[7][7].movePiece(pieces,5,7);
+              }
+            }
+          }
+          
+          // team two
+          if (currentTeam==TEAM_TWO) {
+            if (teamTwoCanLeftCastle) {
+              if (clickedX==1&&clickedY==7) {
+                // move rook
+                pieces[7][0].movePiece(pieces,2,7);
+              }
+            }
+            if (teamTwoCanRightCastle) {
+              if (clickedX==5&&clickedY==7) {
+                // move rook
+                pieces[7][7].movePiece(pieces,4,7);
+              }
+            }
+          }
+        }
+        // move it
+        selectedPiece.movePiece(pieces,clickedX,clickedY);
+        madeMove();
+        //println("regular move made");
+        
+        
+      // if piece hovered over isn't moveable to
+      } else {
+        // if is your own team you click on
+        if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
+          // if click on the specified piece, unselect
+          if (clickedY==selectedPiece.yRow&&clickedX==selectedPiece.xCol) {
+            selectedPiece = null;
+          } else {
+            selectedPiece = pieces[clickedY][clickedX]; // make selected piece that one
+          }
+        // if is just in a bum space
+        } else {
+          //println("selected piece set null");
+          selectedPiece = null; // set selected piece null
+        }
+      }
+    }
+}
+
 // checks selected piece's potential moves to see if they cause check
 void fixAvailableSpots(Piece specified) {
   specified.changeAvailableSpots(pieces);
@@ -466,7 +538,7 @@ void updateGameResult() {
       }
     }
   }
-  println("possible moves" + countPossibleMoves);
+  //println("possible moves" + countPossibleMoves);
   if (countPossibleMoves==0) {
     cantMove = true;
   }
