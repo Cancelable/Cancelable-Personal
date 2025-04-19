@@ -19,8 +19,10 @@ boolean teamOneCanRightCastle;
 boolean teamTwoCanLeftCastle;
 boolean teamTwoCanRightCastle;
 PVector currentKingXY;
+boolean mouseHeld;
 String currentGameState;
 boolean paused;
+int mouseHeldCounter;
 
 
 // setup
@@ -34,6 +36,8 @@ void setup() {
   teamTwoCanLeftCastle = true;
   paused = false;
   teamTwoCanRightCastle = true;
+  mouseHeldCounter = 0;
+  mouseHeld = false;
   currentGameState = null;
   setupPieces();
   updateCurrentKingCoords();
@@ -101,6 +105,8 @@ void setupPieces() {
 
 // draw
 void draw() {
+  if (mouseHeld) {mouseHeldCounter++;} else {mouseHeldCounter = 0;}
+  //println(mouseHeldCounter);
   if (currentGameState==CHECKMATE_ONE) {
     background(255);
     fill(255,0,0);
@@ -217,6 +223,7 @@ void updateCurrentKingCoords() {
 
 // mouse clicked
 void mousePressed() {
+  mouseHeld = true;
   if (!paused) {
     //if (selectedPiece==null) {println("selected is null");} else {println("selected not null");}
     int clickedX = (int)(mouseX/TILE_SIZE);
@@ -305,12 +312,13 @@ void mousePressed() {
   }
 }
 
+// for dragging a piece
 void mouseReleased() {
   int clickedX = (int)(mouseX/TILE_SIZE);
   int clickedY = (int)(mouseY/TILE_SIZE);
   
   // if there is a selected piece
-    if (selectedPiece!=null) {
+    if (selectedPiece!=null&&mouseHeldCounter>7) {
       // update where specified piece can move to
       fixAvailableSpots(selectedPiece);
       // if place hovered over is a spot you can move to
@@ -363,11 +371,7 @@ void mouseReleased() {
         // if is your own team you click on
         if (pieces[clickedY][clickedX]!=null&&pieces[clickedY][clickedX].team==currentTeam) {
           // if click on the specified piece, unselect
-          if (clickedY==selectedPiece.yRow&&clickedX==selectedPiece.xCol) {
             selectedPiece = null;
-          } else {
-            selectedPiece = pieces[clickedY][clickedX]; // make selected piece that one
-          }
         // if is just in a bum space
         } else {
           //println("selected piece set null");
@@ -375,6 +379,7 @@ void mouseReleased() {
         }
       }
     }
+    mouseHeld = false;
 }
 
 // checks selected piece's potential moves to see if they cause check
