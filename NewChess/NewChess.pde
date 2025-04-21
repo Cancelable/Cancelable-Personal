@@ -148,6 +148,8 @@ void drawBoard() {
   for (int i=0;i<8;i++) {
     for (int p=0;p<8;p++) {
       
+      //println("draw board loop cycle");
+      
       // draw board itself
       
       // pick colors
@@ -190,6 +192,7 @@ void madeMove() {
   Piece[][] fakePieces = new Piece[8][8];
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
+      println("loop cycle made move");
       if (pieces[7-r][7-c]!=null) {fakePieces[r][c] = pieces[7-r][7-c];fakePieces[r][c].setPos(c,r);}
     }
   }
@@ -213,6 +216,7 @@ void updateCurrentKingCoords() {
   // update kingXY
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
+      println("update current king coords cycle");
       if (pieces[r][c]!=null&&pieces[r][c].isKing&&pieces[r][c].team==currentTeam) {
         currentKingXY = new PVector(c,r);
         break;
@@ -411,6 +415,7 @@ void fixAvailableSpots(Piece specified) {
   
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
+      println("fix available spots cycle");
       // if it's a spot that's true in current available spots
       if (specified.availableSpots[r][c]) {
         // if it puts king in check
@@ -434,6 +439,7 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
   
   for (int r=0; r<8; r++) {
     for (int c=0; c<8; c++) {
+      println("fake move checks king cycle");
       if (pieces[r][c] != null) {
         Piece original = pieces[r][c];
         Piece copy = null;
@@ -477,6 +483,7 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
   Piece[][] evenFakerBoard = new Piece[8][8];
   for (int r=0;r<8;r++) {
     for (int c=0;c<8;c++) {
+      println("flip board cycle");
       evenFakerBoard[r][c] = fakeBoard[7-r][7-c];
       if (evenFakerBoard[r][c]!=null) {
         evenFakerBoard[r][c].setPos(c,r);
@@ -496,6 +503,7 @@ boolean fakeMoveChecksKing(Piece specified,int newX, int newY) {
 boolean isKingInCheck(Piece[][] board, PVector kingPos) {
   for (int r=0; r<8; r++) {
     for (int c=0; c<8; c++) {
+      println("is king in check cycle");
       if (board[r][c] != null && board[r][c].team != currentTeam) {
         board[r][c].changeAvailableSpots(board);
         if (board[r][c].canMoveTo((int)kingPos.x, (int)kingPos.y)) {
@@ -534,6 +542,7 @@ void updateGameResult() {
         fixAvailableSpots(pieces[r][c]);
         for (int r2=0;r2<8;r2++) {
           for (int c2=0;c2<8;c2++) {
+            println("update game results cycle");
             if (pieces[r][c].availableSpots[r2][c2]) {
               countPossibleMoves++;
               break firstLoop;
