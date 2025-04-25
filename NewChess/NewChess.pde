@@ -43,6 +43,11 @@ void setup() {
   updateCurrentKingCoords();
   textSize(35);
   textAlign(CENTER);
+  // randomize if black or white first
+  if ((int)random(100)>50) {
+    // make black first
+    madeMove();
+  }
 }
 
 // setup board pieces
