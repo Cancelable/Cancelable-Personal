@@ -62,7 +62,7 @@ public class Zombie {
   }
   
   public void drawZombie() {
-    if ((actualX - TILE_WIDTH/2) <= REAL_WIDTH) {
+    if (actualX <= REAL_WIDTH) {
       zombieGIF.loop();
       image(zombieGIF, actualX, rowY*TILE_HEIGHT);
     }
