@@ -1,6 +1,6 @@
 class Spring {
   
-  Spring() {
+  Spring(int x, int y) {
     
   }
   
