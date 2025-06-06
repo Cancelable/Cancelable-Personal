@@ -1,5 +1,5 @@
 final int ABS_SPEED = 10;
-final int JUMP_BOOST = 12;
+final int JUMP_BOOST = 13;
 final int TILE_MOVE_DOWN_SPEED = 10;
 final int ORIGINAL_HEIGHT = int(8*600/10);
 Player player;
