@@ -33,6 +33,7 @@ void draw() {
     generation();
     managePlayer();
     manageTiles();
+    playerAboveScreenManagement();
   }//game running
   else {
     gameOver();
@@ -114,7 +115,12 @@ void managePlayer() {
 
 // gets its own method because it involves affecting both tiles and players
 void playerAboveScreenManagement() {
-  
+  if (player.pos.y<player.size) {
+    player.moveVertically(TILE_MOVE_DOWN_SPEED);
+    for (int i=0;i<tiles.size();i++) {
+      tiles.get(i).moveVertically(TILE_MOVE_DOWN_SPEED);
+    }
+  }
 }
 
 

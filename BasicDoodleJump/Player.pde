@@ -85,4 +85,9 @@ class Player {
     
   }
   
+  
+  void moveVertically(float amount) {
+    pos.y += amount;
+  }
+  
 }
