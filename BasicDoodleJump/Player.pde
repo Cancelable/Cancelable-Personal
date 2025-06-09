@@ -27,7 +27,7 @@ class Player {
       applyGravity();
       // bounce off things
       for (int i=0;i<array.size();i++) {
-        if (velocity.y>=0 && array.get(i).isTouching(pos.x,pos.y,velocity.y)) {
+        if (velocity.y>=0 && array.get(i).isTouching(pos.x,pos.y,velocity.y)&&array.get(i).pos.y>0) {
           oldTile = currentTile;
           currentTile = array.get(i);
           if (currentTile!=oldTile) {countAddedPerJump = 0;}
@@ -65,7 +65,7 @@ class Player {
   }
   
   void applyGravity() {
-    applyForce(new PVector(0,0.5));
+    applyForce(new PVector(0,OVERWORLD_GRAVITY));
   }
   
   void jetPack() {

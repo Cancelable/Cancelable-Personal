@@ -1,7 +1,9 @@
 final int ABS_SPEED = 10;
-final int JUMP_BOOST = 13;
+final int JUMP_BOOST = 15;
 final int TILE_MOVE_DOWN_SPEED = 10;
 final int ORIGINAL_HEIGHT = int(8*600/10);
+final float OVERWORLD_GRAVITY = 0.5;
+final int TILE_SPACING = height;
 Player player;
 ArrayList<Tile>tiles;
 boolean[] keys;
@@ -15,8 +17,8 @@ void setup() {
   player = new Player();
   tiles = new ArrayList<Tile>();
   tiles.add(new Tile(width/2, ORIGINAL_HEIGHT));
-  tiles.add(new Tile(width/2 - 150, 5*height/10)); // test tile 1
-  tiles.add(new Tile(width/2, 3*height/10)); // test tile 2
+  //tiles.add(new Tile(width/2 - 150, 5*height/10)); // test tile 1
+  //tiles.add(new Tile(width/2, 3*height/10)); // test tile 2
   keys = new boolean[128];
   gameOver = false;
   countAddedPerJump = 0;
@@ -68,17 +70,20 @@ void realKeyPressed() {
 
 // generates tiles, monsters, jetpacks, springs, etc
 void generation() {
-  if (player.oldTile!=player.currentTile&&player.oldTile!=null&&player.currentTile!=null&&countAddedPerJump<maxToAddPerJump) {
-    Tile newTile = new Tile();
-    boolean touches = false;
-    for (int i=0;i<tiles.size();i++) {
-      if (tiles.get(i).isTouching(newTile)) {
-        touches = true;
-      }
-    }
-    if (!touches) {tiles.add(newTile);}
-    countAddedPerJump++;
+  if (tiles.size()<100) {
+    tiles.add(new Tile(tiles));
   }
+  //if (player.oldTile!=player.currentTile&&player.oldTile!=null&&player.currentTile!=null&&countAddedPerJump<maxToAddPerJump) {
+  //  Tile newTile = new Tile();
+  //  boolean touches = false;
+  //  for (int i=0;i<tiles.size();i++) {
+  //    if (tiles.get(i).isTouching(newTile)) {
+  //      touches = true;
+  //    }
+  //  }
+  //  if (!touches) {tiles.add(newTile);}
+  //  countAddedPerJump++;
+  //}
 }
 
 
@@ -94,6 +99,7 @@ void manageTiles() {
       }
     }
     tiles.get(i).display();
+    if (tiles.get(i).pos.y > height) {tiles.remove(i);}
   }
 }
 
@@ -103,6 +109,12 @@ void managePlayer() {
   player.move(tiles);
   player.checkIsDead();
   if (player.isDead) {gameOver = true;}
+}
+
+
+// gets its own method because it involves affecting both tiles and players
+void playerAboveScreenManagement() {
+  
 }
 
 

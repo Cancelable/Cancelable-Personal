@@ -16,7 +16,10 @@ class Tile {
     this((int)random(width),0);
   }
   Tile(ArrayList<Tile> array) {
-    
+    this();
+    if (array.size()>0) {
+      pos.y = array.get(array.size()-1).pos.y - TILE_SPACING;
+    }
   }
   
   void display() {
