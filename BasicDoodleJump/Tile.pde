@@ -10,7 +10,7 @@ class Tile {
      tHeight = (int)random(20) + 10;
      pos = new PVector(x - tLength/2,y+tHeight+5);
      spring = null;
-     if ((int)random(100)>90) {spring = new Spring((int)pos.x + (int)random(tLength),(int)pos.y);}
+     if ((int)random(100)>90) {spring = new Spring(this);}
   }
   Tile () {
     this((int)random(width),0);
@@ -25,6 +25,7 @@ class Tile {
   void display() {
     fill(0,255,0);
     rect(pos.x,pos.y,tLength,tHeight);
+    if (spring!=null&&pos.y>0) {spring.display();println("showed spring");}
   }
   
   boolean isTouching(float x, float y, float yVelocity) {
@@ -53,6 +54,7 @@ class Tile {
   
   void moveVertically(float amount) {
     pos.y += amount;
+    if (spring!=null) {spring.moveVertically(amount);}
   }
   
 }

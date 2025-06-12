@@ -1,9 +1,10 @@
 final int ABS_SPEED = 10;
-final int JUMP_BOOST = 15;
+final int JUMP_BOOST = 13;
 final int TILE_MOVE_DOWN_SPEED = 10;
 final int ORIGINAL_HEIGHT = int(8*600/10);
 final float OVERWORLD_GRAVITY = 0.5;
 final int TILE_SPACING = height;
+final color OVERWORLD_SPRING_COLOR = #B5D3DE;
 Player player;
 ArrayList<Tile>tiles;
 boolean[] keys;
@@ -14,6 +15,7 @@ int maxToAddPerJump;
 
 void setup() {
   size(600, 600);
+  frameRate(60);
   player = new Player();
   tiles = new ArrayList<Tile>();
   tiles.add(new Tile(width/2, ORIGINAL_HEIGHT));
@@ -92,6 +94,7 @@ void manageTiles() {
   for (int i=0; i<tiles.size(); i++) {
     if (player.cHeight>=0) {
       if (player.currentTile!=null) {
+        // if tile is over current normal player height
         if (!(player.currentTile.pos.y + TILE_MOVE_DOWN_SPEED > ORIGINAL_HEIGHT)) {
           tiles.get(i).moveVertically(TILE_MOVE_DOWN_SPEED);
         } else {
