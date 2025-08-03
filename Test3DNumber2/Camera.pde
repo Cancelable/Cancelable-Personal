@@ -17,7 +17,7 @@ public class Camera {
   private PVector up;
   private PVector right;
   private PVector forward;
-  private PVector target;
+  //private PVector target;
   // mouseX,mouseY,pmouseX,pmouseY
   
   public Camera() {
@@ -48,20 +48,21 @@ public class Camera {
     if (tilt == PI/2) tilt += 0.001f;
 
     forward = new PVector(cos(pan), tan(tilt), sin(pan));
+    PVector fakeForward = new PVector(cos(pan), 0, sin(pan)); // exists so looking down doesn't slow you down when pressing w/s
     forward.normalize();
     right = new PVector(cos(pan - PI/2), 0, sin(pan - PI/2));
     
-    target = PVector.add(position, forward);
+    //target = PVector.add(position, forward);
         
     //pmouseX = mouseX;
     //pmouseY = mouseY;
     
     if (k['a']) {velocity.add(PVector.mult(right, speed));}
     if (k['d']) {velocity.sub(PVector.mult(right, speed));}
-    if (k['w']) {velocity.add(PVector.mult(forward, speed));
-                 velocity.y -= PVector.mult(forward,speed).y;} // makes w not contribute to vertical level
-    if (k['s']) {velocity.sub(PVector.mult(forward, speed));
-                 velocity.y += PVector.mult(forward,speed).y;} // makes s not contribute to vertical level
+    if (k['w']) {velocity.add(PVector.mult(fakeForward, speed));
+                 velocity.y -= PVector.mult(fakeForward,speed).y;} // makes w not contribute to vertical level
+    if (k['s']) {velocity.sub(PVector.mult(fakeForward, speed));
+                 velocity.y += PVector.mult(fakeForward,speed).y;} // makes s not contribute to vertical level
     if (k['c']) {velocity.add(PVector.mult(up, speed));}
     if (k[' ']) {velocity.sub(PVector.mult(up, speed));}
 

@@ -7,13 +7,14 @@ void setup() {
   keys = new boolean[128];
   cam = new Camera();
   frameRate(60); // sets tickrate 60
-  size(600,600,P3D);
+  size(1000,700,P3D);
 }
 
 
 // called once every tick (frame)
 void draw() {
   background(200); // refresh screen
+  drawObjects();
   cam.drawCamera(keys);
 }
 
@@ -28,4 +29,11 @@ void keyReleased() {
 // realKeyPressed is where you genuinely take advantage of keys
 void realKeyPressed() {
   
+}
+
+
+void drawObjects() {
+  pushMatrix();
+  box(50);
+  popMatrix();
 }
