@@ -1,7 +1,8 @@
 public class Camera {
   
-  // made by me, this class is basically QueasyCam
-  // but customized a bit for my program
+  // this code basically stolen + modified
+  // this class is basically QueasyCam
+  // it is customized for my program
   
   private boolean controllable;
   private float speed;
@@ -35,6 +36,7 @@ public class Camera {
 
     perspective(PI/3f, (float)width/(float)height, 0.01f, 1000f);
   }
+  
   
   public void drawCamera(boolean[] k) {
     if (!controllable) return;

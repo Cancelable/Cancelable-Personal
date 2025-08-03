@@ -1,9 +1,11 @@
 boolean[] keys;
+Camera cam;
 
 
 // ran once at the very start of every sketch
 void setup() {
   keys = new boolean[128];
+  cam = new Camera();
   frameRate(60); // sets tickrate 60
   size(600,600,P3D);
 }
@@ -11,17 +13,19 @@ void setup() {
 
 // called once every tick (frame)
 void draw() {
-  background(100);
+  background(200); // refresh screen
+  cam.drawCamera(keys);
 }
 
 
+// keypressed/keyreleased
 void keyPressed() {
   if (key<128) keys[key] = true;
 }
 void keyReleased() {
   if (key<128) keys[key] = false;
 }
-// realKeyPressed
+// realKeyPressed is where you genuinely take advantage of keys
 void realKeyPressed() {
   
 }
