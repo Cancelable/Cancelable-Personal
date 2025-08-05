@@ -63,7 +63,7 @@ public class Camera {
                  velocity.y -= PVector.mult(fakeForward,speed).y;} // makes w not contribute to vertical level
     if (k['s']) {velocity.sub(PVector.mult(fakeForward, speed));
                  velocity.y += PVector.mult(fakeForward,speed).y;} // makes s not contribute to vertical level
-    if (k['c']) {velocity.add(PVector.mult(up, speed));}
+    if (k['c'] || k[128]) {velocity.add(PVector.mult(up, speed));}
     if (k[' ']) {velocity.sub(PVector.mult(up, speed));}
 
     velocity.mult(friction);
@@ -72,6 +72,7 @@ public class Camera {
     center = PVector.add(position, forward);
     
     camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
+    
   }
   
   private float clamp(float x, float min, float max){

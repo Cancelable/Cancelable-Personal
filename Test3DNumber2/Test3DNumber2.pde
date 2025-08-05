@@ -1,21 +1,36 @@
+import java.awt.Robot;
+
 boolean[] keys;
 Camera cam;
+//Robot robot;
+
 
 
 // ran once at the very start of every sketch
 void setup() {
-  keys = new boolean[128];
+  fullScreen(P3D);
+  //size(1000,700,P3D);
+  //noCursor();
+  keys = new boolean[129]; // 128 + shift
   cam = new Camera();
+  //try {
+  //  robot = new Robot();
+  //} catch (Throwable e) {
+    
+  //}
   frameRate(60); // sets tickrate 60
-  size(1000,700,P3D);
 }
 
 
 // called once every tick (frame)
 void draw() {
   background(200); // refresh screen
+  if (keyPressed && key == SHIFT) keys[128] = true;
+  else keys[128] = false;
   drawObjects();
   cam.drawCamera(keys);
+  //robot.mouseMove(width/2,height/2);
+  noCursor();
 }
 
 
