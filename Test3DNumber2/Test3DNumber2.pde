@@ -1,29 +1,17 @@
-import java.awt.Robot;
-import java.awt.Window;
+final PVector startCoords = new PVector(0,0,0);
 
 boolean[] keys;
 Camera cam;
-public PApplet parent = this;
-Window window;
-//Robot robot;
+PApplet parent = this;
 
-public Window getNativeWindow() {
-  return window;
-}
 
 // ran once at the very start of every sketch
 void setup() {
   fullScreen(P3D);
   //size(1000,700,P3D);
-  noCursor(); 
+  noCursor();
   keys = new boolean[129]; // 128 + shift
-  window = getNativeWindow();
-  cam = new Camera(window);
-  //try {
-  //  robot = new Robot();
-  //} catch (Throwable e) {
-    
-  //}
+  cam = new Camera(this);
   frameRate(60); // sets tickrate 60
 }
 
@@ -31,11 +19,9 @@ void setup() {
 // called once every tick (frame)
 void draw() {
   background(200); // refresh screen
-  if (keyPressed && key == SHIFT) keys[128] = true;
-  else keys[128] = false;
+  cam.keys = keys;
   drawObjects();
-  cam.drawCamera(keys);
-  //robot.mouseMove(width/2,height/2);
+  
   noCursor();
 }
 

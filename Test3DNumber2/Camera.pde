@@ -1,32 +1,46 @@
+// ts all stolen from QueasyCam
+// all rights to QueasyCam
+// I just modified it to my own needs for this
+
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
-import java.awt.AWTException;
-import java.awt.MouseInfo;
-import java.awt.Component;
+import java.awt.GraphicsEnvironment;
+import java.util.HashMap;
+import processing.core.*;
+import processing.event.KeyEvent;
 
 public class Camera {
+  
+  public final static String VERSION = "##library.prettyVersion##";
 
-  private boolean controllable;
-  private float speed;
-  private float sensitivity;
+  public boolean controllable;
+  public float speed;
+  public float sensitivity;
   public PVector position;
-  private float yaw;
-  private float pitch;
-  private PVector velocity;
-  private float friction;
+  public float pan;
+  public float tilt;
+  public PVector velocity;
+  public float friction;
 
-  private PVector center;
+  private PApplet applet;
+  private Robot robot;
+  private PVector center; // x y z coords
   private PVector up;
   private PVector right;
   private PVector forward;
+  private PVector target;
+  private Point mouse;
+  private Point prevMouse;
+  private boolean[] keys;
 
-  private Robot robot;
-  private Component parentWindow; // reference to your Processing window/frame
-
-  private int skipFramesAfterWarp = 0;
-
-  public Camera(Window window) {
-    this.parentWindow = window;
+  public Camera(PApplet applet) {
+    this.applet = applet;
+    applet.registerMethod("draw", this);
+    
+    try {
+      robot = new Robot();
+    } catch (Exception e) {}
 
     controllable = true;
     speed = 3f;
@@ -36,85 +50,141 @@ public class Camera {
     right = new PVector(1f, 0f, 0f);
     forward = new PVector(0f, 0f, 1f);
     velocity = new PVector(0f, 0f, 0f);
-    yaw = 0f;
-    pitch = 0f;
+    pan = 0f;
+    tilt = 0f;
     friction = 0.75f;
+    keys = new boolean[129];
 
-    try {
-      robot = new Robot();
-    } catch (AWTException e) {
-      println("Could not initialize mouse centering Robot: " + e.getMessage());
-    }
-
-    perspective(PI / 3f, (float) width / (float) height, 0.01f, 1000f);
+    applet.perspective(PConstants.PI/3f, (float)applet.width/(float)applet.height, 0.01f, 1000f);
   }
-
-  public void drawCamera(boolean[] k) {
-    if (!controllable || robot == null || parentWindow == null) return;
-
-    // Get window position on screen
-    Point windowPos = parentWindow.getLocationOnScreen();
-
-    int centerX = windowPos.x + width / 2;
-    int centerY = windowPos.y + height / 2;
-
-    Point mp = MouseInfo.getPointerInfo().getLocation();
-    int mouseScreenX = mp.x;
-    int mouseScreenY = mp.y;
-
-    float deltaX = mouseScreenX - centerX;
-    float deltaY = mouseScreenY - centerY;
-
-    if (skipFramesAfterWarp == 0) {
-      yaw   -= deltaX * sensitivity * 0.01f;
-      pitch += deltaY * sensitivity * 0.01f;
-      pitch = clamp(pitch, -HALF_PI + 0.01f, HALF_PI - 0.01f);
-    } else {
-      skipFramesAfterWarp--;
+    
+    public Camera(PApplet applet, float near, float far){
+        this.applet = applet;
+        applet.registerMethod("draw", this);
+        applet.registerMethod("keyEvent", this);
+        
+        try {
+            robot = new Robot();
+        } catch (Exception e) {}
+        
+        controllable = true;
+        speed = 3f;
+        sensitivity = 2f;
+        position = new PVector(0f, 0f, 0f);
+        up = new PVector(0f, 1f, 0f);
+        right = new PVector(1f, 0f, 0f);
+        forward = new PVector(0f, 0f, 1f);
+        velocity = new PVector(0f, 0f, 0f);
+        pan = 0f;
+        tilt = 0f;
+        friction = 0.75f;
+        keys = new boolean[129];
+        
+        applet.perspective(PConstants.PI/3f, (float)applet.width/(float)applet.height, near, far);
     }
 
-    forward = new PVector(
-      cos(pitch) * sin(yaw),
-      sin(pitch),
-      cos(pitch) * cos(yaw)
-    );
-    forward.normalize();
+  public void draw(){
+    if (!controllable) return;
+    
+    mouse = MouseInfo.getPointerInfo().getLocation();
+    if (prevMouse == null) prevMouse = new Point(mouse.x, mouse.y);
+    
+    int w = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+    int h = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+    
+    if (mouse.x < 1 && (mouse.x - prevMouse.x) < 0) {
+      robot.mouseMove(w-2, mouse.y);
+      mouse.x = w-2;
+      prevMouse.x = w-2;
+    }
+        
+    if (mouse.x > w-2 && (mouse.x - prevMouse.x) > 0) {
+      robot.mouseMove(2, mouse.y);
+      mouse.x = 2;
+      prevMouse.x = 2;
+    }
+    
+    if (mouse.y < 1 && (mouse.y - prevMouse.y) < 0) {
+      robot.mouseMove(mouse.x, h-2);
+      mouse.y = h-2;
+      prevMouse.y = h-2;
+    }
+    
+    if (mouse.y > h-1 && (mouse.y - prevMouse.y) > 0) {
+      robot.mouseMove(mouse.x, 2);
+      mouse.y = 2;
+      prevMouse.y = 2;
+    }
+    
+    pan += PApplet.map(mouse.x - prevMouse.x, 0, applet.width, 0, PConstants.TWO_PI) * sensitivity;
+    tilt += PApplet.map(mouse.y - prevMouse.y, 0, applet.height, 0, PConstants.PI) * sensitivity;
+    tilt = clamp(tilt, -PConstants.PI/2.01f, PConstants.PI/2.01f);
+    
+    if (tilt == PConstants.PI/2) tilt += 0.001f;
 
-    PVector fakeForward = new PVector(forward.x, 0, forward.z);
+    forward = new PVector(PApplet.cos(pan), PApplet.tan(tilt), PApplet.sin(pan));
+    PVector fakeForward = new PVector(PApplet.cos(pan),0,PApplet.sin(pan));
     fakeForward.normalize();
-
-    right = forward.cross(up);
-    right.normalize();
-
-    if (k['a']) velocity.add(PVector.mult(right, speed));
-    if (k['d']) velocity.sub(PVector.mult(right, speed));
-    if (k['w']) {
+    forward.normalize();
+    right = new PVector(PApplet.cos(pan - PConstants.PI/2), 0, PApplet.sin(pan - PConstants.PI/2));
+        
+    target = PVector.add(position, forward);
+    
+    prevMouse = new Point(mouse.x, mouse.y);
+    
+    if (keys['a']) velocity.add(PVector.mult(right, speed));
+    if (keys['d']) velocity.sub(PVector.mult(right, speed));
+    if (keys['w']) {
       velocity.add(PVector.mult(fakeForward, speed));
       velocity.y -= PVector.mult(fakeForward, speed).y;
     }
-    if (k['s']) {
+    if (keys['s']) {
       velocity.sub(PVector.mult(fakeForward, speed));
       velocity.y += PVector.mult(fakeForward, speed).y;
     }
-    if (k['c'] || k[128]) velocity.add(PVector.mult(up, speed));
-    if (k[' ']) velocity.sub(PVector.mult(up, speed));
+    if (keys['c'] || keys[128]) velocity.add(PVector.mult(up, speed));
+    if (keys[' ']) velocity.sub(PVector.mult(up, speed));
+
 
     velocity.mult(friction);
     position.add(velocity);
-
     center = PVector.add(position, forward);
-
-    camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
-
-    // Warp mouse back to window center
-    robot.mouseMove(centerX, centerY);
-
-    skipFramesAfterWarp = 2;  // skip next 2 frames to avoid jump from warp
+    applet.camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
   }
-
-  private float clamp(float x, float min, float max) {
+  
+  //public void keyEvent(KeyEvent event){
+  //  char key = event.getKey();
+    
+  //  switch (event.getAction()){
+  //    case KeyEvent.PRESS: 
+  //      keys.put(Character.toLowerCase(key), true);
+  //      break;
+  //    case KeyEvent.RELEASE:
+  //      keys.put(Character.toLowerCase(key), false);
+  //      break;
+  //  }
+  //}
+  
+  private float clamp(float x, float min, float max){
     if (x > max) return max;
     if (x < min) return min;
     return x;
   }
+  
+  public PVector getForward(){
+    return forward;
+  }
+  
+  public PVector getUp(){
+    return up;
+  }
+  
+  public PVector getRight(){
+    return right;
+  }
+    
+  public PVector getTarget(){
+      return target;
+  }
+    
 }
