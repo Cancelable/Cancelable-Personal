@@ -1,18 +1,24 @@
 import java.awt.Robot;
+import java.awt.Window;
 
 boolean[] keys;
 Camera cam;
+public PApplet parent = this;
+Window window;
 //Robot robot;
 
-
+public Window getNativeWindow() {
+  return window;
+}
 
 // ran once at the very start of every sketch
 void setup() {
   fullScreen(P3D);
   //size(1000,700,P3D);
-  //noCursor();
+  noCursor(); 
   keys = new boolean[129]; // 128 + shift
-  cam = new Camera();
+  window = getNativeWindow();
+  cam = new Camera(window);
   //try {
   //  robot = new Robot();
   //} catch (Throwable e) {

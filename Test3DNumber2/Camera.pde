@@ -1,8 +1,10 @@
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Component;
+
 public class Camera {
-  
-  // this code basically stolen + modified
-  // this class is basically QueasyCam
-  // it is customized for my program
 
   private boolean controllable;
   private float speed;
@@ -18,7 +20,13 @@ public class Camera {
   private PVector right;
   private PVector forward;
 
-  public Camera() {
+  private Robot robot;
+  private Component parentWindow; // reference to your Processing window/frame
+
+  private int skipFramesAfterWarp = 0;
+
+  public Camera(Window window) {
+    this.parentWindow = window;
 
     controllable = true;
     speed = 3f;
@@ -32,15 +40,38 @@ public class Camera {
     pitch = 0f;
     friction = 0.75f;
 
-    perspective(PI/3f, (float)width/(float)height, 0.01f, 1000f);
+    try {
+      robot = new Robot();
+    } catch (AWTException e) {
+      println("Could not initialize mouse centering Robot: " + e.getMessage());
+    }
+
+    perspective(PI / 3f, (float) width / (float) height, 0.01f, 1000f);
   }
 
   public void drawCamera(boolean[] k) {
-    if (!controllable) return;
+    if (!controllable || robot == null || parentWindow == null) return;
 
-    yaw   += (mouseX - pmouseX) * sensitivity * 0.01f;
-    pitch -= (mouseY - pmouseY) * sensitivity * 0.01f;
-    pitch = clamp(pitch, -HALF_PI + 0.01f, HALF_PI - 0.01f); // avoid flipping
+    // Get window position on screen
+    Point windowPos = parentWindow.getLocationOnScreen();
+
+    int centerX = windowPos.x + width / 2;
+    int centerY = windowPos.y + height / 2;
+
+    Point mp = MouseInfo.getPointerInfo().getLocation();
+    int mouseScreenX = mp.x;
+    int mouseScreenY = mp.y;
+
+    float deltaX = mouseScreenX - centerX;
+    float deltaY = mouseScreenY - centerY;
+
+    if (skipFramesAfterWarp == 0) {
+      yaw   -= deltaX * sensitivity * 0.01f;
+      pitch += deltaY * sensitivity * 0.01f;
+      pitch = clamp(pitch, -HALF_PI + 0.01f, HALF_PI - 0.01f);
+    } else {
+      skipFramesAfterWarp--;
+    }
 
     forward = new PVector(
       cos(pitch) * sin(yaw),
@@ -55,8 +86,8 @@ public class Camera {
     right = forward.cross(up);
     right.normalize();
 
-    if (k['a']) {velocity.add(PVector.mult(right, speed));}
-    if (k['d']) {velocity.sub(PVector.mult(right, speed));}
+    if (k['a']) velocity.add(PVector.mult(right, speed));
+    if (k['d']) velocity.sub(PVector.mult(right, speed));
     if (k['w']) {
       velocity.add(PVector.mult(fakeForward, speed));
       velocity.y -= PVector.mult(fakeForward, speed).y;
@@ -65,8 +96,8 @@ public class Camera {
       velocity.sub(PVector.mult(fakeForward, speed));
       velocity.y += PVector.mult(fakeForward, speed).y;
     }
-    if (k['c'] || k[128]) {velocity.add(PVector.mult(up, speed));}
-    if (k[' ']) {velocity.sub(PVector.mult(up, speed));}
+    if (k['c'] || k[128]) velocity.add(PVector.mult(up, speed));
+    if (k[' ']) velocity.sub(PVector.mult(up, speed));
 
     velocity.mult(friction);
     position.add(velocity);
@@ -74,12 +105,16 @@ public class Camera {
     center = PVector.add(position, forward);
 
     camera(position.x, position.y, position.z, center.x, center.y, center.z, up.x, up.y, up.z);
+
+    // Warp mouse back to window center
+    robot.mouseMove(centerX, centerY);
+
+    skipFramesAfterWarp = 2;  // skip next 2 frames to avoid jump from warp
   }
 
-  private float clamp(float x, float min, float max){
+  private float clamp(float x, float min, float max) {
     if (x > max) return max;
     if (x < min) return min;
     return x;
   }
-  
 }
