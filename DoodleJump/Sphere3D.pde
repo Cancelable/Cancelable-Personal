@@ -4,7 +4,11 @@ public class Sphere3D {
   private color c;
   
   public Sphere3D(float x, float y, float z, float r, color c) {
-    
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.r = r;
+    this.c = c;
   }
   
   public void drawSphere() {

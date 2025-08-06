@@ -8,14 +8,17 @@ class Monster {
     //this.x = parent.x + parent.w/2 - size/2;
     this.y = parent.y - size;
     
-    this.x = (int)random(width - size) + size;
+    this.x = (int)random(width/2 - size) + size;
+    this.z = (int)random(width/2 - size) + size;
   }
 
   void display() {
-    fill(255, 50, 50);
-    ellipse(x + size/2, y + size/2, size, size);
-    fill(0);
-    ellipse(x + size/3, y + size/3, 5, 5);  // eye
+    //fill(255, 50, 50);
+    //ellipse(x + size/2, y + size/2, size, size);
+    //fill(0);
+    //ellipse(x + size/3, y + size/3, 5, 5);  // eye
+    Sphere3D redness = new Sphere3D(x,y,z,size,color(255,50,50));
+    redness.drawSphere();
   }
 
   boolean isTouching(Player p) {

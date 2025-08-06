@@ -148,7 +148,8 @@ class Player {
   void shoot() {
     float bx = pos.x + w / 2;
     float by = pos.y;
-    bullets.add(new Ammo(bx, by));
+    float bz = pos.z + w / 2;
+    bullets.add(new Ammo(bx, by,bz));
   }
   
   

@@ -4,9 +4,10 @@ class Ammo {
   float r = 6;
   float speed = 10;
   
-  Ammo(float x, float y) {
+  Ammo(float x, float y, float z) {
     this.x = x;
     this.y = y;
+    this.z = z;
   }
   
   void update() {
@@ -15,8 +16,10 @@ class Ammo {
   
   // display
   void display() {
-    fill(0);
-    ellipse(x, y, r*2, r*2);
+    //fill(0);
+    //ellipse(x, y, r*2, r*2);
+    Sphere3D blackBall = new Sphere3D(x,y,z,r,10);
+    blackBall.drawSphere();
   }
 
   // return positive if hits xd

@@ -16,7 +16,14 @@ class JetPack {
   // display
   void display() {
     //if (show) image(jetpack,x,y);
-    if (show) {};
+    if (show) {
+      Sphere3D sphere1 = new Sphere3D(x,y,z,w,#F29F5F);
+      Box3D side1 = new Box3D(x-w,y-h/2,z,w/4,h,w,#D6D3D1);
+      Box3D side2 = new Box3D(x+w,y-h/2,z,w/4,h,w,#D6D3D1);
+      sphere1.drawSphere();
+      side1.drawBox();
+      side2.drawBox();
+    };
   }
   
   // check if is touching player
