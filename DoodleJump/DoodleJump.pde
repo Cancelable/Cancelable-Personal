@@ -13,6 +13,9 @@ int mode;
 final int REGULAR_MODE = 0;
 final int SPACE_MODE = 1;
 final int ICE_MODE = 2;
+final int MAX_BULLETS = 50;
+final float RELOAD_COOLDOWN = 60*1.25f;
+final int FIRE_RATE = 15;
 
 PImage background;
 PImage BKGRD_REG_MODE;
@@ -21,6 +24,8 @@ Player player;
 float balancingMultiplier;
 ArrayList<BasicPlatform> platforms;
 ArrayList<Ammo> bullets;
+int bulletsShot;
+int lastReloadFrameCount;
 int score;
 int coins;
 float movingPlatformSpeed;
@@ -42,8 +47,10 @@ void setup() {
   cam.sensitivity = 2;
   score = 0;
   scrollY = 0;
+  lastReloadFrameCount = 0;
   balancingMultiplier = 1.5;
   jetpackTicks = 0;
+  bulletsShot = 0;
   keys = new boolean[130];
   gameOver = false;
   movingPlatformSpeed = 2;
@@ -148,13 +155,55 @@ void keyReleased() {
 
 // real keyPressed (dont put stuff in other one)
 void realKeyPressed() {
-  if (keys['r']||keys['R']) {
+  if (keys['p']||keys['P']) {
     if (!gameOver) {setup();}
     else {fakeRestart();}
     
   }
   player.move();
-  if (keys[' ']) {player.shoot();}
+  //if (keys[' ']) {
+  //  int numBullets = bullets.size();
+  //  if (bulletsShot < MAX_BULLETS) {
+  //    if (frameCount - lastReloadFrameCount > RELOAD_COOLDOWN) {
+  //      if (bulletsShot > 0 && frameCount - bullets.get(bullets.size()-1).myFrameCount>=FIRE_RATE) {
+  //        player.shoot();
+  //        bulletsShot++;
+  //      }
+  //      else if (bulletsShot==0) {
+  //        player.shoot();
+  //        bulletsShot++;
+  //      }
+  //    }
+  //  }
+  //}
+  
+  // shoot
+  int framesSinceReload = frameCount - lastReloadFrameCount;
+  if (keys[' ']&&framesSinceReload > RELOAD_COOLDOWN) {
+    
+    // first bullet
+    if (bulletsShot == 0) {
+      player.shoot();
+    }
+    
+    // second - last bullet
+    if (bulletsShot>0 && bulletsShot < MAX_BULLETS) {
+      if (bullets.size()==0) player.shoot();
+      else {
+        int lastFrameCountShot = bullets.get(bullets.size()-1).myFrameCount;
+        int frameCountDiff = frameCount - lastFrameCountShot;
+        if (frameCountDiff > FIRE_RATE) {
+          player.shoot();
+        }
+      }
+    }
+    
+  }
+  // reload
+  if (keys['r']||keys['R']) {
+    bulletsShot = 0;
+    lastReloadFrameCount = frameCount;
+  }
 }
 
 

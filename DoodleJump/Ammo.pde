@@ -4,14 +4,24 @@ class Ammo {
   float r = 6;
   float speed = 10;
   
+  PVector velocity;
+  
+  int myFrameCount;
+  
   Ammo(float x, float y, float z) {
     this.x = x;
     this.y = y;
     this.z = z;
+    velocity = cam.getForward();
+    velocity.normalize();
+    velocity.mult(speed);
+    myFrameCount = frameCount;
   }
   
   void update() {
-    y -= speed;
+    x += velocity.x;
+    y += velocity.y;
+    z += velocity.z;
   }
   
   // display
@@ -31,6 +41,8 @@ class Ammo {
   }
 
   boolean offscreen() {
-    return y < 0;
+    PVector temp = new PVector(x,y,z);
+    PVector tempP = new PVector(player.pos.x,player.pos.y,player.pos.z);
+    return y < 0 || y > height || (temp.dist(tempP) > width);
   }
 }

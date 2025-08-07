@@ -21,7 +21,19 @@ class Monster {
     redness.drawSphere();
   }
 
+  // check if is touching player
   boolean isTouching(Player p) {
-    return dist(p.pos.x + p.w/2, p.pos.y + p.h/2, x + size/2, y + size/2) < (size / 2 + p.w / 2);
+    float w = size;
+    if (p.ySpeed > 0
+            && p.pos.x+p.w>x
+            && p.pos.x<x + w
+            && p.pos.y+p.h >= y
+            && p.pos.y+p.h <= y+10
+            && p.pos.z+p.l>z
+            && p.pos.z<z + w) {
+              return true;
+    } else {
+      return false;
+    }
   }
 }
