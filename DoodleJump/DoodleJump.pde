@@ -41,6 +41,7 @@ void setup() {
   //size(500, 900, P3D);
   fullScreen(P3D);
   frameRate(60);
+  noCursor();
   mode = REGULAR_MODE;
   cam = new QueasyCam(this);
   cam.speed = 0;
